@@ -736,6 +736,20 @@
     animation: gallery-card-in 0.55s cubic-bezier(0.23, 1, 0.32, 1) both;
   }
 
+  .gallery-image-wrap {
+    aspect-ratio: 4 / 3;
+    width: 100%;
+    min-height: 0;
+  }
+
+  .gallery-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    opacity: 1;
+    background: #e2e8f0;
+  }
+
   @keyframes gallery-card-in {
     from {
       opacity: 0;
@@ -752,8 +766,8 @@
       border-radius: 20px;
     }
 
-    .gallery-card > .relative {
-      min-height: 220px;
+    .gallery-image-wrap {
+      min-height: 230px;
     }
 
     .gallery-card h3 {

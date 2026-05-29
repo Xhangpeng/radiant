@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { ASSETS } from "@/const";
-import ImageWithSkeleton from "@/components/ImageWithSkeleton";
 import {
   Camera,
   ChevronLeft,
@@ -340,13 +339,15 @@ export default function Gallery() {
               style={{ animationDelay: `${Math.min(index, 8) * 45}ms` }}
               onClick={() => setLightboxIndex(index)}
             >
-              {/* Image Container with Shimmer Skeleton */}
-              <div className="relative overflow-hidden bg-slate-100">
-                <ImageWithSkeleton
+              {/* Image Container */}
+              <div className="gallery-image-wrap relative overflow-hidden bg-slate-100">
+                <img
                   src={item.src}
                   alt={item.title}
-                  aspectRatio="aspect-[4/3]"
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  loading={index < 6 ? "eager" : "lazy"}
+                  fetchPriority={index < 3 ? "high" : "auto"}
+                  decoding="async"
+                  className="gallery-image w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
                 {/* Overlay on Hover */}
                 <div className="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
