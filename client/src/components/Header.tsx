@@ -36,7 +36,7 @@ export default function Header() {
   const [location, setLocation] = useLocation();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const { isInstalled, promptInstall } = usePWAInstall();
+  const { canInstall, isInstalled, promptInstall } = usePWAInstall();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -198,7 +198,7 @@ export default function Header() {
                 <div className="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-emerald-50/60 text-emerald-700 border border-emerald-100/60 text-[11px] font-bold">
                   <Check className="h-3.5 w-3.5" /> App Installed
                 </div>
-              ) : (
+              ) : canInstall ? (
                 <button
                   onClick={async () => {
                     await promptInstall();
@@ -208,7 +208,7 @@ export default function Header() {
                 >
                   <Download className="h-3.5 w-3.5" /> Download School App
                 </button>
-              )}
+              ) : null}
               <button onClick={handleApplyClick} className="btn-cta w-full justify-center py-2.5 text-[11px]">
                 Apply Now <ArrowRight className="h-4 w-4" />
               </button>

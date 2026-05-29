@@ -2,7 +2,7 @@ import { Download, Monitor, Smartphone, Check } from "lucide-react";
 import { usePWAInstall } from "@/hooks/usePWAInstall";
 
 export default function InstallAppButton() {
-  const { isInstalled, promptInstall } = usePWAInstall();
+  const { canInstall, isInstalled, promptInstall } = usePWAInstall();
 
   if (isInstalled) {
     return (
@@ -10,6 +10,10 @@ export default function InstallAppButton() {
         <Check className="h-4 w-4" /> App Installed
       </div>
     );
+  }
+
+  if (!canInstall) {
+    return null;
   }
 
   return (

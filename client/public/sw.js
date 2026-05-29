@@ -1,4 +1,4 @@
-const CACHE_NAME = "bhuwaneshwori-v5";
+const CACHE_NAME = "bhuwaneshwori-v6";
 const ASSETS_TO_CACHE = [
   "/",
   "/index.html",
@@ -11,7 +11,7 @@ const ASSETS_TO_CACHE = [
 self.addEventListener("install", (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(ASSETS_TO_CACHE);
+      return cache.addAll(ASSETS_TO_CACHE).catch(() => Promise.resolve());
     })
   );
   self.skipWaiting();
@@ -62,6 +62,7 @@ self.addEventListener("fetch", (event) => {
           if (event.request.mode === "navigate") {
             return caches.match("/");
           }
+          return new Response("Network request failed", { status: 503 });
         });
       })
   );

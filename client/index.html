@@ -85,15 +85,24 @@
       rel="stylesheet" />
 
     <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", function () {
+          navigator.serviceWorker.register("/sw.js").catch(function () {});
+        });
+      }
+
+      var deferredPrompt = null;
       window.__pwaDeferredPrompt = null;
       window.addEventListener("beforeinstallprompt", function (event) {
         event.preventDefault();
-        window.__pwaDeferredPrompt = event;
+        deferredPrompt = event;
+        window.__pwaDeferredPrompt = deferredPrompt;
         window.dispatchEvent(
-          new CustomEvent("pwaReadyToInstall", { detail: { prompt: event } })
+          new CustomEvent("pwaReadyToInstall", { detail: { prompt: deferredPrompt } })
         );
       });
       window.addEventListener("appinstalled", function () {
+        deferredPrompt = null;
         window.__pwaDeferredPrompt = null;
         window.dispatchEvent(new Event("pwaInstalled"));
       });

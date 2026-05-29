@@ -18,8 +18,6 @@ interface BeforeInstallPromptEvent extends Event {
   prompt(): Promise<void>;
 }
 
-const INSTALL_PROMPT_WAIT_MS = 1600;
-
 const isStandalone = () =>
   window.matchMedia("(display-mode: standalone)").matches ||
   (navigator as any).standalone === true;
@@ -30,29 +28,13 @@ const showInstalledToastOnce = () => {
   toast.success("School app installed successfully.");
 };
 
-const waitForInstallPrompt = () =>
-  new Promise<BeforeInstallPromptEvent | null>((resolve) => {
-    if (window.__pwaDeferredPrompt) {
-      resolve(window.__pwaDeferredPrompt);
-      return;
-    }
-
-    const timer = window.setTimeout(() => {
-      window.removeEventListener("pwaReadyToInstall", handleReady as EventListener);
-      resolve(window.__pwaDeferredPrompt || null);
-    }, INSTALL_PROMPT_WAIT_MS);
-
-    const handleReady = (event: Event) => {
-      const promptEvent = (event as CustomEvent<{ prompt?: BeforeInstallPromptEvent }>).detail?.prompt;
-      window.clearTimeout(timer);
-      window.removeEventListener("pwaReadyToInstall", handleReady as EventListener);
-      resolve(promptEvent || window.__pwaDeferredPrompt || null);
-    };
-
-    window.addEventListener("pwaReadyToInstall", handleReady as EventListener, { once: true });
-  });
+const clearPrompt = () => {
+  window.__pwaDeferredPrompt = null;
+  window.dispatchEvent(new Event("pwaInstallPromptConsumed"));
+};
 
 export function usePWAInstall() {
+  const [canInstall, setCanInstall] = useState(false);
   const [deferredPrompt, setDeferredPrompt] =
     useState<BeforeInstallPromptEvent | null>(null);
   const [isInstalled, setIsInstalled] = useState(false);
@@ -60,11 +42,13 @@ export function usePWAInstall() {
   useEffect(() => {
     if (isStandalone()) {
       setIsInstalled(true);
+      setCanInstall(false);
       return;
     }
 
     if (window.__pwaDeferredPrompt) {
       setDeferredPrompt(window.__pwaDeferredPrompt);
+      setCanInstall(true);
     }
 
     const handleBeforeInstallPrompt = (event: Event) => {
@@ -72,14 +56,21 @@ export function usePWAInstall() {
       const promptEvent = event as BeforeInstallPromptEvent;
       window.__pwaDeferredPrompt = promptEvent;
       setDeferredPrompt(promptEvent);
+      setCanInstall(true);
     };
 
     const handleAppInstalled = () => {
       setIsInstalled(true);
-      window.__pwaDeferredPrompt = null;
+      setCanInstall(false);
+      clearPrompt();
       window.__pwaInstallPromptActive = false;
       setDeferredPrompt(null);
       showInstalledToastOnce();
+    };
+
+    const handlePromptConsumed = () => {
+      setCanInstall(false);
+      setDeferredPrompt(null);
     };
 
     const handlePWAReady = (event: Event) => {
@@ -87,6 +78,7 @@ export function usePWAInstall() {
       if (promptEvent) {
         window.__pwaDeferredPrompt = promptEvent;
         setDeferredPrompt(promptEvent);
+        setCanInstall(true);
       }
     };
 
@@ -94,18 +86,21 @@ export function usePWAInstall() {
     window.addEventListener("appinstalled", handleAppInstalled);
     window.addEventListener("pwaReadyToInstall", handlePWAReady as EventListener);
     window.addEventListener("pwaInstalled", handleAppInstalled);
+    window.addEventListener("pwaInstallPromptConsumed", handlePromptConsumed);
 
     return () => {
       window.removeEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
       window.removeEventListener("appinstalled", handleAppInstalled);
       window.removeEventListener("pwaReadyToInstall", handlePWAReady as EventListener);
       window.removeEventListener("pwaInstalled", handleAppInstalled);
+      window.removeEventListener("pwaInstallPromptConsumed", handlePromptConsumed);
     };
   }, []);
 
   const promptInstall = async () => {
     if (isInstalled || isStandalone()) {
       setIsInstalled(true);
+      setCanInstall(false);
       showInstalledToastOnce();
       return false;
     }
@@ -114,10 +109,10 @@ export function usePWAInstall() {
       return false;
     }
 
-    const promptEvent =
-      window.__pwaDeferredPrompt || deferredPrompt || (await waitForInstallPrompt());
+    const promptEvent = window.__pwaDeferredPrompt || deferredPrompt;
 
     if (!promptEvent) {
+      setCanInstall(false);
       return false;
     }
 
@@ -128,15 +123,16 @@ export function usePWAInstall() {
 
       if (outcome === "accepted") {
         setIsInstalled(true);
-        window.__pwaDeferredPrompt = null;
       }
 
-      window.__pwaDeferredPrompt = null;
+      clearPrompt();
       setDeferredPrompt(null);
+      setCanInstall(false);
       return outcome === "accepted";
     } catch {
-      window.__pwaDeferredPrompt = null;
+      clearPrompt();
       setDeferredPrompt(null);
+      setCanInstall(false);
       return false;
     } finally {
       window.__pwaInstallPromptActive = false;
@@ -144,7 +140,7 @@ export function usePWAInstall() {
   };
 
   return {
-    canInstall: Boolean(deferredPrompt) && !isInstalled,
+    canInstall: canInstall && !isInstalled,
     isInstalled,
     promptInstall,
   };
