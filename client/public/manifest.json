@@ -19,12 +19,18 @@
     }
   ],
   "start_url": "/",
-  "background_color": "#FAF6EE",
-  "theme_color": "#1B3A6B",
+  "background_color": "#FAFBFC",
+  "theme_color": "#0A3B75",
   "display": "standalone",
   "orientation": "portrait",
   "categories": ["education", "productivity"],
   "screenshots": [
+    {
+      "src": "/manus-storage/pwa-preview.svg",
+      "sizes": "540x720",
+      "type": "image/svg+xml",
+      "form_factor": "narrow"
+    },
     {
       "src": "/manus-storage/COVER_GAL1_06481d62.jpg",
       "sizes": "2048x1536",

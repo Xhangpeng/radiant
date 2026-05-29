@@ -1,10 +1,11 @@
-const CACHE_NAME = "bhuwaneshwori-v6";
+const CACHE_NAME = "bhuwaneshwori-v7";
 const ASSETS_TO_CACHE = [
   "/",
   "/index.html",
   "/manifest.json",
   "/manus-storage/pwa-icon-192.png",
-  "/manus-storage/pwa-icon-512.png"
+  "/manus-storage/pwa-icon-512.png",
+  "/manus-storage/pwa-preview.svg"
 ];
 
 // Install Event
