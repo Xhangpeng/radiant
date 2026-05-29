@@ -3,6 +3,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 import RouteProgress from "./RouteProgress";
 import ScrollTopButton from "./ScrollTopButton";
+import BackgroundAudio from "./BackgroundAudio";
 import { useReveal } from "@/hooks/useReveal";
 
 export default function Layout({ children }: { children: ReactNode }) {
@@ -16,6 +17,7 @@ export default function Layout({ children }: { children: ReactNode }) {
       <Header />
       <main className="flex-1">{children}</main>
       <Footer />
+      <BackgroundAudio />
       <ScrollTopButton />
     </div>
   );
