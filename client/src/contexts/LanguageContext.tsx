@@ -142,6 +142,7 @@ const nepalTranslations: Record<string, string> = {
   "Congratulations to Sagarmatha House for retaining the overall championship.": "समग्र च्याम्पियनसिप कायम राखेकोमा सगरमाथा सदनलाई बधाई।",
   "View all notices": "सबै सूचना हेर्नुहोस्",
   "Message Â· Principal": "सन्देश · प्रधानाध्यापक",
+  "Message · Principal": "सन्देश · प्रधानाध्यापक",
   "A word from our Principal": "हाम्रो प्रधानाध्यापकको सन्देश",
   "At Shree Bhuwaneshwori, our responsibility is not only to complete a syllabus, but to shape young people who can think clearly, act with discipline, and serve their community with quiet courage.": "श्री भुवनेश्वरीमा हाम्रो जिम्मेवारी पाठ्यक्रम पूरा गर्नु मात्र होइन; स्पष्ट सोच्ने, अनुशासनपूर्वक काम गर्ने र शान्त साहसका साथ समुदायको सेवा गर्ने युवा तयार गर्नु हो।",
   "Read leadership messages": "नेतृत्व सन्देश पढ्नुहोस्",

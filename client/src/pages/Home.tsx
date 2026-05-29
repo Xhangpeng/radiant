@@ -535,8 +535,8 @@ export default function Home() {
 
           {/* Principal Preview */}
           <aside className="lg:col-span-5 reveal-right">
-            <span className="eyebrow-left">Message · Principal</span>
-            <h2 className="section-heading mt-4">A word from our Principal</h2>
+            <span className="eyebrow-left">{t("Message · Principal")}</span>
+            <h2 className="section-heading mt-4">{t("A word from our Principal")}</h2>
 
             <div className="soft-card mt-7 p-6 sm:p-8 hover-lift relative overflow-hidden">
               <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-gold" />
@@ -549,13 +549,13 @@ export default function Home() {
                   lineHeight: 1.65,
                 }}
               >
-                {LEADERSHIP.principal.quote}
+                {t(LEADERSHIP.principal.quote)}
               </p>
 
               <div className="mt-6 flex items-center gap-4">
                 <img
                   src={LEADERSHIP.principal.image}
-                  alt={LEADERSHIP.principal.name}
+                  alt={t(LEADERSHIP.principal.name)}
                   className="w-14 h-14 rounded-full object-cover"
                   style={{
                     objectPosition: "center top",
@@ -573,7 +573,7 @@ export default function Home() {
                       lineHeight: 1.2,
                     }}
                   >
-                    {LEADERSHIP.principal.name}
+                    {t(LEADERSHIP.principal.name)}
                   </div>
                   <div
                     style={{
@@ -586,14 +586,14 @@ export default function Home() {
                       marginTop: 3,
                     }}
                   >
-                    {LEADERSHIP.principal.role}
+                    {t(LEADERSHIP.principal.role)}
                   </div>
                 </div>
               </div>
 
               <div className="mt-6">
                 <Link href="/about" className="btn-ghost w-full justify-center">
-                  Read leadership messages <ArrowRight className="h-4 w-4" />
+                  {t("Read leadership messages")} <ArrowRight className="h-4 w-4" />
                 </Link>
               </div>
             </div>
