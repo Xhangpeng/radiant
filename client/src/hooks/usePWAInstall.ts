@@ -18,6 +18,8 @@ interface BeforeInstallPromptEvent extends Event {
   prompt(): Promise<void>;
 }
 
+const INSTALL_PROMPT_WAIT_MS = 1600;
+
 const isStandalone = () =>
   window.matchMedia("(display-mode: standalone)").matches ||
   (navigator as any).standalone === true;
@@ -27,6 +29,28 @@ const showInstalledToastOnce = () => {
   window.__pwaInstallToastShown = true;
   toast.success("School app installed successfully.");
 };
+
+const waitForInstallPrompt = () =>
+  new Promise<BeforeInstallPromptEvent | null>((resolve) => {
+    if (window.__pwaDeferredPrompt) {
+      resolve(window.__pwaDeferredPrompt);
+      return;
+    }
+
+    const timer = window.setTimeout(() => {
+      window.removeEventListener("pwaReadyToInstall", handleReady as EventListener);
+      resolve(window.__pwaDeferredPrompt || null);
+    }, INSTALL_PROMPT_WAIT_MS);
+
+    const handleReady = (event: Event) => {
+      const promptEvent = (event as CustomEvent<{ prompt?: BeforeInstallPromptEvent }>).detail?.prompt;
+      window.clearTimeout(timer);
+      window.removeEventListener("pwaReadyToInstall", handleReady as EventListener);
+      resolve(promptEvent || window.__pwaDeferredPrompt || null);
+    };
+
+    window.addEventListener("pwaReadyToInstall", handleReady as EventListener, { once: true });
+  });
 
 export function usePWAInstall() {
   const [deferredPrompt, setDeferredPrompt] =
@@ -83,18 +107,18 @@ export function usePWAInstall() {
     if (isInstalled || isStandalone()) {
       setIsInstalled(true);
       showInstalledToastOnce();
-      return;
+      return false;
     }
 
     if (window.__pwaInstallPromptActive) {
-      return;
+      return false;
     }
 
-    const promptEvent = window.__pwaDeferredPrompt || deferredPrompt;
+    const promptEvent =
+      window.__pwaDeferredPrompt || deferredPrompt || (await waitForInstallPrompt());
 
     if (!promptEvent) {
-      toast.info("Install prompt is not ready yet. Please try again in Chrome after the page finishes loading.");
-      return;
+      return false;
     }
 
     try {
@@ -109,10 +133,11 @@ export function usePWAInstall() {
 
       window.__pwaDeferredPrompt = null;
       setDeferredPrompt(null);
-    } catch (error) {
-      console.error("PWA install prompt failed:", error);
+      return outcome === "accepted";
+    } catch {
       window.__pwaDeferredPrompt = null;
       setDeferredPrompt(null);
+      return false;
     } finally {
       window.__pwaInstallPromptActive = false;
     }

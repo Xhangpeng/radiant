@@ -1,4 +1,4 @@
-const CACHE_NAME = "bhuwaneshwori-v4";
+const CACHE_NAME = "bhuwaneshwori-v5";
 const ASSETS_TO_CACHE = [
   "/",
   "/index.html",
