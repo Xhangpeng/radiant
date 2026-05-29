@@ -290,7 +290,7 @@ export default function Notices() {
                     <article
                       key={n.id}
                       onClick={() => handleOpenNotice(n)}
-                      className="soft-card p-6 md:p-8 hover-lift border border-slate-100 flex flex-col md:flex-row gap-6 items-start cursor-pointer group"
+                      className="soft-card p-4 sm:p-6 md:p-8 hover-lift border border-slate-100 flex flex-row gap-4 sm:gap-6 items-start cursor-pointer group"
                     >
                       {/* Date Block */}
                       <div className="notice-date shrink-0 w-20 md:w-24 select-none">
