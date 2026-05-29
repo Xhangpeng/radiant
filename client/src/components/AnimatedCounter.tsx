@@ -46,7 +46,12 @@ export default function AnimatedCounter({ value, suffix = "", duration = 2 }: An
   }, [isInView, value, duration]);
 
   return (
-    <span ref={ref} className="font-serif-heading font-extrabold text-4xl sm:text-5xl text-secondary tabular-nums" style={{ fontFamily: "var(--font-display)" }}>
+    <span
+      ref={ref}
+      data-no-translate
+      className="font-serif-heading font-extrabold text-4xl sm:text-5xl text-secondary tabular-nums"
+      style={{ fontFamily: "var(--font-display)" }}
+    >
       {count}
       {suffix}
     </span>

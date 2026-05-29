@@ -19,10 +19,13 @@ import {
 import { ASSETS, LEADERSHIP, SCHOOL } from "@/const";
 import AnimatedCounter from "@/components/AnimatedCounter";
 import FlipCard from "@/components/FlipCard";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function Home() {
+  const { t } = useLanguage();
+
   const apply = () => {
-    toast.info("Online admission opens soon. Thank you for your interest.");
+    toast.info(t("Online admission opens soon. Thank you for your interest."));
   };
 
   return (
@@ -610,10 +613,10 @@ export default function Home() {
                 borderColor: "rgba(255,255,255,0.18)",
               }}
             >
-              Our Achievement
+              {t("Our Achievement")}
             </span>
             <h2 className="section-title text-white mt-5">
-              Four decades of community impact
+              {t("Four decades of community impact")}
             </h2>
             <p
               className="mt-5 mx-auto"
@@ -625,8 +628,7 @@ export default function Home() {
                 maxWidth: "62ch",
               }}
             >
-              Each number is a quiet daily commitment from teachers, students,
-              and guardians — repeated, year after year.
+              {t("Each number is a quiet daily commitment from teachers, students, and guardians — repeated, year after year.")}
             </p>
           </div>
 
@@ -638,7 +640,7 @@ export default function Home() {
               <div className="stat-number">
                 <AnimatedCounter value={1200} suffix="+" />
               </div>
-              <p>Students Enrolled</p>
+              <p>{t("Students Enrolled")}</p>
             </div>
 
             <div className="stat-item hover:scale-105 transition-transform duration-300">
@@ -648,7 +650,7 @@ export default function Home() {
               <div className="stat-number">
                 <AnimatedCounter value={50} suffix="+" />
               </div>
-              <p>Faculty & Staff</p>
+              <p>{t("Faculty & Staff")}</p>
             </div>
 
             <div className="stat-item hover:scale-105 transition-transform duration-300">
@@ -658,7 +660,7 @@ export default function Home() {
               <div className="stat-number">
                 <AnimatedCounter value={45} suffix="+" />
               </div>
-              <p>Years of Excellence</p>
+              <p>{t("Years of Excellence")}</p>
             </div>
 
             <div className="stat-item hover:scale-105 transition-transform duration-300">
@@ -668,7 +670,7 @@ export default function Home() {
               <div className="stat-number">
                 <AnimatedCounter value={95} suffix="%" />
               </div>
-              <p>SEE Success Rate</p>
+              <p>{t("SEE Success Rate")}</p>
             </div>
           </div>
         </div>

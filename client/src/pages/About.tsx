@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { ASSETS, LEADERSHIP, SCHOOL } from "@/const";
 import AnimatedCounter from "@/components/AnimatedCounter";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 type SubTab = "story" | "messages";
 
@@ -20,6 +21,7 @@ export default function About() {
   const [active, setActive] = useState<SubTab>("story");
   const storyRef = useRef<HTMLElement>(null);
   const messagesRef = useRef<HTMLElement>(null);
+  const { t } = useLanguage();
 
   // Sub-nav active state via scroll observer
   useEffect(() => {
@@ -88,7 +90,7 @@ export default function About() {
         <div className="container relative z-10 py-20 sm:py-24 md:py-32 lg:py-36 text-center">
           <span className="eyebrow-pill anim-fade-up">
             <Sparkles className="h-3 w-3 text-secondary animate-pulse" />
-            Estd. {SCHOOL.established} · Bedkot-6
+            {t("Estd.")} {t(SCHOOL.established)} · {t("Bedkot-6")}
           </span>
           <h1
             className="text-white mt-6 anim-fade-up font-display font-extrabold"
@@ -99,7 +101,7 @@ export default function About() {
               animationDelay: "80ms",
             }}
           >
-            About <span className="text-shimmer" style={{ backgroundSize: "200% 100%" }}>Bhuwaneshwori</span>
+            {t("About")} <span className="text-shimmer" style={{ backgroundSize: "200% 100%" }}>{t("BHUWANESHWORI")}</span>
           </h1>
           <p
             className="mx-auto mt-6 max-w-2xl text-white/85 anim-fade-up"
@@ -110,9 +112,7 @@ export default function About() {
               animationDelay: "160ms",
             }}
           >
-            A community-rooted secondary school in Shishaiya, Bedkot Municipality-6 —
-            shaped by community trust, practical learning, and the belief that
-            students grow best when academics and character move together.
+            {t("A community-rooted secondary school in Shishaiya, Bedkot Municipality-6 — shaped by community trust, practical learning, and the belief that students grow best when academics and character move together.")}
           </p>
 
           <div
@@ -120,7 +120,7 @@ export default function About() {
             style={{ animationDelay: "240ms" }}
           >
             <button onClick={() => scrollTo("story")} className="btn-gold shine">
-              Our Story <ArrowRight className="h-4 w-4" />
+              {t("Our Story")} <ArrowRight className="h-4 w-4" />
             </button>
             <button
               onClick={() => scrollTo("messages")}
@@ -132,7 +132,7 @@ export default function About() {
               }}
             >
               <Quote className="h-4 w-4" />
-              Messages
+              {t("Messages")}
             </button>
           </div>
         </div>
@@ -218,25 +218,10 @@ export default function About() {
                 , carried forward by students.
               </h2>
               <p className="section-lead mt-7">
-                Shree Bhuwaneshwori Secondary School was established in{" "}
-                <strong className="text-[var(--color-navy)]">
-                  {SCHOOL.established} ({SCHOOL.establishedAd})
-                </strong>{" "}
-                with a clear promise: to provide dependable, character-rich
-                education for the families of Shishaiya and the wider Bedkot
-                Municipality. What began as a modest village school has grown,
-                over four decades, into a trusted secondary institution where
-                generations of Sudurpashchim students have found their footing.
+                {t("Shree Bhuwaneshwori Secondary School was established in 2036 B.S. (1979 A.D.) with a clear promise: to provide dependable, character-rich education for the families of Shishaiya and the wider Bedkot Municipality. What began as a modest village school has grown, over four decades, into a trusted secondary institution where generations of Sudurpashchim students have found their footing.")}
               </p>
               <p className="section-lead mt-5">
-                Our school culture combines classroom discipline with the warmth
-                of a close community. Students learn through lectures, projects,
-                presentations, sports, picnics, and cultural programmes that
-                help them become capable, cooperative, and responsible young
-                people. The school takes its name — and its spirit — from the
-                goddess Bhuwaneshwori, whose presence on our crest reminds us
-                that knowledge, when offered as service, is its own form of
-                devotion.
+                {t("Our school culture combines classroom discipline with the warmth of a close community. Students learn through lectures, projects, presentations, sports, picnics, and cultural programmes that help them become capable, cooperative, and responsible young people. The school takes its name — and its spirit — from the goddess Bhuwaneshwori, whose presence on our crest reminds us that knowledge, when offered as service, is its own form of devotion.")}
               </p>
 
               {/* Quick facts */}
@@ -261,7 +246,7 @@ export default function About() {
                         fontWeight: 700,
                       }}
                     >
-                      {it.k}
+                      {t(it.k)}
                     </div>
                     <div
                       className="mt-1.5"
@@ -273,7 +258,7 @@ export default function About() {
                         lineHeight: 1.25,
                       }}
                     >
-                      {it.v}
+                      {t(it.v)}
                     </div>
                   </div>
                 ))}
@@ -508,10 +493,10 @@ export default function About() {
               }}
             >
               <Trophy className="h-3 w-3" />
-              Our Achievements
+              {t("Our Achievements")}
             </span>
             <h3 className="section-title text-white mt-5">
-              Four decades of community impact
+              {t("Four decades of community impact")}
             </h3>
             <p
               className="mt-5 mx-auto"
@@ -523,8 +508,7 @@ export default function About() {
                 maxWidth: "62ch",
               }}
             >
-              Each number reflects a quiet daily commitment from teachers,
-              students, and guardians.
+              {t("Each number reflects a quiet daily commitment from teachers, students, and guardians.")}
             </p>
           </div>
 
@@ -536,7 +520,7 @@ export default function About() {
               <div className="stat-number">
                 <AnimatedCounter value={45} suffix="+" />
               </div>
-              <p>Years of Service</p>
+              <p>{t("Years of Service")}</p>
             </div>
 
             <div className="stat-item hover:scale-105 transition-transform duration-300">
@@ -546,7 +530,7 @@ export default function About() {
               <div className="stat-number">
                 <AnimatedCounter value={1200} suffix="+" />
               </div>
-              <p>Students Enrolled</p>
+              <p>{t("Students Enrolled")}</p>
             </div>
 
             <div className="stat-item hover:scale-105 transition-transform duration-300">
@@ -556,7 +540,7 @@ export default function About() {
               <div className="stat-number">
                 <AnimatedCounter value={50} suffix="+" />
               </div>
-              <p>Faculty & Staff</p>
+              <p>{t("Faculty & Staff")}</p>
             </div>
 
             <div className="stat-item hover:scale-105 transition-transform duration-300">
@@ -566,7 +550,7 @@ export default function About() {
               <div className="stat-number">
                 <AnimatedCounter value={12} suffix="" />
               </div>
-              <p>Class Levels</p>
+              <p>{t("Class Levels")}</p>
             </div>
           </div>
         </div>
@@ -576,8 +560,8 @@ export default function About() {
       <section className="gallery-slider-section">
         <div className="container">
           <div className="text-center max-w-2xl mx-auto mb-10">
-            <span className="eyebrow-pill">Campus Life</span>
-            <h3 className="section-title mt-5">A Living Campus</h3>
+            <span className="eyebrow-pill">{t("Campus Life")}</span>
+            <h3 className="section-title mt-5">{t("A Living Campus")}</h3>
             <p
               className="mt-5 mx-auto"
               style={{
@@ -588,8 +572,7 @@ export default function About() {
                 maxWidth: "55ch",
               }}
             >
-              Glimpses of student life — focused classrooms, cultural celebration,
-              and the everyday rhythm of community learning.
+              {t("Glimpses of student life — focused classrooms, cultural celebration, and the everyday rhythm of community learning.")}
             </p>
           </div>
         </div>
@@ -616,18 +599,18 @@ export default function About() {
           <div className="flex items-center gap-4 anim-fade-up">
             <span className="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.28em] font-bold text-[var(--color-gold)]">
               <span className="h-px w-10 bg-[var(--color-gold)]" />
-              Section 02
+              {t("Section 02")}
             </span>
             <span className="text-[11px] uppercase tracking-[0.22em] font-semibold text-[var(--color-navy)]/60">
-              Messages
+              {t("Messages")}
             </span>
           </div>
         </div>
 
         <div className="container py-10 md:py-14">
           <div className="text-center max-w-2xl mx-auto">
-            <span className="eyebrow-pill">Leadership</span>
-            <h3 className="section-title mt-5">From Our Leadership</h3>
+            <span className="eyebrow-pill">{t("Leadership")}</span>
+            <h3 className="section-title mt-5">{t("From Our Leadership")}</h3>
             <p
               className="mt-5 mx-auto"
               style={{
@@ -638,8 +621,7 @@ export default function About() {
                 maxWidth: "60ch",
               }}
             >
-              Words from those who steward Bhuwaneshwori — reflecting the values
-              and steady commitment that move the school forward each day.
+              {t("Words from those who steward Bhuwaneshwori — reflecting the values and steady commitment that move the school forward each day.")}
             </p>
           </div>
 
@@ -660,7 +642,7 @@ export default function About() {
                   style={{ background: "var(--gradient-gold)" }}
                 >
                   <div className="text-[10px] uppercase tracking-[0.22em] font-bold">
-                    Principal
+                    {t("Principal")}
                   </div>
                 </div>
                 <div
@@ -682,7 +664,7 @@ export default function About() {
                   lineHeight: 1.72,
                 }}
               >
-                “{LEADERSHIP.principal.quote}”
+                “{t(LEADERSHIP.principal.quote)}”
               </blockquote>
               <div className="leadership-person-row">
                 <div
@@ -699,7 +681,7 @@ export default function About() {
                       lineHeight: 1.2,
                     }}
                   >
-                    {LEADERSHIP.principal.name}
+                    {t(LEADERSHIP.principal.name)}
                   </div>
                   <div
                     className="mt-1"
@@ -712,7 +694,7 @@ export default function About() {
                       fontWeight: 700,
                     }}
                   >
-                    {LEADERSHIP.principal.role}
+                    {t(LEADERSHIP.principal.role)}
                   </div>
                 </div>
               </div>
@@ -757,7 +739,7 @@ export default function About() {
                         lineHeight: 1.2,
                       }}
                     >
-                      {p.name}
+                      {t(p.name)}
                     </div>
                     <div
                       className="mt-1"
@@ -770,7 +752,7 @@ export default function About() {
                         fontWeight: 700,
                       }}
                     >
-                      {p.role}
+                      {t(p.role)}
                     </div>
                   </div>
                 </div>
@@ -785,7 +767,7 @@ export default function About() {
                     lineHeight: 1.65,
                   }}
                 >
-                  “{p.quote}”
+                  “{t(p.quote)}”
                 </p>
               </article>
             ))}

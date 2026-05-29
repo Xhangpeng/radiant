@@ -34,6 +34,7 @@ const nepalTranslations: Record<string, string> = {
   "Shishaiya, Bedkot Municipality-6": "शिसैया, बेदकोट नगरपालिका-६",
   "Kanchanpur, Sudurpashchim": "कञ्चनपुर, सुदूरपश्चिम",
   "Bedkot-6, Kanchanpur": "बेदकोट-६, कञ्चनपुर",
+  "Bedkot-6": "बेदकोट-६",
   "Bedkot-6 Â· Kanchanpur": "बेदकोट-६ · कञ्चनपुर",
   "Bedkot-6, Shishaiya, Kanchanpur": "बेदकोट-६, शिसैया, कञ्चनपुर",
   "Sudurpashchim Province, Nepal": "सुदूरपश्चिम प्रदेश, नेपाल",
@@ -76,8 +77,11 @@ const nepalTranslations: Record<string, string> = {
   "and": "र",
   "grow together.": "सँगसँगै बढ्छन्।",
   "Established in": "स्थापना",
+  "Shree Bhuwaneshwori Secondary School was established in 2036 B.S. (1979 A.D.) with a clear promise: to provide dependable, character-rich education for the families of Shishaiya and the wider Bedkot Municipality. What began as a modest village school has grown, over four decades, into a trusted secondary institution where generations of Sudurpashchim students have found their footing.": "श्री भुवनेश्वरी माध्यमिक विद्यालय २०३६ बि.सं. (१९७९ ई.) मा शिसैया र व्यापक बेदकोट नगरपालिकाका परिवारलाई भरपर्दो र चरित्रयुक्त शिक्षा प्रदान गर्ने स्पष्ट उद्देश्यका साथ स्थापना भएको हो। साधारण गाउँ विद्यालयका रूपमा सुरु भएको यो संस्था चार दशकमा सुदूरपश्चिमका पुस्ताहरूले आफ्नो आधार पाएको विश्वसनीय माध्यमिक विद्यालय बनेको छ।",
   "Shree Bhuwaneshwori Secondary School has spent more than four decades guiding the children of Shishaiya and the wider Bedkot Municipality. Our culture combines classroom discipline with the warmth of a close community â€” students learn through lectures, projects, sports, and cultural programmes that build capable, cooperative, and responsible young people.": "श्री भुवनेश्वरी माध्यमिक विद्यालयले चार दशकभन्दा बढी समय शिसैया र बेदकोट नगरपालिकाका बालबालिकालाई मार्गदर्शन गर्दै बिताएको छ। हाम्रो संस्कृतिले कक्षाकोठाको अनुशासनलाई समुदायको आत्मीयतासँग जोड्छ, जहाँ विद्यार्थीहरूले व्याख्यान, परियोजना, खेलकुद र सांस्कृतिक कार्यक्रममार्फत सक्षम, सहयोगी र जिम्मेवार व्यक्ति बन्न सिक्छन्।",
+  "Shree Bhuwaneshwori Secondary School has spent more than four decades guiding the children of Shishaiya and the wider Bedkot Municipality. Our culture combines classroom discipline with the warmth of a close community — students learn through lectures, projects, sports, and cultural programmes that build capable, cooperative, and responsible young people.": "श्री भुवनेश्वरी माध्यमिक विद्यालयले चार दशकभन्दा बढी समय शिसैया र बेदकोट नगरपालिकाका बालबालिकालाई मार्गदर्शन गर्दै बिताएको छ। हाम्रो संस्कृतिले कक्षाकोठाको अनुशासनलाई समुदायको आत्मीयतासँग जोड्छ, जहाँ विद्यार्थीहरूले व्याख्यान, परियोजना, खेलकुद र सांस्कृतिक कार्यक्रममार्फत सक्षम, सहयोगी र जिम्मेवार व्यक्ति बन्न सिक्छन्।",
   "The school takes its name and spirit from the goddess Bhuwaneshwori â€” a reminder that knowledge, when offered as service, is its own form of devotion.": "विद्यालयको नाम र भावना देवी भुवनेश्वरीबाट आएको हो, जसले सेवा भावले दिइएको ज्ञान आफैँमा भक्तिको स्वरूप हो भन्ने सम्झाउँछ।",
+  "The school takes its name and spirit from the goddess Bhuwaneshwori — a reminder that knowledge, when offered as service, is its own form of devotion.": "विद्यालयको नाम र भावना देवी भुवनेश्वरीबाट आएको हो, जसले सेवा भावले दिइएको ज्ञान आफैँमा भक्तिको स्वरूप हो भन्ने सम्झाउँछ।",
   "Safe, secure campus": "सुरक्षित विद्यालय परिसर",
   "Caring teacherâ€“student bond": "शिक्षक–विद्यार्थीबीच आत्मीय सम्बन्ध",
   "SEE-focused academics": "SEE केन्द्रित अध्ययन",
@@ -145,6 +149,7 @@ const nepalTranslations: Record<string, string> = {
   "Our Achievements": "हाम्रा उपलब्धिहरू",
   "Four decades of community impact": "समुदायमा चार दशकको प्रभाव",
   "Each number is a quiet daily commitment from teachers, students, and guardians â€” repeated, year after year.": "प्रत्येक संख्या शिक्षक, विद्यार्थी र अभिभावकको दैनिक प्रतिबद्धताको प्रतिफल हो, वर्षौं वर्ष दोहोरिएको।",
+  "Each number is a quiet daily commitment from teachers, students, and guardians — repeated, year after year.": "प्रत्येक संख्या शिक्षक, विद्यार्थी र अभिभावकको दैनिक प्रतिबद्धताको प्रतिफल हो, वर्षौं वर्ष दोहोरिएको।",
   "Students Enrolled": "भर्ना भएका विद्यार्थी",
   "Faculty & Staff": "शिक्षक तथा कर्मचारी",
   "Years of Excellence": "उत्कृष्टताका वर्ष",
@@ -180,6 +185,7 @@ const nepalTranslations: Record<string, string> = {
   ", carried forward by students.": ", विद्यार्थीहरूले अघि बढाएको।",
   "with a clear promise: to provide dependable, character-rich education for the families of Shishaiya and the wider Bedkot Municipality. What began as a modest village school has grown, over four decades, into a trusted secondary institution where generations of Sudurpashchim students have found their footing.": "स्पष्ट उद्देश्यसहित स्थापना भयो: शिसैया र बेदकोट क्षेत्रका परिवारलाई भरपर्दो र चरित्रयुक्त शिक्षा प्रदान गर्ने। साधारण गाउँ विद्यालयका रूपमा सुरु भएको संस्था चार दशकमा सुदूरपश्चिमका पुस्ताहरूले आफ्नो आधार पाएको विश्वसनीय माध्यमिक विद्यालय बनेको छ।",
   "Our school culture combines classroom discipline with the warmth of a close community. Students learn through lectures, projects, presentations, sports, picnics, and cultural programmes that help them become capable, cooperative, and responsible young people. The school takes its name â€” and its spirit â€” from the goddess Bhuwaneshwori, whose presence on our crest reminds us that knowledge, when offered as service, is its own form of devotion.": "हाम्रो विद्यालय संस्कृतिले कक्षाकोठाको अनुशासनलाई नजिकको समुदायको न्यानोपनसँग जोड्छ। विद्यार्थीहरूले व्याख्यान, परियोजना, प्रस्तुति, खेलकुद, पिकनिक र सांस्कृतिक कार्यक्रममार्फत सक्षम, सहयोगी र जिम्मेवार युवा बन्न सिक्छन्। विद्यालयको नाम र भावना देवी भुवनेश्वरीबाट आएको हो, जसले सेवा भावले दिइएको ज्ञान भक्तिको स्वरूप हो भन्ने सम्झाउँछ।",
+  "Our school culture combines classroom discipline with the warmth of a close community. Students learn through lectures, projects, presentations, sports, picnics, and cultural programmes that help them become capable, cooperative, and responsible young people. The school takes its name — and its spirit — from the goddess Bhuwaneshwori, whose presence on our crest reminds us that knowledge, when offered as service, is its own form of devotion.": "हाम्रो विद्यालय संस्कृतिले कक्षाकोठाको अनुशासनलाई नजिकको समुदायको न्यानोपनसँग जोड्छ। विद्यार्थीहरूले व्याख्यान, परियोजना, प्रस्तुति, खेलकुद, पिकनिक र सांस्कृतिक कार्यक्रममार्फत सक्षम, सहयोगी र जिम्मेवार युवा बन्न सिक्छन्। विद्यालयको नाम र भावना देवी भुवनेश्वरीबाट आएको हो, जसले सेवा भावले दिइएको ज्ञान भक्तिको स्वरूप हो भन्ने सम्झाउँछ।",
   "Location": "स्थान",
   "Levels": "तहहरू",
   "Grades 1 â€” 10": "कक्षा १ — १०",
@@ -205,6 +211,7 @@ const nepalTranslations: Record<string, string> = {
   "Leadership": "नेतृत्व",
   "From Our Leadership": "हाम्रो नेतृत्वबाट",
   "Words from those who steward Bhuwaneshwori â€” reflecting the values and steady commitment that move the school forward each day.": "भुवनेश्वरीलाई अघि बढाउने व्यक्तिहरूका शब्द — विद्यालयलाई हरेक दिन अघि लैजाने मूल्य र स्थिर प्रतिबद्धताको प्रतिबिम्ब।",
+  "Words from those who steward Bhuwaneshwori — reflecting the values and steady commitment that move the school forward each day.": "भुवनेश्वरीलाई अघि बढाउने व्यक्तिहरूका शब्द — विद्यालयलाई हरेक दिन अघि लैजाने मूल्य र स्थिर प्रतिबद्धताको प्रतिबिम्ब।",
   "Principal": "प्रधानाध्यापक",
   "Vice Principal": "उप-प्रधानाध्यापक",
   "Asst. Administrator": "सहायक प्रशासक",
@@ -212,7 +219,9 @@ const nepalTranslations: Record<string, string> = {
   "Rajendra Prasad Awasthi": "राजेन्द्र प्रसाद अवस्थी",
   "Sushila Bhatta Joshi": "सुसिला भट्ट जोशी",
   "The strength of our school is built every morning â€” through punctual classrooms, honest feedback, and a steady partnership between teachers, students, and guardians.": "हाम्रो विद्यालयको शक्ति हरेक बिहान बनिन्छ — समयमै सुरु हुने कक्षा, इमानदार प्रतिक्रिया र शिक्षक, विद्यार्थी तथा अभिभावकबीचको स्थिर सहकार्यबाट।",
+  "The strength of our school is built every morning — through punctual classrooms, honest feedback, and a steady partnership between teachers, students, and guardians.": "हाम्रो विद्यालयको शक्ति हरेक बिहान बनिन्छ — समयमै सुरु हुने कक्षा, इमानदार प्रतिक्रिया र शिक्षक, विद्यार्थी तथा अभिभावकबीचको स्थिर सहकार्यबाट।",
   "Behind every well-run classroom is a circle of care â€” coordinating staff, guardians, and resources so that learning never stops at our gate.": "हरेक व्यवस्थित कक्षाको पछाडि हेरचाहको घेरा हुन्छ — कर्मचारी, अभिभावक र स्रोतहरूलाई मिलाएर सिकाइ हाम्रो ढोकामै नरोकियोस् भन्ने सुनिश्चितता।",
+  "Behind every well-run classroom is a circle of care — coordinating staff, guardians, and resources so that learning never stops at our gate.": "हरेक व्यवस्थित कक्षाको पछाडि हेरचाहको घेरा हुन्छ — कर्मचारी, अभिभावक र स्रोतहरूलाई मिलाएर सिकाइ हाम्रो ढोकामै नरोकियोस् भन्ने सुनिश्चितता।",
   "Academic Offerings": "शैक्षिक कार्यक्रमहरू",
   "Our Courses": "हाम्रा पाठ्यक्रमहरू",
   "Explore our comprehensive educational pathways, spanning from early childhood nurturing to high school board programs. Fully responsive, highly structured, and designed for growth.": "बाल्यकालीन हेरचाहदेखि उच्च माध्यमिक कार्यक्रमसम्म फैलिएका हाम्रा विस्तृत शैक्षिक मार्गहरू अन्वेषण गर्नुहोस्। व्यवस्थित, उत्तरदायी र विकासका लागि तयार।",
@@ -648,6 +657,7 @@ function translateTree(root: HTMLElement, language: Language) {
     }
 
     const original = originalTextNodes.get(node) || "";
+    if (/^[\d\s+%.,-]+$/.test(original)) return;
     const next = language === "ne" ? replaceText(original, language) : original;
     if (next !== node.nodeValue) node.nodeValue = next;
   });
