@@ -133,25 +133,25 @@ export default function NoticeViewerModal({
 
   return (
     <div
-      className="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-2 sm:p-4 md:p-6"
+      className="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-0 sm:p-4 md:p-6"
       onClick={onClose}
     >
       {/* Document Viewer Frame */}
       <div
-        className="w-full max-w-4xl bg-[#1B3A6B] rounded-2xl sm:rounded-3xl border border-white/10 shadow-2xl overflow-hidden flex flex-col h-[88vh] sm:h-[85vh] max-h-[88vh] sm:max-h-[85vh] anim-fade-up"
+        className="notice-viewer-frame w-full max-w-4xl bg-[#1B3A6B] rounded-none sm:rounded-3xl border border-white/10 shadow-2xl overflow-hidden flex flex-col h-[100dvh] sm:h-[85vh] max-h-[100dvh] sm:max-h-[85vh] anim-fade-up"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Top Toolbar */}
-        <div className="bg-[#142C52] px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between gap-3 sm:gap-4 border-b border-white/5 shrink-0 select-none">
-          <div className="min-w-0 flex items-center gap-2.5 sm:gap-3 text-white">
+        <div className="notice-viewer-toolbar bg-[#142C52] px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between gap-3 sm:gap-4 border-b border-white/5 shrink-0 select-none">
+          <div className="notice-viewer-title-wrap min-w-0 flex items-center gap-2.5 sm:gap-3 text-white">
             <FileText className="h-5 w-5 text-secondary shrink-0" />
-            <h3 className="font-display font-bold text-sm sm:text-base text-white truncate max-w-[calc(100vw-132px)] sm:max-w-md">
+            <h3 className="notice-viewer-title font-display font-bold text-sm sm:text-base text-white truncate max-w-[calc(100vw-132px)] sm:max-w-md">
               {notice.title}
             </h3>
           </div>
 
           {/* Action Controls */}
-          <div className="shrink-0 flex items-center gap-1.5 sm:gap-3 text-white/80">
+          <div className="notice-viewer-actions shrink-0 flex items-center gap-1.5 sm:gap-3 text-white/80">
             {/* Zoom */}
             <div className="hidden sm:flex items-center bg-white/5 rounded-full px-2 py-1 border border-white/10">
               <button
@@ -176,7 +176,7 @@ export default function NoticeViewerModal({
             {/* Print */}
             <button
               onClick={handlePrint}
-              className="p-2 hover:text-white hover:bg-white/10 rounded-full transition border border-white/10 bg-white/5"
+              className="notice-viewer-icon-button p-2 hover:text-white hover:bg-white/10 rounded-full transition border border-white/10 bg-white/5"
               title="Print Notice"
             >
               <Printer className="h-4 w-4" />
@@ -185,7 +185,7 @@ export default function NoticeViewerModal({
             {/* Close */}
             <button
               onClick={onClose}
-              className="p-2 bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 hover:text-rose-200 rounded-full transition border border-rose-500/30"
+              className="notice-viewer-icon-button p-2 bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 hover:text-rose-200 rounded-full transition border border-rose-500/30"
               title="Close Viewer"
             >
               <X className="h-4 w-4" />
