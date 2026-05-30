@@ -238,7 +238,7 @@ export default function Notices() {
       </section>
 
       {/* Main Notice Board Section */}
-      <section className="container py-20 md:py-28">
+      <section className="container py-14 sm:py-20 md:py-28">
         <div className="grid lg:grid-cols-12 gap-10 lg:gap-14">
           {/* Left Column: Notices list */}
           <div className="lg:col-span-8">
@@ -279,7 +279,7 @@ export default function Notices() {
             </div>
 
             {/* Notices List */}
-            <div className="space-y-6 stagger reveal">
+            <div className="space-y-4 sm:space-y-6 stagger reveal">
               {filteredNotices.length > 0 ? (
                 filteredNotices.map((n) => {
                   const [year, monthNum, dayStr] = n.date.split("-");
@@ -293,7 +293,7 @@ export default function Notices() {
                       className="notice-card soft-card p-4 sm:p-6 md:p-8 hover-lift border border-slate-100 flex flex-row gap-4 sm:gap-6 items-start cursor-pointer group"
                     >
                       {/* Date Block */}
-                      <div className="notice-date shrink-0 w-20 md:w-24 select-none">
+                      <div className="notice-date notice-page-date shrink-0 select-none">
                         <span className="d-day text-3xl font-extrabold group-hover:text-secondary transition-colors duration-200">
                           {dayStr}
                         </span>
@@ -323,12 +323,12 @@ export default function Notices() {
                           {n.content.introduction}
                         </p>
 
-                        <div className="mt-5 pt-4 border-t border-slate-100/80 flex items-center justify-between">
-                          <span className="inline-flex items-center gap-2 text-xs font-semibold text-slate-400">
+                        <div className="notice-card-meta mt-5 pt-4 border-t border-slate-100/80 flex items-center justify-between">
+                          <span className="min-w-0 inline-flex items-center gap-2 text-xs font-semibold text-slate-400 break-all">
                             <FileText className="h-4 w-4 text-slate-300" />
                             Ref: {n.refNo}
                           </span>
-                          <span className="inline-flex items-center gap-1.5 text-xs font-bold text-secondary group-hover:text-primary transition-colors">
+                          <span className="notice-card-action inline-flex items-center gap-1.5 text-xs font-bold text-secondary group-hover:text-primary transition-colors">
                             View Official Document &rarr;
                           </span>
                         </div>

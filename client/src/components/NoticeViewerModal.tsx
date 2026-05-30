@@ -138,20 +138,20 @@ export default function NoticeViewerModal({
     >
       {/* Document Viewer Frame */}
       <div
-        className="w-full max-w-4xl bg-[#1B3A6B] rounded-3xl border border-white/10 shadow-2xl overflow-hidden flex flex-col h-[85vh] max-h-[85vh] anim-fade-up"
+        className="w-full max-w-4xl bg-[#1B3A6B] rounded-2xl sm:rounded-3xl border border-white/10 shadow-2xl overflow-hidden flex flex-col h-[88vh] sm:h-[85vh] max-h-[88vh] sm:max-h-[85vh] anim-fade-up"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Top Toolbar */}
-        <div className="bg-[#142C52] px-6 py-4 flex flex-wrap items-center justify-between gap-4 border-b border-white/5 shrink-0 select-none">
-          <div className="flex items-center gap-3 text-white">
+        <div className="bg-[#142C52] px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between gap-3 sm:gap-4 border-b border-white/5 shrink-0 select-none">
+          <div className="min-w-0 flex items-center gap-2.5 sm:gap-3 text-white">
             <FileText className="h-5 w-5 text-secondary shrink-0" />
-            <h3 className="font-display font-bold text-sm sm:text-base text-white truncate max-w-[280px] sm:max-w-md">
+            <h3 className="font-display font-bold text-sm sm:text-base text-white truncate max-w-[calc(100vw-132px)] sm:max-w-md">
               {notice.title}
             </h3>
           </div>
 
           {/* Action Controls */}
-          <div className="flex items-center gap-2 sm:gap-3 text-white/80">
+          <div className="shrink-0 flex items-center gap-1.5 sm:gap-3 text-white/80">
             {/* Zoom */}
             <div className="hidden sm:flex items-center bg-white/5 rounded-full px-2 py-1 border border-white/10">
               <button
@@ -194,11 +194,11 @@ export default function NoticeViewerModal({
         </div>
 
         {/* Scrollable Container containing the Paper Sheet */}
-        <div className="flex-1 overflow-auto p-3 sm:p-6 md:p-8 flex justify-center bg-slate-900/40">
+        <div className="flex-1 overflow-auto p-2.5 sm:p-6 md:p-8 flex justify-center bg-slate-900/40">
           {/* Paper Document (solid background enclosing all content) */}
           <div
             ref={printRef}
-            className="w-full bg-[#FAF6EE] text-slate-800 rounded-2xl shadow-2xl border border-slate-200/40 p-5 sm:p-10 md:p-12 transition-all duration-200 font-sans flex flex-col h-fit"
+            className="w-full bg-[#FAF6EE] text-slate-800 rounded-xl sm:rounded-2xl shadow-2xl border border-slate-200/40 p-4 sm:p-10 md:p-12 transition-all duration-200 font-sans flex flex-col h-fit"
             style={{
               transform: `scale(${zoom / 100})`,
               transformOrigin: "top center",
@@ -262,7 +262,7 @@ export default function NoticeViewerModal({
 
               {/* Special Instructions */}
               {notice.content.instructions && (
-                <div className="mt-6 p-5 bg-slate-100 rounded-xl border border-slate-200/60">
+                <div className="mt-6 p-4 sm:p-5 bg-slate-100 rounded-xl border border-slate-200/60">
                   <h4 className="font-bold text-primary mb-3 text-sm sm:text-base uppercase tracking-wider">
                     {notice.content.instructionsTitle || "Important Instructions:"}
                   </h4>
@@ -304,10 +304,10 @@ export default function NoticeViewerModal({
         </div>
 
         {/* Bottom Status Bar */}
-        <div className="bg-[#142C52] px-6 py-3 border-t border-white/5 flex items-center justify-between shrink-0 select-none text-[11px] sm:text-xs text-white/50 font-sans">
-          <div className="flex items-center gap-1.5">
+        <div className="bg-[#142C52] px-4 sm:px-6 py-3 border-t border-white/5 flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 sm:gap-3 shrink-0 select-none text-[11px] sm:text-xs text-white/50 font-sans">
+          <div className="min-w-0 flex items-center gap-1.5">
             <Calendar className="h-3.5 w-3.5" />
-            <span>Published: {notice.publishedDate}</span>
+            <span className="truncate">Published: {notice.publishedDate}</span>
           </div>
           <div className="uppercase font-bold tracking-wider text-secondary">
             {notice.category}
