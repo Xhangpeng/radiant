@@ -1,11 +1,13 @@
 import { useState } from "react";
 import {
   ArrowRight,
+  Bell,
+  BookOpen,
   Calendar,
-  CalendarDays,
   Download,
   FileText,
   Megaphone,
+  Phone,
   Sparkles,
 } from "lucide-react";
 import { ASSETS, SCHOOL } from "@/const";
@@ -161,6 +163,33 @@ export default function Notices() {
     (n) => filter === "all" || n.category === filter
   );
 
+  const categoryCards = [
+    {
+      title: "General",
+      copy: "School-wide announcements and circulars",
+      icon: Megaphone,
+      filter: "notice" as const,
+    },
+    {
+      title: "Examinations",
+      copy: "Schedules, routines, and result updates",
+      icon: Calendar,
+      filter: "exam" as const,
+    },
+    {
+      title: "Academic",
+      copy: "Admissions, courses, and registration",
+      icon: BookOpen,
+      filter: "notice" as const,
+    },
+    {
+      title: "Events",
+      copy: "Programs, sports, and celebrations",
+      icon: Bell,
+      filter: "event" as const,
+    },
+  ];
+
   const handleOpenNotice = (notice: NoticeDocument) => {
     setSelectedNotice(notice);
     setIsModalOpen(true);
@@ -237,180 +266,142 @@ export default function Notices() {
         </svg>
       </section>
 
+      {/* Notice Categories */}
+      <section className="notice-categories-section">
+        <div className="container">
+          <div className="notice-category-grid">
+            {categoryCards.map((item) => {
+              const Icon = item.icon;
+              return (
+                <button
+                  key={item.title}
+                  type="button"
+                  onClick={() => setFilter(item.filter)}
+                  className="notice-category-card"
+                >
+                  <span className="notice-category-icon">
+                    <Icon className="h-5 w-5" />
+                  </span>
+                  <span className="notice-category-title">{item.title}</span>
+                  <span className="notice-category-copy">{item.copy}</span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
       {/* Main Notice Board Section */}
-      <section className="container py-14 sm:py-20 md:py-28">
-        <div className="grid lg:grid-cols-12 gap-10 lg:gap-14">
-          {/* Left Column: Notices list */}
-          <div className="lg:col-span-8">
-            {/* Filter Sub-Tabs */}
-            <div className="flex flex-nowrap sm:flex-wrap items-center gap-2 mb-10 overflow-x-auto no-scrollbar pb-2 border-b border-slate-200/60 -mx-4 px-4 sm:mx-0 sm:px-0">
-              <button
-                onClick={() => setFilter("all")}
-                data-active={filter === "all"}
-                className="subtab"
-              >
-                <span className="subtab-dot" />
-                All Circulars
-              </button>
-              <button
-                onClick={() => setFilter("notice")}
-                data-active={filter === "notice"}
-                className="subtab"
-              >
-                <span className="subtab-dot" />
-                Notices
-              </button>
-              <button
-                onClick={() => setFilter("exam")}
-                data-active={filter === "exam"}
-                className="subtab"
-              >
-                <span className="subtab-dot" />
-                Exams
-              </button>
-              <button
-                onClick={() => setFilter("event")}
-                data-active={filter === "event"}
-                className="subtab"
-              >
-                <span className="subtab-dot" />
-                Events
-              </button>
-            </div>
-
-            {/* Notices List */}
-            <div className="space-y-4 sm:space-y-6 stagger reveal">
-              {filteredNotices.length > 0 ? (
-                filteredNotices.map((n) => {
-                  const [year, monthNum, dayStr] = n.date.split("-");
-                  const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-                  const monthName = monthNames[parseInt(monthNum) - 1] || "Baishakh";
-
-                  return (
-                    <article
-                      key={n.id}
-                      onClick={() => handleOpenNotice(n)}
-                      className="notice-card soft-card p-4 sm:p-6 md:p-8 hover-lift border border-slate-100 flex flex-row gap-4 sm:gap-6 items-start cursor-pointer group"
-                    >
-                      {/* Date Block */}
-                      <div className="notice-date notice-page-date shrink-0 select-none">
-                        <span className="d-day text-3xl font-extrabold group-hover:text-secondary transition-colors duration-200">
-                          {dayStr}
-                        </span>
-                        <span className="d-month text-xs tracking-widest block font-bold text-secondary mt-1 uppercase">
-                          {monthName}
-                        </span>
-                        <span className="text-[10px] text-slate-400 block mt-1 font-semibold">
-                          {year} BS
-                        </span>
-                      </div>
-
-                      {/* Content Block */}
-                      <div className="flex-1 min-w-0">
-                        <span className="notice-tag uppercase text-[10px] tracking-wider">
-                          {n.category}
-                        </span>
-                        <h3
-                          className="mt-3 font-display font-bold text-lg sm:text-xl text-primary group-hover:text-secondary transition-colors duration-200"
-                          style={{ fontFamily: "var(--font-display)" }}
-                        >
-                          {n.title}
-                        </h3>
-                        <p
-                          className="mt-3 text-slate-600 leading-relaxed text-sm line-clamp-2"
-                          style={{ fontFamily: "var(--font-sans)" }}
-                        >
-                          {n.content.introduction}
-                        </p>
-
-                        <div className="notice-card-meta mt-5 pt-4 border-t border-slate-100/80 flex items-center justify-between">
-                          <span className="min-w-0 inline-flex items-center gap-2 text-xs font-semibold text-slate-400 break-all">
-                            <FileText className="h-4 w-4 text-slate-300" />
-                            Ref: {n.refNo}
-                          </span>
-                          <span className="notice-card-action inline-flex items-center gap-1.5 text-xs font-bold text-secondary group-hover:text-primary transition-colors">
-                            View Official Document &rarr;
-                          </span>
-                        </div>
-                      </div>
-                    </article>
-                  );
-                })
-              ) : (
-                <div className="text-center py-16 soft-card p-8 border border-dashed border-slate-200">
-                  <Megaphone className="h-10 w-10 text-slate-300 mx-auto mb-4 animate-bounce" />
-                  <p className="text-slate-500 font-sans">
-                    No announcements available in this category. Check back soon.
-                  </p>
-                </div>
-              )}
-            </div>
+      <section className="notice-updates-section">
+        <div className="container">
+          <div className="notice-section-heading">
+            <span className="notice-kicker">Latest Updates</span>
+            <h2>
+              All <em>Announcements</em>
+            </h2>
+            <p>
+              Filter by category to find relevant notices, or browse all recent
+              announcements below.
+            </p>
           </div>
 
-          {/* Right Column: Calendar / Side Panel */}
-          <div className="lg:col-span-4 space-y-8 reveal-right">
-            {/* Quick Contact Box */}
-            <div className="soft-card p-6 sm:p-8 hover-lift relative overflow-hidden">
-              <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-gold" />
-              <CalendarDays className="h-8 w-8 text-secondary" />
-              <h3
-                className="mt-4 text-primary font-bold text-lg"
-                style={{ fontFamily: "var(--font-display)" }}
-              >
-                Academic Calendar 2082
-              </h3>
-              <p
-                className="mt-3 text-slate-600 text-sm leading-relaxed"
-                style={{ fontFamily: "var(--font-sans)" }}
-              >
-                The complete annual academic calendar containing exam routines, holidays,
-                festivals, parent-teacher conferences, and sports meets is available for download.
-              </p>
-              <button
-                onClick={() =>
-                  window.alert(
-                    "The complete academic calendar PDF is being formatted and will be available soon."
-                  )
-                }
-                className="btn-gold mt-6 w-full justify-center"
-              >
-                <Download className="h-4 w-4" /> Download Calendar PDF
-              </button>
-            </div>
+          <div className="notice-filter-row" aria-label="Notice filters">
+            <button onClick={() => setFilter("all")} data-active={filter === "all"} className="notice-filter-pill">
+              All Notices
+            </button>
+            <button onClick={() => setFilter("exam")} data-active={filter === "exam"} className="notice-filter-pill">
+              Exams
+            </button>
+            <button onClick={() => setFilter("notice")} data-active={filter === "notice"} className="notice-filter-pill">
+              General
+            </button>
+            <button onClick={() => setFilter("event")} data-active={filter === "event"} className="notice-filter-pill">
+              Events
+            </button>
+          </div>
 
-            {/* Quick Helpline */}
-            <div
-              className="soft-card p-6 sm:p-8 hover-lift text-white relative overflow-hidden"
-              style={{ background: "var(--gradient-primary)" }}
+          <div className="notice-list-grid">
+            {filteredNotices.length > 0 ? (
+              filteredNotices.map((n) => {
+                const [year, monthNum, dayStr] = n.date.split("-");
+                const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                const monthName = monthNames[parseInt(monthNum) - 1] || "Baishakh";
+
+                return (
+                  <article
+                    key={n.id}
+                    onClick={() => handleOpenNotice(n)}
+                    className="notice-card notice-board-card group"
+                  >
+                    <div className="notice-card-topline">
+                      <div className="notice-date notice-page-date shrink-0 select-none">
+                        <span className="d-day">{dayStr}</span>
+                        <span className="d-month">{monthName}</span>
+                        <span className="notice-year">{year} BS</span>
+                      </div>
+                      <span className="notice-tag">{n.category}</span>
+                    </div>
+
+                    <div className="notice-card-content">
+                      <h3>{n.title}</h3>
+                      <p>{n.content.introduction}</p>
+                    </div>
+
+                    <div className="notice-card-footer">
+                      <span className="notice-ref">
+                        <FileText className="h-4 w-4" />
+                        {n.refNo}
+                      </span>
+                      <span className="notice-open-button" aria-hidden="true">
+                        <ArrowRight className="h-5 w-5" />
+                      </span>
+                    </div>
+                  </article>
+                );
+              })
+            ) : (
+              <div className="notice-empty-state">
+                <Megaphone className="h-10 w-10" />
+                <p>No announcements available in this category. Check back soon.</p>
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
+
+      {/* Support Section */}
+      <section className="notice-support-section">
+        <div className="notice-support-bg" aria-hidden />
+        <div className="container relative z-10">
+          <div className="notice-support-heading">
+            <span className="notice-kicker">Need Help?</span>
+            <h2>Contact the relevant department directly.</h2>
+          </div>
+
+          <div className="notice-support-grid">
+            <a href={`tel:${SCHOOL.contact.replace(/\s/g, "")}`} className="notice-support-card">
+              <span><Phone className="h-5 w-5" /></span>
+              <strong>School Office</strong>
+              <small>{SCHOOL.contact}</small>
+            </a>
+            <a href={`mailto:${SCHOOL.email}`} className="notice-support-card">
+              <span><FileText className="h-5 w-5" /></span>
+              <strong>Administration</strong>
+              <small>{SCHOOL.email}</small>
+            </a>
+            <button
+              type="button"
+              onClick={() =>
+                window.alert(
+                  "The complete academic calendar PDF is being formatted and will be available soon."
+                )
+              }
+              className="notice-support-card"
             >
-              <div
-                className="absolute inset-0"
-                style={{
-                  backgroundImage:
-                    "radial-gradient(circle at 100% 0%, rgba(197,155,39,0.18) 0%, transparent 60%)",
-                }}
-              />
-              <Megaphone className="h-8 w-8 text-secondary relative z-10" />
-              <h3
-                className="mt-4 text-white font-bold text-lg relative z-10"
-                style={{ fontFamily: "var(--font-display)" }}
-              >
-                Emergency Bulletins?
-              </h3>
-              <p
-                className="mt-3 text-white/80 text-sm leading-relaxed relative z-10"
-                style={{ fontFamily: "var(--font-sans)" }}
-              >
-                During heavy monsoon rains, extreme weather, or public directives, emergency closure notices
-                will be sent via SMS directly to parents and updated on this board by 6:00 AM.
-              </p>
-              <a
-                href={`tel:${SCHOOL.contact.replace(/\s/g, "")}`}
-                className="btn-gold mt-6 w-full justify-center relative z-10"
-              >
-                Call School Office
-              </a>
-            </div>
+              <span><Download className="h-5 w-5" /></span>
+              <strong>Academic Calendar</strong>
+              <small>Download PDF when published</small>
+            </button>
           </div>
         </div>
       </section>
