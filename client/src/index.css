@@ -5556,3 +5556,48 @@ header[data-no-translate] .group .absolute [href]:hover {
     transition-duration: 0.001ms !important;
   }
 }
+
+/* Final responsive guardrails from viewport QA. */
+html,
+body,
+#root {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+.site-main {
+  overflow-x: clip;
+}
+
+.mobile-sidebar:not(.open) {
+  visibility: hidden;
+  pointer-events: none;
+  transform: translate3d(calc(-100% - 24px), 0, 0) scaleX(0.98) !important;
+}
+
+.mobile-sidebar.open {
+  visibility: visible;
+  pointer-events: auto;
+}
+
+@media (max-width: 640px) {
+  .site-main > section:first-child.relative.overflow-hidden {
+    min-height: auto !important;
+  }
+
+  .site-main > section:first-child.relative.overflow-hidden .container {
+    padding-top: 3.6rem !important;
+    padding-bottom: 3.25rem !important;
+  }
+
+  .footer-map-panel {
+    gap: 0.6rem !important;
+  }
+
+  .footer-map-frame,
+  .footer-map-frame iframe {
+    height: 230px !important;
+    min-height: 230px !important;
+  }
+}
