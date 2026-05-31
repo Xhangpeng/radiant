@@ -177,7 +177,7 @@ export default function Header() {
 
         {/* Navigation Links with Icons */}
         <div className="sidebar-body flex flex-col">
-          <div className="flex flex-col">
+          <div className="sidebar-body-inner flex flex-col">
             <ul className="sidebar-nav">
               {NAV_ITEMS.map((item, index) => (
                 <li
@@ -212,7 +212,7 @@ export default function Header() {
                   }}
                   className="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 text-white text-[11px] font-bold hover:from-amber-600 hover:to-amber-700 shadow-sm active:scale-[0.98] transition-all duration-200"
                 >
-                  <Download className="h-3.5 w-3.5" /> {t("Download School App")}
+                  <Download className="h-3.5 w-3.5" /> {t("Download")}
                 </button>
               ) : null}
               <button onClick={handleApplyClick} className="btn-cta w-full justify-center py-2.5 text-[11px]">

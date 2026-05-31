@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import {
   X,
   Printer,
@@ -40,10 +40,22 @@ export default function NoticeViewerModal({
   isOpen,
   onClose,
 }: NoticeViewerModalProps) {
-  if (!isOpen || !notice) return null;
-
   const [zoom, setZoom] = useState(100);
   const printRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const previousOverflow = document.body.style.overflow;
+    const previousOverscroll = document.body.style.overscrollBehavior;
+    document.body.style.overflow = "hidden";
+    document.body.style.overscrollBehavior = "contain";
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.body.style.overscrollBehavior = previousOverscroll;
+    };
+  }, [isOpen]);
 
   const handleZoomIn = () => {
     setZoom((prev) => Math.min(prev + 10, 150));
@@ -54,6 +66,8 @@ export default function NoticeViewerModal({
   };
 
   const handlePrint = () => {
+    if (!notice) return;
+
     const printContent = printRef.current?.innerHTML;
     if (printContent) {
       const printWindow = window.open("", "_blank");
@@ -131,9 +145,11 @@ export default function NoticeViewerModal({
     }
   };
 
+  if (!isOpen || !notice) return null;
+
   return (
     <div
-      className="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-0 sm:p-4 md:p-6"
+      className="notice-viewer-overlay fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-0 sm:p-4 md:p-6"
       onClick={onClose}
     >
       {/* Document Viewer Frame */}
@@ -176,7 +192,7 @@ export default function NoticeViewerModal({
             {/* Print */}
             <button
               onClick={handlePrint}
-              className="notice-viewer-icon-button p-2 hover:text-white hover:bg-white/10 rounded-full transition border border-white/10 bg-white/5"
+              className="notice-viewer-icon-button notice-viewer-print-button p-2 hover:text-white hover:bg-white/10 rounded-full transition border border-white/10 bg-white/5"
               title="Print Notice"
             >
               <Printer className="h-4 w-4" />
@@ -185,7 +201,7 @@ export default function NoticeViewerModal({
             {/* Close */}
             <button
               onClick={onClose}
-              className="notice-viewer-icon-button p-2 bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 hover:text-rose-200 rounded-full transition border border-rose-500/30"
+              className="notice-viewer-icon-button notice-viewer-close-button p-2 bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 hover:text-rose-200 rounded-full transition border border-rose-500/30"
               title="Close Viewer"
             >
               <X className="h-4 w-4" />
@@ -194,11 +210,11 @@ export default function NoticeViewerModal({
         </div>
 
         {/* Scrollable Container containing the Paper Sheet */}
-        <div className="flex-1 overflow-auto p-2.5 sm:p-6 md:p-8 flex justify-center bg-slate-900/40">
+        <div className="notice-viewer-scroll flex-1 overflow-auto p-2.5 sm:p-6 md:p-8 flex justify-center bg-slate-900/40">
           {/* Paper Document (solid background enclosing all content) */}
           <div
             ref={printRef}
-            className="w-full bg-[#FAF6EE] text-slate-800 rounded-xl sm:rounded-2xl shadow-2xl border border-slate-200/40 p-4 sm:p-10 md:p-12 transition-all duration-200 font-sans flex flex-col h-fit"
+            className="notice-paper-sheet w-full bg-[#FAF6EE] text-slate-800 rounded-xl sm:rounded-2xl shadow-2xl border border-slate-200/40 p-4 sm:p-10 md:p-12 transition-all duration-200 font-sans flex flex-col h-fit"
             style={{
               transform: `scale(${zoom / 100})`,
               transformOrigin: "top center",
@@ -304,7 +320,7 @@ export default function NoticeViewerModal({
         </div>
 
         {/* Bottom Status Bar */}
-        <div className="bg-[#142C52] px-4 sm:px-6 py-3 border-t border-white/5 flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 sm:gap-3 shrink-0 select-none text-[11px] sm:text-xs text-white/50 font-sans">
+        <div className="notice-viewer-status bg-[#142C52] px-4 sm:px-6 py-3 border-t border-white/5 flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 sm:gap-3 shrink-0 select-none text-[11px] sm:text-xs text-white/50 font-sans">
           <div className="min-w-0 flex items-center gap-1.5">
             <Calendar className="h-3.5 w-3.5" />
             <span className="truncate">Published: {notice.publishedDate}</span>
