@@ -13,32 +13,24 @@ export default function Footer() {
 
   const onSubscribe = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    toast.success(t("Subscribed — thank you for joining our newsletter."));
+    toast.success(t("Subscribed. Thank you for joining our newsletter."));
     (e.currentTarget as HTMLFormElement).reset();
   };
 
   return (
     <footer className="site-footer" data-no-translate>
       <div className="container relative z-10">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-12 pb-4">
+        <div className="footer-main-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-12">
           {/* Brand */}
           <div className="lg:col-span-4">
-            <div className="flex items-center gap-3 mb-5">
-              <span className="logo-container" style={{ width: 56, height: 56 }}>
-                <span className="logo-bg-ring" />
-                <img src={SCHOOL.logo} alt="" style={{ height: 48, width: 48 }} />
-              </span>
-              <div>
-                <div className="font-display font-extrabold text-white text-lg leading-tight" style={{ fontFamily: "var(--font-display)" }}>
-                  {t("BHUWANESHWORI")}
-                </div>
-                <div className="text-[10px] uppercase tracking-[0.22em] text-[var(--color-gold-soft)] font-bold">
-                  {t("Secondary School · Estd. 2036 BS")}
-                </div>
+            <div className="footer-wordmark mb-5">
+              <img src={SCHOOL.logo} alt={t("Radiant Secondary School")} />
+              <div className="mt-3 text-[10px] uppercase tracking-[0.22em] text-[var(--color-gold-soft)] font-bold">
+                {t("Secondary School / Estd. 2057 BS")}
               </div>
             </div>
             <p className="text-sm leading-relaxed text-white/75 max-w-md mb-6">
-              {t("A community-rooted secondary school in Shishaiya, Bedkot — delivering quality education within a safe, supportive, and inspiring environment that nurtures curiosity, character, and lifelong learning.")}
+              {t("A modern academic institution in Mahendranagar offering school-level education and NEB +2 Science and Management in a safe, student-centred environment that nurtures confidence, character, and lifelong learning.")}
             </p>
 
             {/* Install PWA App Button */}
@@ -65,75 +57,104 @@ export default function Footer() {
           </div>
 
           {/* Explore */}
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-2 footer-explore">
             <h4>{t("Explore")}</h4>
             <ul>
               {NAV_ITEMS.map((item) => (
                 <li key={item.href}>
-                  <Link href={item.href}>{t(item.label)}</Link>
+                  {item.external ? (
+                    <a href={item.href} target="_blank" rel="noopener noreferrer">
+                      {t(item.label)}
+                    </a>
+                  ) : (
+                    <Link href={item.href}>{t(item.label)}</Link>
+                  )}
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Contact */}
-          <div className="lg:col-span-3">
-            <h4>{t("Contact")}</h4>
-            <ul>
-              <li className="flex items-start gap-2.5 text-white/80">
-                <MapPin className="h-4 w-4 mt-0.5 text-[var(--color-gold-soft)] shrink-0" />
-                <span>
-                  {t(SCHOOL.location)}
-                  <br />
-                  {t(SCHOOL.district)}
-                </span>
-              </li>
-              <li className="flex items-center gap-2.5 text-white/80">
-                <Phone className="h-4 w-4 text-[var(--color-gold-soft)] shrink-0" />
-                <a href={`tel:${SCHOOL.contact.replace(/\s/g, "")}`}>{SCHOOL.contact}</a>
-              </li>
-              <li className="flex items-center gap-2.5 text-white/80">
-                <Mail className="h-4 w-4 text-[var(--color-gold-soft)] shrink-0" />
-                <a href={`mailto:${SCHOOL.email}`} className="break-all">
-                  {SCHOOL.email}
-                </a>
-              </li>
-            </ul>
-          </div>
+          <div className="lg:col-span-6 footer-right-stack">
+            <div className="grid gap-10 sm:grid-cols-2">
+              {/* Contact */}
+              <div>
+                <h4>{t("Contact")}</h4>
+                <ul>
+                  <li className="flex items-start gap-2.5 text-white/80">
+                    <MapPin className="h-4 w-4 mt-0.5 text-[var(--color-gold-soft)] shrink-0" />
+                    <span>
+                      {t(SCHOOL.location)}
+                      <br />
+                      {t(SCHOOL.district)}
+                    </span>
+                  </li>
+                  <li className="flex items-center gap-2.5 text-white/80">
+                    <Phone className="h-4 w-4 text-[var(--color-gold-soft)] shrink-0" />
+                    <a href={`tel:${SCHOOL.contact.replace(/\s/g, "")}`}>{SCHOOL.contact}</a>
+                  </li>
+                  <li className="flex items-center gap-2.5 text-white/80">
+                    <Mail className="h-4 w-4 text-[var(--color-gold-soft)] shrink-0" />
+                    <a href={`mailto:${SCHOOL.email}`} className="break-all">
+                      {SCHOOL.email}
+                    </a>
+                  </li>
+                </ul>
+              </div>
 
-          {/* Newsletter */}
-          <div className="lg:col-span-3">
-            <h4>{t("Newsletter")}</h4>
-            <p className="text-sm text-white/75 leading-relaxed mb-3">
-              {t("Subscribe for school notices, exam routines, and event updates.")}
-            </p>
-            <form onSubmit={onSubscribe} className="flex flex-col sm:flex-row gap-2">
-              <input
-                type="email"
-                required
-                placeholder={t("Your email")}
-                className="flex-1 bg-white/10 text-white placeholder-white/50 border border-white/20 rounded-full px-4 py-2.5 text-sm focus:outline-none focus:border-[var(--color-gold-soft)] focus:bg-white/15 transition"
-                style={{ fontFamily: "var(--font-sans)" }}
-              />
-              <button
-                type="submit"
-                className="bg-[var(--gradient-gold)] text-white px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-widest transition hover:brightness-110 active:scale-[0.98]"
-                style={{
-                  background: "var(--gradient-gold)",
-                  fontFamily: "var(--font-sans)",
-                  letterSpacing: "0.12em",
-                }}
-              >
-                {t("Join")}
-              </button>
-            </form>
+              {/* Newsletter */}
+              <div>
+                <h4>{t("Newsletter")}</h4>
+                <p className="text-sm text-white/75 leading-relaxed mb-3">
+                  {t("Subscribe for school notices, exam routines, and event updates.")}
+                </p>
+                <form onSubmit={onSubscribe} className="flex flex-col sm:flex-row gap-2">
+                  <input
+                    type="email"
+                    required
+                    placeholder={t("Your email")}
+                    className="flex-1 bg-white/10 text-white placeholder-white/50 border border-white/20 rounded-full px-4 py-2.5 text-sm focus:outline-none focus:border-[var(--color-gold-soft)] focus:bg-white/15 transition"
+                    style={{ fontFamily: "var(--font-sans)" }}
+                  />
+                  <button
+                    type="submit"
+                    className="bg-[var(--gradient-gold)] text-white px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-widest transition hover:brightness-110 active:scale-[0.98]"
+                    style={{
+                      background: "var(--gradient-gold)",
+                      fontFamily: "var(--font-sans)",
+                      letterSpacing: "0.12em",
+                    }}
+                  >
+                    {t("Join")}
+                  </button>
+                </form>
+              </div>
+            </div>
+
+            <div className="footer-map-panel">
+              <div className="footer-map-copy">
+                <span className="footer-map-kicker">{t("Visit Campus")}</span>
+                <h4>{t("Radiant Location")}</h4>
+                <p>
+                  {t(SCHOOL.location)}, {t(SCHOOL.district)}
+                </p>
+              </div>
+              <div className="footer-map-frame">
+                <iframe
+                  src={SCHOOL.mapEmbed}
+                  title={t("Radiant Secondary School map")}
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  allowFullScreen
+                />
+              </div>
+            </div>
           </div>
         </div>
 
         <div className="footer-bottom flex flex-col md:flex-row items-center justify-between gap-3 text-center md:text-left">
-          <span>© {new Date().getFullYear()} {t("Shree Bhuwaneshwori Secondary School")}. {t("All rights reserved.")}</span>
+          <span>&copy; {new Date().getFullYear()} {t("Radiant Secondary School")}. {t("All rights reserved.")}</span>
           <span className="uppercase tracking-[0.22em] text-[var(--color-gold-soft)] text-[11px] font-bold">
-            {t("Discipline · Knowledge · Service")}
+            {t("Quality / Confidence / Character")}
           </span>
         </div>
       </div>

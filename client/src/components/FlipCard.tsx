@@ -31,7 +31,7 @@ export default function FlipCard({
 
   return (
     <div
-      className="flip-card-shell w-full h-[230px] sm:h-[300px] lg:h-[320px] perspective-1000 cursor-pointer group"
+      className="flip-card-shell w-full h-[230px] sm:h-[260px] lg:h-[270px] perspective-1000 cursor-pointer group"
       onClick={toggleFlip}
       onKeyDown={handleKeyDown}
       onMouseEnter={() => {
@@ -55,7 +55,7 @@ export default function FlipCard({
         }`}
       >
         {/* Front Side */}
-        <div className="flip-card-face flip-card-front absolute inset-0 w-full h-full backface-hidden rounded-2xl border border-border shadow-md bg-card p-5 sm:p-6 flex flex-col justify-between overflow-hidden">
+        <div className="flip-card-face flip-card-front absolute inset-0 w-full h-full backface-hidden rounded-2xl border border-border shadow-md bg-card p-5 sm:p-6 flex flex-col overflow-hidden">
           {/* Decorative Gold Corner */}
           <div className="flip-card-corner absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-transparent to-secondary/10 rounded-bl-full pointer-events-none" />
           
@@ -76,7 +76,7 @@ export default function FlipCard({
             </div>
           </div>
 
-          <div className="flip-card-action flex items-center gap-1.5 text-xs font-semibold text-secondary group-hover:gap-2.5 transition-all">
+          <div className="flip-card-action mt-5 flex items-center gap-1.5 text-xs font-semibold text-secondary group-hover:gap-2.5 transition-all">
             <span>Explore Details</span>
             <ChevronRight className="w-3.5 h-3.5" />
           </div>
@@ -97,7 +97,7 @@ export default function FlipCard({
           </div>
 
           <div className="hidden sm:block text-xs font-sans tracking-wider text-secondary font-semibold uppercase border-t border-white/10 pt-3">
-            Shree Bhuwaneshwori Academic Program
+            Radiant Academic Program
           </div>
         </div>
       </div>

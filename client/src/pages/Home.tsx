@@ -1,5 +1,4 @@
 import { Link } from "wouter";
-import { toast } from "sonner";
 import {
   ArrowRight,
   Award,
@@ -23,10 +22,6 @@ import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function Home() {
   const { t } = useLanguage();
-
-  const apply = () => {
-    toast.info(t("Online admission opens soon. Thank you for your interest."));
-  };
 
   return (
     <>
@@ -86,7 +81,7 @@ export default function Home() {
               >
                 Welcome to{" "}
                 <span className="text-shimmer" style={{ backgroundSize: "200% 100%" }}>
-                  Shree Bhuwaneshwori
+                  Radiant
                 </span>{" "}
                 Secondary School
               </h1>
@@ -109,9 +104,9 @@ export default function Home() {
                 className="mt-9 flex flex-wrap items-center justify-start gap-4 anim-fade-up"
                 style={{ animationDelay: "110ms" }}
               >
-                <button onClick={apply} className="btn-gold shine">
+                <Link href="/apply" className="btn-gold shine">
                   Apply Now <ArrowRight className="h-4 w-4" />
-                </button>
+                </Link>
                 <Link
                   href="/about"
                   className="btn-ghost"
@@ -132,15 +127,15 @@ export default function Home() {
               >
                 <span className="inline-flex items-center gap-2 hover:text-secondary transition-colors duration-200">
                   <Award className="h-4 w-4 text-secondary" />
-                  EST. 2036 BS
+                  EST. 2057 BS
                 </span>
                 <span className="inline-flex items-center gap-2 hover:text-secondary transition-colors duration-200">
                   <Building2 className="h-4 w-4 text-secondary" />
-                  BEDKOT-6, KANCHANPUR
+                  MNR, KANCHANPUR
                 </span>
                 <span className="inline-flex items-center gap-2 hover:text-secondary transition-colors duration-200">
                   <Compass className="h-4 w-4 text-secondary animate-spin-slow" />
-                  DISCIPLINE · KNOWLEDGE · SERVICE
+                  QUALITY · CONFIDENCE · CHARACTER
                 </span>
               </div>
             </div>
@@ -154,8 +149,9 @@ export default function Home() {
                 <div className="image-frame hover-zoom pulse-gold">
                   <img
                     src={ASSETS.hero}
-                    alt="Bhuwaneshwori students at morning assembly"
+                    alt="Radiant Secondary School campus building"
                     className="w-full h-[340px] sm:h-[400px] lg:h-[480px] object-cover"
+                    style={{ objectPosition: "center center" }}
                   />
                 </div>
                 {/* Floating credential pill */}
@@ -179,7 +175,7 @@ export default function Home() {
                         lineHeight: 1.1,
                       }}
                     >
-                      45+ Years
+                      25+ Years
                     </div>
                     <div
                       style={{
@@ -191,7 +187,7 @@ export default function Home() {
                         fontWeight: 700,
                       }}
                     >
-                      Of Quiet Service
+                      Of Quality Education
                     </div>
                   </div>
                 </div>
@@ -219,13 +215,13 @@ export default function Home() {
             <div className="image-frame hover-zoom">
               <img
                 src={ASSETS.classroom}
-                alt="A classroom at Bhuwaneshwori"
+                alt="A classroom at Radiant"
                 className="w-full h-[360px] sm:h-[440px] lg:h-[520px] object-cover"
               />
             </div>
           </div>
           <div className="lg:col-span-6 reveal-right">
-            <span className="eyebrow-left">About Bhuwaneshwori</span>
+            <span className="eyebrow-left">About Radiant</span>
             <h2 className="section-heading mt-4">
               A community-rooted school where{" "}
               <em
@@ -251,17 +247,18 @@ export default function Home() {
             </h2>
             <p className="section-lead mt-5">
               Established in {SCHOOL.established} ({SCHOOL.establishedAd}),
-              Shree Bhuwaneshwori Secondary School has spent more than four
-              decades guiding the children of Shishaiya and the wider Bedkot
-              Municipality. Our culture combines classroom discipline with the
-              warmth of a close community — students learn through lectures,
-              projects, sports, and cultural programmes that build capable,
-              cooperative, and responsible young people.
+              Radiant Secondary School is a modern academic institution founded
+              by experienced and dedicated academicians in 2057 B.S. It began
+              with Ten Plus Two programs in Science and Management, then
+              expanded school-level education from Play Group to Grade 10 in
+              2073 B.S. to make quality English-medium education accessible in
+              Sudurpaschim Province.
             </p>
             <p className="section-lead mt-4">
-              The school takes its name and spirit from the goddess
-              Bhuwaneshwori — a reminder that knowledge, when offered as
-              service, is its own form of devotion.
+              Today RSS serves around 1300 learners from PG to Grade XII, with
+              student-centred teaching, disciplined monitoring, scholarships,
+              practical labs, library resources, counselling, sports, cafeteria,
+              multimedia learning, and educational tours.
             </p>
 
             <div className="mt-8 grid sm:grid-cols-2 gap-3.5 stagger reveal">
@@ -319,8 +316,8 @@ export default function Home() {
       >
         <div className="container">
           <div className="text-center max-w-2xl mx-auto reveal">
-            <span className="eyebrow-pill">Why Bhuwaneshwori</span>
-            <h2 className="section-title mt-5">Why Choose Bhuwaneshwori?</h2>
+            <span className="eyebrow-pill">Why Radiant</span>
+            <h2 className="section-title mt-5">Why Choose Radiant?</h2>
             <p
               className="mt-5 mx-auto"
               style={{
@@ -353,8 +350,8 @@ export default function Home() {
               {
                 icon: <Trophy className="h-6 w-6" />,
                 title: "SEE Track Record",
-                desc:
-                  "Consistent, dependable secondary results across science, mathematics, language, and social sciences.",
+                  desc:
+                  "A proven record in SEE and NEB examinations, with impressive results from the earliest batches.",
               },
               {
                 icon: <HeartHandshake className="h-6 w-6" />,
@@ -365,8 +362,8 @@ export default function Home() {
               {
                 icon: <ShieldCheck className="h-6 w-6" />,
                 title: "Safe Environment",
-                desc:
-                  "A secure, respectful campus with caring staff watching over every student's wellbeing.",
+                  desc:
+                  "A student-friendly, well monitored environment with clear routines and close academic guidance.",
               },
               {
                 icon: <Users2 className="h-6 w-6" />,
@@ -501,7 +498,7 @@ export default function Home() {
                   day: "05",
                   month: "Jun",
                   tag: "Cultural",
-                  title: "Annual cultural programme — Bhuwaneshwori Mahotsav",
+                  title: "Annual cultural programme — Radiant Annual Programme",
                   desc: "A full day of music, dance, and student performances. Guardians cordially invited.",
                 },
                 {
@@ -509,7 +506,7 @@ export default function Home() {
                   month: "May",
                   tag: "Sports",
                   title: "Inter-house athletics meet results announced",
-                  desc: "Congratulations to Sagarmatha House for retaining the overall championship.",
+                  desc: "Congratulations to Radiant House for retaining the overall championship.",
                 },
               ].map((n) => (
                 <div key={n.title} className="notice-row hover-lift">
@@ -616,7 +613,7 @@ export default function Home() {
               {t("Our Achievement")}
             </span>
             <h2 className="section-title text-white mt-5">
-              {t("Four decades of community impact")}
+              {t("Two decades of community impact")}
             </h2>
             <p
               className="mt-5 mx-auto"
@@ -638,7 +635,7 @@ export default function Home() {
                 <Users2 className="h-6 w-6" />
               </div>
               <div className="stat-number">
-                <AnimatedCounter value={1200} suffix="+" />
+                <AnimatedCounter value={1300} suffix="+" />
               </div>
               <p>{t("Students Enrolled")}</p>
             </div>
@@ -658,7 +655,7 @@ export default function Home() {
                 <Award className="h-6 w-6" />
               </div>
               <div className="stat-number">
-                <AnimatedCounter value={45} suffix="+" />
+                <AnimatedCounter value={25} suffix="+" />
               </div>
               <p>{t("Years of Excellence")}</p>
             </div>
@@ -701,18 +698,19 @@ export default function Home() {
         <div className="gallery-slider-wrapper">
           <div className="gallery-slider">
             {[
-              { img: ASSETS.classroom, caption: "Classroom Learning" },
-              { img: ASSETS.activity, caption: "Student Activity" },
               { img: ASSETS.campus, caption: "School Campus" },
-              { img: ASSETS.hero, caption: "Morning Assembly" },
-              { img: ASSETS.activity, caption: "Cultural Programme" },
+              { img: ASSETS.classroom, caption: "Student Tour" },
+              { img: ASSETS.activity, caption: "Student Activity" },
+              { img: ASSETS.activity2, caption: "School Programme" },
+              { img: ASSETS.activity3, caption: "Campus Moment" },
+              { img: ASSETS.event, caption: "Event Memory" },
               // duplicated for seamless loop
-              { img: ASSETS.classroom, caption: "Classroom Learning" },
-              { img: ASSETS.activity, caption: "Student Activity" },
               { img: ASSETS.campus, caption: "School Campus" },
-              { img: ASSETS.hero, caption: "Morning Assembly" },
-              { img: ASSETS.classroom, caption: "Focused Study" },
-              { img: ASSETS.activity, caption: "Cultural Programme" },
+              { img: ASSETS.classroom, caption: "Student Tour" },
+              { img: ASSETS.activity, caption: "Student Activity" },
+              { img: ASSETS.activity2, caption: "School Programme" },
+              { img: ASSETS.activity3, caption: "Campus Moment" },
+              { img: ASSETS.event, caption: "Event Memory" },
             ].map((s, i) => (
               <div className="gallery-slide" key={i}>
                 <img src={s.img} alt={s.caption} />
@@ -748,14 +746,14 @@ export default function Home() {
                 letterSpacing: "-0.01em",
               }}
             >
-              Begin a confident academic journey in Bedkot.
+              Begin a confident academic journey in Mahendranagar.
             </h2>
             <p
               className="mt-4 text-white/85 max-w-2xl"
               style={{ fontFamily: "var(--font-sans)", fontSize: "1.0625rem", lineHeight: 1.65 }}
             >
               Visit our campus at {SCHOOL.location}, meet our teachers, and learn
-              how Bhuwaneshwori can shape your child's school years with
+              how Radiant can shape your child's school years with
               discipline, knowledge, and care.
             </p>
           </div>

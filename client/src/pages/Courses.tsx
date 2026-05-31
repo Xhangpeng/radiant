@@ -13,15 +13,24 @@ import {
 } from "lucide-react";
 import { ASSETS, SCHOOL } from "@/const";
 import { Link } from "wouter";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CourseDetailsModal from "@/components/CourseDetailsModal";
 import EnrollmentModal from "@/components/EnrollmentModal";
 import { useLanguage } from "@/contexts/LanguageContext";
 
-type CourseLevel = "all" | "early" | "primary" | "lower_sec" | "secondary" | "higher_sec";
+type CourseLevel =
+  | "all"
+  | "school"
+  | "plus_two"
+  | "early"
+  | "primary"
+  | "lower_sec"
+  | "secondary"
+  | "higher_sec";
 
 interface CourseItem {
   id: string;
+  section: "school" | "plus_two";
   level: string;
   levelName: string;
   title: string;
@@ -47,6 +56,7 @@ export default function Courses() {
   const courses: CourseItem[] = [
     {
       id: "001",
+      section: "school",
       level: "early",
       levelName: "Early Childhood Education",
       title: "Early Childhood Education",
@@ -55,7 +65,7 @@ export default function Courses() {
       maxStudents: "40 Max",
       icon: <Heart className="h-6 w-6 text-secondary" />,
       image: ASSETS.activity,
-      desc: "At our school’s Early Childhood Program, children begin their learning journey in a warm, loving environment. We focus on play-based learning, social habits, motor skill development, and basic language/cognitive concepts to build a strong, joyful foundation.",
+      desc: "At our school's Early Childhood Program, children begin their learning journey in a warm, loving environment. We focus on play-based learning, social habits, motor skill development, and basic language/cognitive concepts to build a strong, joyful foundation.",
       subjects: [
         "Nepali & English Alphabet Foundations",
         "Fun Numeracy & Shape Identification",
@@ -67,6 +77,7 @@ export default function Courses() {
     },
     {
       id: "002",
+      section: "school",
       level: "primary",
       levelName: "Primary Level",
       title: "Primary Level (Grades 1 - 5)",
@@ -87,6 +98,7 @@ export default function Courses() {
     },
     {
       id: "003",
+      section: "school",
       level: "lower_sec",
       levelName: "Lower Secondary Level",
       title: "Lower Secondary Level (Grades 6 - 8)",
@@ -108,6 +120,7 @@ export default function Courses() {
     },
     {
       id: "004",
+      section: "school",
       level: "secondary",
       levelName: "Secondary Level",
       title: "Secondary Level (Grades 9 - 10 · SEE)",
@@ -129,6 +142,31 @@ export default function Courses() {
     },
     {
       id: "005",
+      section: "plus_two",
+      level: "higher_sec",
+      levelName: "Higher Secondary (+2 Science)",
+      title: "+2 Science Program",
+      age: "17 - 19",
+      grades: "XI and XII",
+      maxStudents: "100 Max",
+      icon: <Laptop className="h-6 w-6 text-secondary" />,
+      image: ASSETS.campus,
+      desc: "Radiant's +2 Science stream follows the NEB curriculum with focused study in Physics, Chemistry, Biology, Mathematics or Social Studies, and Computer Science. The program is designed for students preparing for medical, engineering, agriculture, CSIT, and related higher studies.",
+      subjects: [
+        "Compulsory English & Nepali",
+        "Physics",
+        "Chemistry",
+        "Biology",
+        "Mathematics / Social Studies",
+        "Computer Science",
+        "Practical Lab Records",
+        "Entrance Preparation & Model Tests",
+      ],
+      focus: "Science Labs, NEB Preparation, Medical, Engineering, Agriculture & CSIT Pathways",
+    },
+    {
+      id: "006",
+      section: "plus_two",
       level: "higher_sec",
       levelName: "Higher Secondary (+2 Management)",
       title: "+2 Management Program",
@@ -136,18 +174,76 @@ export default function Courses() {
       grades: "XI and XII",
       maxStudents: "100 Max",
       icon: <Laptop className="h-6 w-6 text-secondary" />,
-      image: ASSETS.campus,
-      desc: "Our +2 Management program offers a strong academic foundation combined with practical learning to prepare students for the modern business world. Aligned with the National Examinations Board (NEB), we focus on accounting, economics, and business administration.",
+      image: ASSETS.classroom,
+      desc: "Radiant's +2 Management stream combines Accounting, Economics, Business Studies, Computer Science, and Social Studies/Life Skills to prepare students for commerce, management, entrepreneurship, and professional studies.",
       subjects: [
         "Compulsory English & Nepali",
-        "Principles of Accounting",
-        "Economics & Business Studies",
-        "Business Mathematics / Marketing",
-        "Computer Science / Social Studies",
+        "Compulsory Social Studies / Life Skills",
+        "Accountancy",
+        "Economics",
+        "Computer Science",
+        "Business Studies",
+        "Entrepreneurship & Project Work",
+        "Board Exam Practice",
       ],
-      focus: "Financial Literacy, Economics, Management, IT",
+      focus: "Accounting, Economics, Business Studies, IT & Entrepreneurship",
     },
   ];
+
+  const plusTwoStreams = [
+    {
+      code: "01",
+      eyebrow: "Science Stream",
+      title: "+2 Science",
+      icon: <Microscope className="h-6 w-6" />,
+      summary:
+        "A NEB-aligned science pathway for students preparing for medicine, engineering, agriculture, CSIT, pharmacy, nursing, forestry, and applied science studies.",
+      subjects: ["Physics", "Chemistry", "Biology", "Mathematics", "Computer Science", "English & Nepali"],
+      pathways: ["Medical", "Engineering", "CSIT", "Agriculture", "Health Science"],
+      image: ASSETS.campus,
+    },
+    {
+      code: "02",
+      eyebrow: "Management Stream",
+      title: "+2 Management",
+      icon: <Laptop className="h-6 w-6" />,
+      summary:
+        "A commerce and leadership pathway combining accounting, economics, business studies, computer science, and practical project work.",
+      subjects: ["Accountancy", "Economics", "Business Studies", "Computer Science", "Social Studies", "English & Nepali"],
+      pathways: ["BBA", "BBS", "CA Foundation", "Entrepreneurship", "Banking & IT"],
+      image: ASSETS.classroom,
+    },
+  ];
+
+  const plusTwoStrengths = [
+    {
+      title: "Subject-Specialist Faculty",
+      body: "Experienced +2 teachers guide students through NEB concepts, board preparation, and higher-study planning.",
+      icon: <GraduationCap className="h-5 w-5" />,
+    },
+    {
+      title: "Practice-Based Learning",
+      body: "Science labs, computer work, account projects, presentations, model exams, and regular feedback keep learning active.",
+      icon: <Compass className="h-5 w-5" />,
+    },
+    {
+      title: "Pathway Counselling",
+      body: "Students receive stream counselling for medical, engineering, CSIT, commerce, management, and professional studies.",
+      icon: <Trophy className="h-5 w-5" />,
+    },
+  ];
+
+  useEffect(() => {
+    const syncFilterFromHash = () => {
+      const hash = window.location.hash.replace("#", "");
+      if (hash === "school") setFilter("school");
+      if (hash === "plus-two" || hash === "plus2") setFilter("plus_two");
+    };
+
+    syncFilterFromHash();
+    window.addEventListener("hashchange", syncFilterFromHash);
+    return () => window.removeEventListener("hashchange", syncFilterFromHash);
+  }, []);
 
   const handleOpenDetails = (course: CourseItem) => {
     setSelectedCourse(course);
@@ -159,9 +255,11 @@ export default function Courses() {
     setIsEnrollOpen(true);
   };
 
-  const filteredCourses = courses.filter(
-    (c) => filter === "all" || c.level === filter
-  );
+  const filteredCourses = courses.filter((c) => {
+    if (filter === "all") return true;
+    if (filter === "school" || filter === "plus_two") return c.section === filter;
+    return c.level === filter;
+  });
 
   return (
     <>
@@ -217,7 +315,7 @@ export default function Courses() {
               animationDelay: "160ms",
             }}
           >
-            {t("Explore our comprehensive educational pathways, spanning from early childhood nurturing to high school board programs. Fully responsive, highly structured, and designed for growth.")}
+            {t("Explore Radiant's academic pathways from Play Group and school level through NEB +2 Science and Management streams, built around disciplined study, practical learning, and student-centred guidance.")}
           </p>
         </div>
 
@@ -256,11 +354,12 @@ export default function Courses() {
         <div className="flex flex-nowrap sm:flex-wrap items-center justify-start sm:justify-center gap-2 mb-10 sm:mb-14 border-b border-slate-200/60 pb-3 overflow-x-auto no-scrollbar -mx-4 px-4 sm:mx-0 sm:px-0">
           {[
             { id: "all", label: "All Levels" },
+            { id: "school", label: "School" },
+            { id: "plus_two", label: "+2" },
             { id: "early", label: "Early Childhood" },
             { id: "primary", label: "Primary" },
             { id: "lower_sec", label: "Lower Secondary" },
             { id: "secondary", label: "Secondary" },
-            { id: "higher_sec", label: "Higher Secondary" },
           ].map((tab) => (
             <button
               key={tab.id}
@@ -273,6 +372,128 @@ export default function Courses() {
             </button>
           ))}
         </div>
+
+        {(filter === "all" || filter === "plus_two") && (
+          <div id="plus-two" className="mb-14 rounded-[28px] border border-slate-200 bg-white shadow-xl shadow-slate-900/5 overflow-hidden">
+            <div className="grid lg:grid-cols-[0.9fr_1.1fr]">
+              <div
+                className="relative min-h-[360px] p-7 sm:p-10 lg:p-12 text-white"
+                style={{ background: "linear-gradient(135deg, #071c38 0%, #0f4c5c 58%, #c59b27 140%)" }}
+              >
+                <div
+                  aria-hidden
+                  className="absolute inset-0 opacity-20 mix-blend-overlay"
+                  style={{
+                    backgroundImage: `url(${ASSETS.campus})`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                  }}
+                />
+                <div className="relative z-10 flex h-full flex-col justify-between gap-10">
+                  <div>
+                    <span className="eyebrow-pill bg-white/10 text-white border-white/20">
+                      {t("Radiant +2 College Wing")}
+                    </span>
+                    <h3 className="mt-6 font-display text-[clamp(2rem,1.4rem+2.4vw,4rem)] font-black leading-none">
+                      {t("Science & Management with clear pathways.")}
+                    </h3>
+                    <p className="mt-6 max-w-xl text-white/84 leading-8">
+                      {t("Radiant separates the college wing from school-level courses with clear stream identity, practical learning, and career direction for Science and Management students.")}
+                    </p>
+                  </div>
+
+                  <div className="grid grid-cols-3 gap-3">
+                    {[
+                      { value: "2", label: "Streams" },
+                      { value: "100", label: "Seats Each" },
+                      { value: "NEB", label: "Curriculum" },
+                    ].map((stat) => (
+                      <div key={stat.label} className="rounded-2xl border border-white/15 bg-white/10 p-4 backdrop-blur">
+                        <p className="text-2xl font-black">{stat.value}</p>
+                        <p className="mt-1 text-[10px] font-bold uppercase tracking-[0.16em] text-white/70">
+                          {t(stat.label)}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <div className="p-5 sm:p-7 lg:p-8">
+                <div className="grid gap-4">
+                  {plusTwoStreams.map((stream) => (
+                    <article key={stream.title} className="rounded-3xl border border-slate-100 bg-slate-50/70 p-5 sm:p-6 hover-lift">
+                      <div className="grid gap-5 md:grid-cols-[150px_1fr]">
+                        <div className="relative overflow-hidden rounded-2xl bg-white">
+                          <img src={stream.image} alt={stream.title} className="h-40 w-full object-cover md:h-full" />
+                          <span className="absolute left-3 top-3 rounded-full bg-white/90 px-3 py-1 text-[10px] font-black text-primary">
+                            {stream.code}
+                          </span>
+                        </div>
+                        <div>
+                          <div className="flex flex-wrap items-center gap-3">
+                            <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary text-white">
+                              {stream.icon}
+                            </span>
+                            <div>
+                              <p className="text-[10px] font-black uppercase tracking-[0.18em] text-secondary">
+                                {t(stream.eyebrow)}
+                              </p>
+                              <h4 className="font-display text-2xl font-black text-[var(--color-navy)]">
+                                {t(stream.title)}
+                              </h4>
+                            </div>
+                          </div>
+                          <p className="mt-4 text-sm leading-7 text-slate-600">{t(stream.summary)}</p>
+                          <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                            <div>
+                              <p className="text-[10px] font-black uppercase tracking-[0.14em] text-slate-400">
+                                {t("Subject Cluster")}
+                              </p>
+                              <div className="mt-2 flex flex-wrap gap-2">
+                                {stream.subjects.slice(0, 4).map((subject) => (
+                                  <span key={subject} className="rounded-full bg-white px-3 py-1 text-[11px] font-bold text-slate-600">
+                                    {t(subject)}
+                                  </span>
+                                ))}
+                              </div>
+                            </div>
+                            <div>
+                              <p className="text-[10px] font-black uppercase tracking-[0.14em] text-slate-400">
+                                {t("Pathways")}
+                              </p>
+                              <div className="mt-2 flex flex-wrap gap-2">
+                                {stream.pathways.slice(0, 4).map((pathway) => (
+                                  <span key={pathway} className="rounded-full bg-primary/10 px-3 py-1 text-[11px] font-bold text-primary">
+                                    {t(pathway)}
+                                  </span>
+                                ))}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="grid gap-4 border-t border-slate-100 bg-[var(--color-cream)] p-5 sm:grid-cols-3 sm:p-7">
+              {plusTwoStrengths.map((item) => (
+                <div key={item.title} className="rounded-2xl bg-white p-5">
+                  <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-secondary/10 text-secondary">
+                    {item.icon}
+                  </span>
+                  <h4 className="mt-4 font-display text-lg font-black text-[var(--color-navy)]">
+                    {t(item.title)}
+                  </h4>
+                  <p className="mt-2 text-sm leading-6 text-slate-600">{t(item.body)}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* Course Cards Grid */}
         <div className="space-y-8 md:space-y-12">
@@ -321,6 +542,9 @@ export default function Courses() {
                   <div>
                     <span className="text-[10px] uppercase tracking-widest font-bold text-secondary font-sans block">
                       {t("Code")} {c.id} · {t(c.levelName)}
+                    </span>
+                    <span className="mt-1 inline-flex rounded-full bg-primary/10 px-2.5 py-1 text-[9px] font-black uppercase tracking-[0.12em] text-primary">
+                      {c.section === "plus_two" ? t("+2 Section") : t("School Section")}
                     </span>
                     <span className="text-xs text-slate-400 font-sans block mt-0.5">
                       {t("Target Age:")} {t(c.age)} | {t(c.grades)}
@@ -409,6 +633,30 @@ export default function Courses() {
         </div>
       </section>
 
+      {/* School and +2 Overview */}
+      <section className="container pb-12 md:pb-16">
+        <div className="grid gap-5 lg:grid-cols-2">
+          <div id="school" className="soft-card p-6 sm:p-8 hover-lift">
+            <span className="eyebrow-pill">{t("School Section")}</span>
+            <h3 className="mt-5 font-display text-2xl font-black text-[var(--color-navy)]">
+              {t("Play Group to Grade 10")}
+            </h3>
+            <p className="mt-4 leading-8 text-[var(--muted-foreground)]">
+              {t("The school section builds literacy, numeracy, science curiosity, technology habits, moral values, and SEE readiness through progressive levels from early childhood to Grade 10.")}
+            </p>
+          </div>
+          <div className="soft-card p-6 sm:p-8 hover-lift">
+            <span className="eyebrow-pill">{t("+2 Section")}</span>
+            <h3 className="mt-5 font-display text-2xl font-black text-[var(--color-navy)]">
+              {t("Science and Management Streams")}
+            </h3>
+            <p className="mt-4 leading-8 text-[var(--muted-foreground)]">
+              {t("Radiant's +2 section combines NEB curriculum, subject-specialist faculty, lab work, model examinations, counselling, and pathway preparation for medical, engineering, CSIT, commerce, and management studies.")}
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* CDC Standard Banner */}
       <section className="container py-12 md:py-16">
         <div className="cta-band grid md:grid-cols-12 gap-8 items-center hover-lift relative overflow-hidden">
@@ -439,7 +687,7 @@ export default function Courses() {
               className="mt-4 text-white/85 max-w-2xl"
               style={{ fontFamily: "var(--font-sans)", fontSize: "1.0625rem", lineHeight: 1.65 }}
             >
-              {t("Every level of our academic programs strictly follows the curriculum matrices set by the Ministry of Education, Nepal. We combine this standard with custom practical labs, IT exposure, and physical sports to ensure all-round student growth.")}
+            {t("Radiant follows national curriculum and NEB requirements, combining them with laboratories, IT exposure, counselling, extra tutorials, sports, and regular evaluation so students are ready for board examinations and higher studies.")}
             </p>
           </div>
           <div className="md:col-span-4 flex flex-wrap md:justify-end items-center gap-3">

@@ -130,7 +130,7 @@ export default function Apply() {
               animationDelay: "160ms",
             }}
           >
-            Begin your academic journey at Shree Bhuwaneshwori Secondary School. Complete the application form below and our admissions team will be in touch.
+            Begin your academic journey at Radiant Secondary School. Complete the application form below and our admissions team will be in touch.
           </p>
         </div>
 
@@ -174,7 +174,7 @@ export default function Apply() {
                   <div>
                     <h4 className="font-display font-bold text-primary text-base">Academic Offerings</h4>
                     <p className="text-slate-500 text-xs mt-1 leading-relaxed">
-                      Comprehensive courses from early childhood to +2 Higher Secondary level.
+                      Comprehensive courses from Play Group to Grade XII, including +2 Science and Management.
                     </p>
                   </div>
                 </div>
@@ -229,7 +229,7 @@ export default function Apply() {
                   </div>
                   <div>
                     <span className="text-[10px] uppercase tracking-wider text-white/60 block">Direct Helpline</span>
-                    <span className="text-sm font-bold text-white font-sans">+977-99-540116</span>
+                  <span className="text-sm font-bold text-white font-sans">099-525169</span>
                   </div>
                 </div>
               </div>
@@ -357,7 +357,7 @@ export default function Apply() {
                         required
                         value={form.address}
                         onChange={(e) => setForm({ ...form, address: e.target.value })}
-                        placeholder="Bedkot-6, Kanchanpur"
+                        placeholder="MNR, Kanchanpur"
                         className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-secondary transition font-sans text-sm bg-slate-50/50"
                       />
                     </div>
@@ -487,6 +487,7 @@ export default function Apply() {
                         <option value="Primary School (Grade 1 - 5)">Primary School (Grade 1 - 5)</option>
                         <option value="Lower Secondary (Grade 6 - 8)">Lower Secondary (Grade 6 - 8)</option>
                         <option value="Secondary School (Grade 9 - 10)">Secondary School (Grade 9 - 10)</option>
+                        <option value="+2 Science Stream">+2 Science Stream</option>
                         <option value="+2 Management Stream">+2 Management Stream</option>
                       </select>
                     </div>
@@ -507,7 +508,7 @@ export default function Apply() {
                   {/* Why do you want to join */}
                   <div className="space-y-2">
                     <label className="text-xs font-bold uppercase tracking-wider text-slate-500 font-sans">
-                      Why do you want to join Shree Bhuwaneshwori Secondary School?
+                      Why do you want to join Radiant Secondary School?
                     </label>
                     <textarea
                       rows={4}

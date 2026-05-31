@@ -4,7 +4,6 @@ import {
   Bell,
   BookOpen,
   Calendar,
-  Download,
   FileText,
   Megaphone,
   Phone,
@@ -29,12 +28,12 @@ export default function Notices() {
       publishedDate: "Baishakh 12, 2082 BS",
       content: {
         salutation: "To all Parents, Guardians, and Aspiring Students,",
-        introduction: "Shree Bhuwaneshwori Secondary School is pleased to announce that the online and physical admission registration for the upcoming academic session 2082 B.S. is officially open from today. We offer quality education, modern labs, and a student-centric environment from Early Childhood (ECD) to Grade 10, as well as +2 Management streams.",
+        introduction: "Radiant Secondary School is pleased to announce that online and physical admission registration for the upcoming academic session 2082 B.S. is open. We offer quality education from Play Group to Grade X, along with NEB +2 Science and Management streams.",
         bulletPoints: [
           "ECD & Primary School (Grades 1-5): Focusing on foundational cognitive skills, language literacy, and arts.",
           "Lower Secondary (Grades 6-8): Introducing computer science, physical sciences, and local social studies.",
           "Secondary School (Grades 9-10): Government approved curriculum specializing in the SEE Board Track.",
-          "+2 Management Stream (Grades 11-12): Featuring advanced accounting, economics, and business studies.",
+          "+2 Science and Management Streams (Grades XI-XII): Science, accounting, economics, business studies, and computer science combinations.",
         ],
         instructionsTitle: "Admission Procedure & Documents Required:",
         instructions: [
@@ -44,8 +43,8 @@ export default function Notices() {
           "Entrance evaluation exams will be held on a rolling basis every Friday at 10:00 AM.",
         ],
         closing: "For further details regarding fee structures and scholarships, please visit the administration block or contact the admission cell directly.",
-        signatoryName: "Devendra Bahadur Singh",
-        signatoryTitle: "Principal / Admission Controller",
+        signatoryName: "Surya Bahadur Chand",
+        signatoryTitle: "Principal, RSS",
       },
     },
     {
@@ -62,7 +61,7 @@ export default function Notices() {
           "Grades 1 to 5 (Primary): 7:30 AM to 9:30 AM (Oral evaluations and basic written tests).",
           "Grades 6 to 8 (Lower Secondary): 7:30 AM to 10:00 AM (Written exams).",
           "Grades 9 to 10 (Secondary SEE): 7:30 AM to 10:30 AM (Full board-standard examinations).",
-          "+2 Management (NEB): 7:00 AM to 10:00 AM (Comprehensive terminal papers).",
+          "+2 Science and Management (NEB): 7:00 AM to 10:00 AM (Comprehensive terminal papers).",
         ],
         instructionsTitle: "Crucial Exam Guidelines & Instructions:",
         instructions: [
@@ -78,14 +77,14 @@ export default function Notices() {
     },
     {
       id: 3,
-      title: "Annual cultural programme — Bhuwaneshwori Mahotsav",
+      title: "Annual cultural programme — Radiant Annual Programme",
       category: "event",
       date: "2082-03-05",
       refNo: "SBSS/EVE/2082/012",
       publishedDate: "Ashad 05, 2082 BS",
       content: {
-        salutation: "To the Entire Bedkot Community, Guardians, and Well-wishers,",
-        introduction: "We are thrilled to cordially invite you to our annual cultural festival, 'Bhuwaneshwori Mahotsav 2082'. This event showcases the diverse cultural heritage, artistic talents, and creative expressions of our students through dance, drama, poetry, and scientific exhibitions.",
+        salutation: "To the Entire Mahendranagar Community, Guardians, and Well-wishers,",
+        introduction: "We are thrilled to invite guardians and well-wishers to Radiant Annual Programme 2082. This event showcases the diverse cultural heritage, artistic talents, and creative expressions of students through dance, drama, poetry, quiz, debate, and scientific exhibitions.",
         bulletPoints: [
           "Traditional Dance Performances: Showcasing Tharu, Deuda, and local folk dance forms.",
           "Drama & Skits: Thought-provoking plays on social awareness and environmental conservation.",
@@ -100,7 +99,7 @@ export default function Notices() {
           "All guests are requested to be seated by 10:45 AM to welcome the chief guest.",
         ],
         closing: "Let us come together to support and encourage our children's creative achievements. We look forward to seeing you!",
-        signatoryName: "Devendra Bahadur Singh",
+        signatoryName: "Surya Bahadur Chand",
         signatoryTitle: "Principal / Festival Coordinator",
       },
     },
@@ -115,7 +114,7 @@ export default function Notices() {
         salutation: "To all Students, House Captains, and Physical Instructors,",
         introduction: "Following three days of intense competition, outstanding sportsmanship, and raw athletic display, the Annual Inter-House Athletics Meet 2082 has concluded. We extend our heartiest congratulations to all participants who gave their absolute best on the field.",
         bulletPoints: [
-          "Overall Champion Trophy: Sagarmatha House (Blue House) with a total of 142 points.",
+          "Overall Champion Trophy: Radiant House (Blue House) with a total of 142 points.",
           "Runner-Up Trophy: Laliguras House (Red House) with a total of 128 points.",
           "Best Male Athlete: Master Rohan Chaudhary (Class 10) - 3 Gold Medals (100m, 200m, Long Jump).",
           "Best Female Athlete: Miss Aarati Joshi (Class 9) - 2 Gold Medals, 1 Silver (400m, High Jump, Shot Put).",
@@ -140,7 +139,7 @@ export default function Notices() {
       publishedDate: "Baishakh 18, 2082 BS",
       content: {
         salutation: "To all Faculty Members, Administrative Staff, and Students,",
-        introduction: "This is to officially inform you that Shree Bhuwaneshwori Secondary School will remain closed on May 1 (Baishakh 18) on the auspicious occasion of International Workers' Day (Majdoor Divas / Labor Day).",
+        introduction: "This is to officially inform you that Radiant Secondary School will remain closed on May 1 (Baishakh 18) on the auspicious occasion of International Workers' Day (Majdoor Divas / Labor Day).",
         bulletPoints: [
           "There will be no physical or online classes conducted on this day.",
           "The administrative and admission inquiry office will also remain closed.",
@@ -153,7 +152,7 @@ export default function Notices() {
           "Transport services will operate on their standard morning and afternoon routes from tomorrow.",
         ],
         closing: "We wish all our dedicated staff and teachers a peaceful and happy Workers' Day!",
-        signatoryName: "Devendra Bahadur Singh",
+        signatoryName: "Surya Bahadur Chand",
         signatoryTitle: "Principal",
       },
     },
@@ -389,19 +388,6 @@ export default function Notices() {
               <strong>Administration</strong>
               <small>{SCHOOL.email}</small>
             </a>
-            <button
-              type="button"
-              onClick={() =>
-                window.alert(
-                  "The complete academic calendar PDF is being formatted and will be available soon."
-                )
-              }
-              className="notice-support-card"
-            >
-              <span><Download className="h-5 w-5" /></span>
-              <strong>Academic Calendar</strong>
-              <small>Download PDF when published</small>
-            </button>
           </div>
         </div>
       </section>

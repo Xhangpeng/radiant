@@ -1,26 +1,26 @@
 {
-  "short_name": "Bhuwaneshwori",
-  "name": "Shree Bhuwaneshwori Secondary School",
+  "short_name": "Radiant",
+  "name": "Radiant Secondary School",
   "description": "Official school app for notices, gallery, admissions, and contact information.",
   "id": "/",
   "scope": "/",
   "icons": [
     {
-      "src": "/manus-storage/pwa-icon-192.png",
+      "src": "/radiant-assets/logo.png",
       "type": "image/png",
       "sizes": "192x192",
       "purpose": "any maskable"
     },
     {
-      "src": "/manus-storage/pwa-icon-512.png",
+      "src": "/radiant-assets/logo.png",
       "type": "image/png",
       "sizes": "512x512",
       "purpose": "any maskable"
     }
   ],
   "start_url": "/",
-  "background_color": "#FAFBFC",
-  "theme_color": "#0A3B75",
+  "background_color": "#FBFDFF",
+  "theme_color": "#075ECB",
   "display": "standalone",
   "orientation": "portrait",
   "categories": ["education", "productivity"],

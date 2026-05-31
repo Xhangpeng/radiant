@@ -1,23 +1,23 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 720" role="img" aria-label="Bhuwaneshwori school app preview">
-  <rect width="540" height="720" fill="#fafbfc"/>
-  <rect width="540" height="190" fill="#0a3b75"/>
-  <path d="M0 160 C135 210 405 120 540 170 L540 230 L0 230 Z" fill="#072c54"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 720" role="img" aria-label="Radiant school app preview">
+  <rect width="540" height="720" fill="#fbfaf7"/>
+  <rect width="540" height="190" fill="#123e73"/>
+  <path d="M0 160 C135 210 405 120 540 170 L540 230 L0 230 Z" fill="#0f315c"/>
   <circle cx="76" cy="76" r="44" fill="#ffffff"/>
   <circle cx="76" cy="76" r="35" fill="#eef4fb"/>
-  <circle cx="76" cy="76" r="43" fill="none" stroke="#c59b27" stroke-width="5"/>
-  <text x="138" y="70" font-family="Georgia, serif" font-size="28" font-weight="700" fill="#ffffff">BHUWANESHWORI</text>
-  <text x="140" y="101" font-family="Arial, sans-serif" font-size="14" font-weight="700" letter-spacing="4" fill="#e8c97e">SECONDARY SCHOOL</text>
+  <circle cx="76" cy="76" r="43" fill="none" stroke="#f2b43b" stroke-width="5"/>
+  <text x="138" y="70" font-family="Georgia, serif" font-size="28" font-weight="700" fill="#ffffff">RADIANT</text>
+  <text x="140" y="101" font-family="Arial, sans-serif" font-size="14" font-weight="700" letter-spacing="4" fill="#f7d989">SECONDARY SCHOOL</text>
   <rect x="42" y="244" width="456" height="124" rx="28" fill="#ffffff" stroke="#e6edf5"/>
-  <text x="72" y="295" font-family="Georgia, serif" font-size="30" font-weight="700" fill="#0a3b75">Notices, gallery</text>
-  <text x="72" y="331" font-family="Georgia, serif" font-size="30" font-weight="700" fill="#0a3b75">and admissions</text>
-  <circle cx="438" cy="306" r="30" fill="#c59b27"/>
+  <text x="72" y="295" font-family="Georgia, serif" font-size="30" font-weight="700" fill="#123e73">Notices, gallery</text>
+  <text x="72" y="331" font-family="Georgia, serif" font-size="30" font-weight="700" fill="#123e73">and admissions</text>
+  <circle cx="438" cy="306" r="30" fill="#f2b43b"/>
   <path d="M427 306 L437 316 L452 294" fill="none" stroke="#ffffff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
   <rect x="42" y="398" width="210" height="150" rx="24" fill="#ffffff" stroke="#e6edf5"/>
   <rect x="288" y="398" width="210" height="150" rx="24" fill="#ffffff" stroke="#e6edf5"/>
-  <rect x="68" y="430" width="58" height="58" rx="18" fill="#0a3b75"/>
-  <rect x="314" y="430" width="58" height="58" rx="18" fill="#c59b27"/>
-  <text x="68" y="520" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#0a3b75">Latest Notices</text>
-  <text x="314" y="520" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#0a3b75">Campus Life</text>
-  <rect x="42" y="590" width="456" height="70" rx="35" fill="#0a3b75"/>
-  <text x="270" y="634" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#ffffff">Discipline  Knowledge  Service</text>
+  <rect x="68" y="430" width="58" height="58" rx="18" fill="#123e73"/>
+  <rect x="314" y="430" width="58" height="58" rx="18" fill="#f2b43b"/>
+  <text x="68" y="520" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#123e73">Latest Notices</text>
+  <text x="314" y="520" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#123e73">Campus Life</text>
+  <rect x="42" y="590" width="456" height="70" rx="35" fill="#123e73"/>
+  <text x="270" y="634" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#ffffff">Quality  Confidence  Character</text>
 </svg>

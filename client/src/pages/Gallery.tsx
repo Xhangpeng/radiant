@@ -9,7 +9,7 @@ import {
   X,
 } from "lucide-react";
 
-type GalleryCategory = "all" | "campus" | "academic" | "sports" | "cultural";
+type GalleryCategory = "all" | "campus" | "learning" | "activities" | "events";
 
 interface GalleryItem {
   id: number;
@@ -24,196 +24,40 @@ export default function Gallery() {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
   const galleryItems: GalleryItem[] = [
-    // Campus & Events (including Cover images)
-    {
-      id: 1,
-      src: "/manus-storage/COVER_GAL_1ef80383.jpg",
-      category: "campus",
-      title: "Main Campus Gateway",
-      desc: "Welcome arch of Shree Bhuwaneshwori Secondary School, greeting students daily.",
-    },
-    {
-      id: 2,
-      src: "/manus-storage/COVER_GAL1_06481d62.jpg",
-      category: "campus",
-      title: "Annual Day Celebrations",
-      desc: "Distinguished guests and guardians gathering during our annual school assembly.",
-    },
-    {
-      id: 3,
-      src: "/manus-storage/COVER_GAL2_707e74c6.jpg",
-      category: "campus",
-      title: "Parent-Teacher Conference",
-      desc: "Collaborative session focused on students' holistic growth and development.",
-    },
-    {
-      id: 4,
-      src: "/manus-storage/COVER_GAL3_552965d9.jpg",
-      category: "campus",
-      title: "Community Outreach",
-      desc: "School representatives interacting with local leaders for educational alignment.",
-    },
-    {
-      id: 5,
-      src: "/manus-storage/COVER_GAL4_d7a71d54.jpg",
-      category: "campus",
-      title: "Assembly Ground Morning",
-      desc: "Students assembling for the morning national anthem and school prayer.",
-    },
+    { id: 1, src: "/radiant-gallery/school background.jpg", category: "campus", title: "Radiant School Campus", desc: "The school environment where everyday learning, discipline, and student life come together." },
+    { id: 2, src: "/radiant-gallery/img1.jpg", category: "campus", title: "Campus Moment 01", desc: "A selected glimpse from Radiant Secondary School's daily campus life." },
+    { id: 3, src: "/radiant-gallery/img2.jpg", category: "campus", title: "Campus Moment 02", desc: "Students and school spaces captured as part of the Radiant learning environment." },
+    { id: 4, src: "/radiant-gallery/img3.jpg", category: "campus", title: "Campus Moment 03", desc: "A clean view of school life, movement, and togetherness on campus." },
+    { id: 5, src: "/radiant-gallery/img4.jpg", category: "campus", title: "Campus Moment 04", desc: "A memory from the school premises showing the spirit of Radiant." },
+    { id: 6, src: "/radiant-gallery/img5.jpg", category: "campus", title: "Campus Moment 05", desc: "Everyday school life presented with a focus on student presence and atmosphere." },
+    { id: 7, src: "/radiant-gallery/img6.jpg", category: "campus", title: "Campus Moment 06", desc: "A visual record of Radiant's active and welcoming school setting." },
 
-    // Academics & Labs
-    {
-      id: 6,
-      src: "/manus-storage/GAL1_3e9e7f22.jpg",
-      category: "academic",
-      title: "Interactive Math Session",
-      desc: "Students engaging in hands-on geometry exercises in the primary classroom.",
-    },
-    {
-      id: 7,
-      src: "/manus-storage/GAL2_920b1ef6.jpg",
-      category: "academic",
-      title: "Computer Literacy Lab",
-      desc: "Lower secondary students practicing basic coding and keyboard skills.",
-    },
-    {
-      id: 8,
-      src: "/manus-storage/GAL3_baf6c138.jpg",
-      category: "academic",
-      title: "Group Science Discussion",
-      desc: "Class 9 students collaborating on physics project models in groups.",
-    },
-    {
-      id: 9,
-      src: "/manus-storage/GAL4_e5c15a3b.jpg",
-      category: "academic",
-      title: "English Reading Hour",
-      desc: "Nurturing literature appreciation through storytelling and guided reading.",
-    },
-    {
-      id: 10,
-      src: "/manus-storage/GAL5_812e05c7.jpg",
-      category: "academic",
-      title: "Creative Arts Class",
-      desc: "Primary students painting and sketching during their weekly arts module.",
-    },
-    {
-      id: 11,
-      src: "/manus-storage/GAL10_78761516.jpg",
-      category: "academic",
-      title: "Senior Biology Lab",
-      desc: "Secondary level students observing plant cell slides under microscopes.",
-    },
-    {
-      id: 12,
-      src: "/manus-storage/GAL11_a95d675b.jpg",
-      category: "academic",
-      title: "NEB Class Presentation",
-      desc: "Secondary students delivering an interactive class project presentation.",
-    },
-    {
-      id: 13,
-      src: "/manus-storage/GAL16_81b24861.jpg",
-      category: "academic",
-      title: "Chemistry Lab Experiment",
-      desc: "Observing chemical reactions under the safe guidance of science faculty.",
-    },
-    // Real Uploaded Additions
-    {
-      id: 14,
-      src: "/manus-storage/GAL14_9a5105b1.jpg",
-      category: "academic",
-      title: "Interactive Classroom Reading",
-      desc: "A view of the lively student study circles and collaborative reading desks.",
-    },
-    {
-      id: 15,
-      src: "/manus-storage/GAL12_749cffd7.jpg",
-      category: "academic",
-      title: "Practical Learning Desk",
-      desc: "Hands-on academic projects keeping our primary students deeply engaged.",
-    },
+    { id: 8, src: "/radiant-gallery/img7.jpg", category: "learning", title: "Learning Moment 01", desc: "A classroom-focused memory from Radiant's academic journey." },
+    { id: 9, src: "/radiant-gallery/img8.jpg", category: "learning", title: "Learning Moment 02", desc: "Students growing through guided study, participation, and practical learning." },
+    { id: 10, src: "/radiant-gallery/img9.jpg", category: "learning", title: "Learning Moment 03", desc: "A thoughtful academic moment from the school gallery collection." },
+    { id: 11, src: "/radiant-gallery/img10.jpg", category: "learning", title: "Learning Moment 04", desc: "A snapshot of classroom energy and student engagement." },
+    { id: 12, src: "/radiant-gallery/img11.jpg", category: "learning", title: "Learning Moment 05", desc: "Radiant's learning culture shown through focused student activity." },
+    { id: 13, src: "/radiant-gallery/img12.jpg", category: "learning", title: "Learning Moment 06", desc: "A school memory connected with academic practice and classroom participation." },
+    { id: 14, src: "/radiant-gallery/img13.jpg", category: "learning", title: "Learning Moment 07", desc: "Students participating in a meaningful academic moment at school." },
+    { id: 15, src: "/radiant-gallery/img14.jpg", category: "learning", title: "Learning Moment 08", desc: "A gallery image reflecting study, attention, and guided growth." },
 
-    // Sports & Co-curricular
-    {
-      id: 16,
-      src: "/manus-storage/GAL6_be9902c0.jpg",
-      category: "sports",
-      title: "Annual Football Tournament",
-      desc: "The school team competing in the regional inter-school sports cup.",
-    },
-    {
-      id: 17,
-      src: "/manus-storage/GAL7_fd43468f.jpg",
-      category: "sports",
-      title: "Volleyball Practice",
-      desc: "Afternoon training session on the newly renovated school sand court.",
-    },
-    {
-      id: 18,
-      src: "/manus-storage/GAL8_55e2cb51.jpg",
-      category: "sports",
-      title: "Table Tennis Finals",
-      desc: "Exciting indoor table tennis championship match between senior houses.",
-    },
-    {
-      id: 19,
-      src: "/manus-storage/GAL9_6b505f5a.jpg",
-      category: "sports",
-      title: "Sprint Athletics Event",
-      desc: "Students participating in the 100m dash during our annual sports meet.",
-    },
-    {
-      id: 20,
-      src: "/manus-storage/GAL12_749cffd7.jpg",
-      category: "sports",
-      title: "Badminton Tournament",
-      desc: "Girls' doubles final match, showcasing sportsmanship and focus.",
-    },
-    {
-      id: 21,
-      src: "/manus-storage/GAL13_55850aa8.jpg",
-      category: "sports",
-      title: "Interschool Cricket Match",
-      desc: "School cricket captain leading the team on the Bedkot municipal pitch.",
-    },
-    {
-      id: 22,
-      src: "/manus-storage/GAL14_9a5105b1.jpg",
-      category: "sports",
-      title: "Yoga & Mindfulness",
-      desc: "Weekly physical wellness session focusing on posture and breathing.",
-    },
+    { id: 16, src: "/radiant-gallery/img15.jpg", category: "activities", title: "Activity Moment 01", desc: "A co-curricular memory from Radiant's broader school experience." },
+    { id: 17, src: "/radiant-gallery/img16.jpg", category: "activities", title: "Activity Moment 02", desc: "Students taking part in activities that build confidence beyond textbooks." },
+    { id: 18, src: "/radiant-gallery/img18.jpg", category: "activities", title: "Activity Moment 03", desc: "A lively school activity captured as part of Radiant's student development." },
+    { id: 19, src: "/radiant-gallery/img20.jpg", category: "activities", title: "Activity Moment 04", desc: "Co-curricular participation strengthening teamwork, discipline, and expression." },
+    { id: 20, src: "/radiant-gallery/img21.jpg", category: "activities", title: "Activity Moment 05", desc: "A memorable student activity from the Radiant school community." },
+    { id: 21, src: "/radiant-gallery/img22.jpg", category: "activities", title: "Activity Moment 06", desc: "A school life image highlighting participation and shared experience." },
+    { id: 22, src: "/radiant-gallery/img23.jpg", category: "activities", title: "Activity Moment 07", desc: "An active moment from school programs and student engagement." },
 
-    // Cultural & Celebrations
-    {
-      id: 23,
-      src: "/manus-storage/GAL15_8d8cbb12.jpg",
-      category: "cultural",
-      title: "Traditional Dance Performance",
-      desc: "Primary students performing Tharu and Deuda dances on Cultural Day.",
-    },
-    {
-      id: 24,
-      src: "/manus-storage/GAL17_3e50cff8.jpg",
-      category: "cultural",
-      title: "Saraswati Puja Celebrations",
-      desc: "Offering prayers to the Goddess of Knowledge on the auspicious day of Vasant Panchami.",
-    },
-    {
-      id: 25,
-      src: "/manus-storage/GAL18_f6e01e88.jpg",
-      category: "cultural",
-      title: "School Choir Performance",
-      desc: "The school vocal ensemble performing local folk melodies and patriotic songs.",
-    },
-    {
-      id: 26,
-      src: "/manus-storage/GAL19_70f0e1cd.jpg",
-      category: "cultural",
-      title: "National Day Parade",
-      desc: "Scout troop marching during the Kanchanpur district celebration parade.",
-    },
+    { id: 23, src: "/radiant-gallery/img25.jpg", category: "events", title: "Event Memory 01", desc: "A special school event preserved in Radiant's photo gallery." },
+    { id: 24, src: "/radiant-gallery/img27.jpg", category: "events", title: "Event Memory 02", desc: "A celebration, gathering, or school program moment from Radiant." },
+    { id: 25, src: "/radiant-gallery/img29.jpg", category: "events", title: "Event Memory 03", desc: "A community memory showing student presence and school spirit." },
+    { id: 26, src: "/radiant-gallery/img30.jpg", category: "events", title: "Event Memory 04", desc: "A selected school event image from the new Radiant gallery set." },
+    { id: 27, src: "/radiant-gallery/img31.jpg", category: "events", title: "Event Memory 05", desc: "A captured moment from school programs, celebrations, or assemblies." },
+    { id: 28, src: "/radiant-gallery/img32.jpg", category: "events", title: "Event Memory 06", desc: "Radiant's shared school memories presented through real gallery images." },
+    { id: 29, src: "/radiant-gallery/img33.jpg", category: "events", title: "Event Memory 07", desc: "A meaningful event memory from the Radiant Secondary School community." },
+    { id: 30, src: "/radiant-gallery/img34.jpg", category: "events", title: "Event Memory 08", desc: "A school program moment showing the energy of Radiant students." },
+    { id: 31, src: "/radiant-gallery/img35.jpg", category: "events", title: "Event Memory 09", desc: "A final selected memory from the uploaded Radiant gallery collection." },
   ];
 
   const filteredItems = galleryItems.filter(
@@ -290,8 +134,8 @@ export default function Gallery() {
               animationDelay: "160ms",
             }}
           >
-            A visual chronicle of academic focus, athletic achievements, vibrant cultural heritage,
-            and campus life at Shree Bhuwaneshwori Secondary School.
+            A visual chronicle of academic focus, practical learning, co-curricular activities,
+            and campus life at Radiant Secondary School.
           </p>
         </div>
 
@@ -313,10 +157,10 @@ export default function Gallery() {
         <div className="flex flex-nowrap sm:flex-wrap items-center justify-start sm:justify-center gap-2 mb-10 sm:mb-14 border-b border-slate-200/60 pb-3 overflow-x-auto no-scrollbar -mx-4 px-4 sm:mx-0 sm:px-0">
           {[
             { id: "all", label: "All Memories" },
-            { id: "campus", label: "Campus & Events" },
-            { id: "academic", label: "Academics & Labs" },
-            { id: "sports", label: "Sports & Co-curricular" },
-            { id: "cultural", label: "Cultural & Celebrations" },
+            { id: "campus", label: "Campus Life" },
+            { id: "learning", label: "Learning" },
+            { id: "activities", label: "Activities" },
+            { id: "events", label: "Events" },
           ].map((tab) => (
             <button
               key={tab.id}
@@ -358,9 +202,9 @@ export default function Gallery() {
                 {/* Category Tag */}
                 <span className="absolute top-4 left-4 z-10 px-3 py-1.5 rounded-full bg-white/90 backdrop-blur-sm text-[9px] font-bold uppercase tracking-wider text-primary font-sans shadow-sm">
                   {item.category === "campus" && "Campus"}
-                  {item.category === "academic" && "Academic"}
-                  {item.category === "sports" && "Sports"}
-                  {item.category === "cultural" && "Cultural"}
+                  {item.category === "learning" && "Learning"}
+                  {item.category === "activities" && "Activity"}
+                  {item.category === "events" && "Event"}
                 </span>
               </div>
 

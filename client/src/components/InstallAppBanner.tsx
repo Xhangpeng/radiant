@@ -110,7 +110,7 @@ export default function InstallAppBanner() {
 
           <div>
             <h4 className="font-display font-bold text-sm text-[var(--color-navy)] leading-tight">
-              Shree Bhuwaneshwori App
+              Radiant App
             </h4>
             <p className="text-xs text-slate-500 mt-1 leading-relaxed">
               Install our school app for instant access to notices, schedules, and online admissions.

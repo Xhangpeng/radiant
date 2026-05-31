@@ -66,7 +66,7 @@ export default function Contact() {
         <div className="container relative z-10 py-20 sm:py-24 md:py-32 lg:py-36 text-center">
           <span className="eyebrow-pill">
             <Sparkles className="h-3 w-3 text-secondary animate-pulse" />
-            Contact Office · Bedkot
+            Contact Office · Mahendranagar
           </span>
           <h1
             className="text-white mt-6 anim-fade-up font-display font-extrabold"
@@ -118,7 +118,7 @@ export default function Contact() {
                 How to reach us
               </h2>
               <p className="text-slate-500 text-sm mt-3 leading-relaxed">
-                Multiple ways to connect with Shree Bhuwaneshwori Secondary School.
+                Multiple ways to connect with Radiant Secondary School.
               </p>
             </div>
 
@@ -132,7 +132,7 @@ export default function Contact() {
                 <div>
                   <h4 className="font-display font-bold text-primary text-base">Visit Us</h4>
                   <p className="text-slate-500 text-sm mt-1.5 leading-relaxed font-sans">
-                    Bedkot-6, Shishaiya, Kanchanpur<br />
+                    Bheemdatt Municipality-18, Mahendranagar<br />
                     Sudurpashchim Province, Nepal
                   </p>
                 </div>
@@ -165,7 +165,7 @@ export default function Contact() {
                     <a href={`mailto:${SCHOOL.email}`} className="text-secondary hover:text-primary transition-colors block">
                       {SCHOOL.email}
                     </a>
-                    <span className="text-slate-400 text-xs font-medium block mt-0.5">admin@bhuwaneshwori.edu.np</span>
+                    <span className="text-slate-400 text-xs font-medium block mt-0.5">radiantmnr.edu.np</span>
                   </p>
                 </div>
               </div>
@@ -315,14 +315,14 @@ export default function Contact() {
               Our Location
             </h2>
             <p className="text-slate-500 text-sm mt-3 leading-relaxed">
-              Shree Bhuwaneshwori Secondary School is located in Bedkot-6, Shishaiya, Kanchanpur, Sudurpashchim Province, Nepal.
+              Radiant Secondary School is located in Bheemdatt Municipality-18, Mahendranagar, Kanchanpur, Sudurpashchim Province, Nepal.
             </p>
           </div>
 
           {/* Map Frame */}
           <div className="soft-card p-1.5 sm:p-2 border border-slate-100 overflow-hidden h-[300px] sm:h-[450px] rounded-2xl sm:rounded-3xl shadow-xl hover-lift">
             <iframe
-              title="Shree Bhuwaneshwori Secondary School Map"
+              title="Radiant Secondary School Map"
               src={SCHOOL.mapEmbed}
               width="100%"
               height="100%"

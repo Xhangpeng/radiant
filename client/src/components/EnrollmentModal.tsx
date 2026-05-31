@@ -189,7 +189,7 @@ export default function EnrollmentModal({
               <MapPin className="h-4 w-4 text-secondary" />
               <div>
                 <span className="block text-[9px] text-slate-400 font-bold uppercase">{t("Campus Visit")}</span>
-                <span className="text-primary font-bold">{t("Bedkot-6, Kanchanpur")}</span>
+                <span className="text-primary font-bold">{t("MNR, Kanchanpur")}</span>
               </div>
             </div>
           </div>

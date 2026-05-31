@@ -14,6 +14,8 @@ import Gallery from "./pages/Gallery";
 import Home from "./pages/Home";
 import Notices from "./pages/Notices";
 import Apply from "./pages/Apply";
+import SchoolStaffs from "./pages/SchoolStaffs";
+import SecondaryLevelStaffs from "./pages/SecondaryLevelStaffs";
 
 function ScrollToTop() {
   const [location] = useLocation();
@@ -35,6 +37,10 @@ function Router() {
         <Route path={"/notices"} component={Notices} />
         <Route path={"/contact"} component={Contact} />
         <Route path={"/apply"} component={Apply} />
+        <Route path={"/secondary-level-staffs"} component={SecondaryLevelStaffs} />
+        <Route path={"/2-staffs"} component={SecondaryLevelStaffs} />
+        <Route path={"/school-staffs"} component={SchoolStaffs} />
+        <Route path={"/faculty/school-staffs"} component={SchoolStaffs} />
         <Route path={"/404"} component={NotFound} />
         <Route component={NotFound} />
       </Switch>
@@ -52,11 +58,11 @@ function App() {
               position="bottom-right"
               toastOptions={{
                 style: {
-                  background: "var(--color-cream)",
-                  color: "var(--color-navy)",
+                  background: "var(--color-paper)",
+                  color: "var(--color-ink)",
                   border: "1px solid var(--color-border)",
-                  borderRadius: "2px",
-                  fontFamily: "var(--font-serif)",
+                  borderRadius: "12px",
+                  fontFamily: "var(--font-sans)",
                 },
               }}
             />

@@ -225,10 +225,10 @@ export default function NoticeViewerModal({
             {/* School Letterhead */}
             <div className="text-center border-b-2 border-primary/30 pb-4 sm:pb-6 mb-6 sm:mb-8 relative">
               <h2 className="font-display font-extrabold text-base sm:text-2xl md:text-3xl text-primary tracking-wide leading-snug">
-                SHREE BHUWANESHWORI SECONDARY SCHOOL
+                RADIANT SECONDARY SCHOOL
               </h2>
               <p className="text-xs sm:text-sm font-sans font-semibold text-slate-500 mt-1 uppercase tracking-wider">
-                Bedkot-6, Shishaiya, Kanchanpur, Nepal
+                Bheemdatt-18, Mahendranagar, Kanchanpur, Nepal
               </p>
               <p className="text-[10px] sm:text-xs font-sans text-slate-400 mt-0.5">
                 Affiliated to NEB | Govt. Approved Community School
@@ -312,7 +312,7 @@ export default function NoticeViewerModal({
                   {notice.content.signatoryTitle}
                 </p>
                 <p className="text-[10px] text-slate-400 mt-0.5">
-                  Shree Bhuwaneshwori Sec. School
+                  Radiant Sec. School
                 </p>
               </div>
             </div>

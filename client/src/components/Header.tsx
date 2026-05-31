@@ -1,6 +1,6 @@
 /*
  * Header — sticky navbar matching avnss.edu.np visuals + wpa-edu-np.vercel.app navigation style.
- * - Animated logo ring + orbital particles around the crest
+ * - Clean compact logo lockup
  * - Clean nav links with gradient underline (wpa style)
  * - Apply Now (gradient-pill CTA)
  * - Full-page left-sliding mobile sidebar (avnss style) with icons, staggered animations, gradient header
@@ -19,11 +19,13 @@ import {
   Phone,
   Download,
   Check,
+  ChevronDown,
+  ExternalLink,
+  Users,
 } from "lucide-react";
 import { SCHOOL, NAV_ITEMS } from "@/const";
 import { usePWAInstall } from "@/hooks/usePWAInstall";
 import { useLanguage } from "@/contexts/LanguageContext";
-import LanguageToggle from "./LanguageToggle";
 
 const iconMap: Record<string, React.ReactNode> = {
   Home: <Home className="h-5 w-5" />,
@@ -32,12 +34,17 @@ const iconMap: Record<string, React.ReactNode> = {
   Camera: <Camera className="h-5 w-5" />,
   Bell: <Bell className="h-5 w-5" />,
   Phone: <Phone className="h-5 w-5" />,
+  Users: <Users className="h-5 w-5" />,
+  ExternalLink: <ExternalLink className="h-5 w-5" />,
 };
+
+const NAV_LOGO = "/radiant-assets/logo.png";
 
 export default function Header() {
   const [location, setLocation] = useLocation();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [expandedMobileItem, setExpandedMobileItem] = useState<string | null>(null);
   const { canInstall, isInstalled, promptInstall } = usePWAInstall();
   const { t } = useLanguage();
 
@@ -51,6 +58,7 @@ export default function Header() {
   // Lock body scroll when sidebar is open
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
+    if (!open) setExpandedMobileItem(null);
     return () => {
       document.body.style.overflow = "";
     };
@@ -61,8 +69,11 @@ export default function Header() {
     setLocation("/apply");
   };
 
-  const isActive = (href: string) =>
-    href === "/" ? location === "/" : location.startsWith(href);
+  const isActive = (href: string) => {
+    if (href === "#") return false;
+    const path = href.split("#")[0];
+    return path === "/" ? location === "/" : location.startsWith(path);
+  };
 
   return (
     <header
@@ -77,23 +88,20 @@ export default function Header() {
         {/* Brand */}
         <Link
           href="/"
-          className="flex items-center gap-3 group navbar-brand-hover no-underline min-w-0 flex-1 sm:flex-none"
+          aria-label={t("Radiant Secondary School home")}
+          className="brand-lockup flex items-center gap-3 group navbar-brand-hover no-underline min-w-0 flex-1 sm:flex-none"
         >
           <span className="logo-container">
-            <span className="logo-bg-ring" />
-            <span className="logo-particle" />
-            <span className="logo-particle" />
-            <span className="logo-particle" />
-            <img src={SCHOOL.logo} alt="Shree Bhuwaneshwori crest" />
+            <img src={NAV_LOGO} alt="School crest" />
           </span>
           <div className="hidden sm:flex flex-col leading-tight">
             <span
               className="font-display font-extrabold tracking-wide text-[var(--color-navy)] text-[18px] lg:text-[22px]"
               style={{ fontFamily: "var(--font-display)" }}
             >
-              {t("BHUWANESHWORI")}
+              {t("RADIANT")}
             </span>
-            <span className="text-[10.5px] lg:text-[11.5px] font-bold tracking-[0.18em] text-[var(--color-gold)] uppercase">
+            <span className="text-[10.5px] lg:text-[11.5px] font-bold tracking-[0.18em] text-[var(--color-gold-deep)] uppercase">
               {t("Secondary School")}
             </span>
           </div>
@@ -102,9 +110,9 @@ export default function Header() {
               className="truncate font-extrabold text-[var(--color-navy)] text-[13px] tracking-wide"
               style={{ fontFamily: "var(--font-display)" }}
             >
-              {t("BHUWANESHWORI")}
+              {t("RADIANT")}
             </span>
-            <span className="truncate text-[8px] font-bold tracking-[0.12em] text-[var(--color-gold)] uppercase mt-0.5">
+            <span className="truncate text-[8px] font-bold tracking-[0.12em] text-[var(--color-gold-deep)] uppercase mt-0.5">
               {t("Secondary School")}
             </span>
           </div>
@@ -113,18 +121,79 @@ export default function Header() {
         {/* Right side: Desktop nav + CTA */}
         <div className="hidden xl:flex items-center gap-5 shrink-0">
           <nav className="flex items-center gap-1">
-            {NAV_ITEMS.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="nav-link"
-                data-active={isActive(item.href) ? "true" : "false"}
-              >
-                {t(item.label)}
-              </Link>
-            ))}
+            {NAV_ITEMS.map((item) => {
+              const active =
+                !item.external &&
+                (isActive(item.href) ||
+                  item.children?.some((child) => isActive(child.href)));
+
+              if (item.external) {
+                return (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="nav-link"
+                    data-active="false"
+                  >
+                    {t(item.label)}
+                  </a>
+                );
+              }
+
+              if (item.children?.length) {
+                return (
+                  <div key={item.href} className="relative group">
+                    <button
+                      type="button"
+                      className="nav-link gap-1.5"
+                      data-active={active ? "true" : "false"}
+                    >
+                      {t(item.label)}
+                      <ChevronDown className="h-3.5 w-3.5 transition-transform group-hover:rotate-180" />
+                    </button>
+                    <div className="absolute left-0 top-full pt-3 opacity-0 pointer-events-none translate-y-1 group-hover:opacity-100 group-hover:pointer-events-auto group-hover:translate-y-0 transition-all duration-200">
+                      <div className="min-w-[230px] rounded-xl border border-slate-200 bg-white py-2 shadow-xl shadow-slate-900/10">
+                        {item.children.map((child) =>
+                          child.external ? (
+                            <a
+                              key={child.href}
+                              href={child.href}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="block px-4 py-2.5 text-[12px] font-bold tracking-[0.08em] text-slate-600 hover:bg-slate-50 hover:text-[var(--color-navy)]"
+                            >
+                              {t(child.label)}
+                            </a>
+                          ) : (
+                            <Link
+                              key={child.href}
+                              href={child.href}
+                              className="block px-4 py-2.5 text-[12px] font-bold tracking-[0.08em] text-slate-600 hover:bg-slate-50 hover:text-[var(--color-navy)]"
+                            >
+                              {t(child.label)}
+                            </Link>
+                          ),
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                );
+              }
+
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="nav-link"
+                  data-active={active ? "true" : "false"}
+                >
+                  {t(item.label)}
+                </Link>
+              );
+            })}
           </nav>
-          <LanguageToggle />
           <Link href="/apply" className="btn-cta no-underline">
             {t("Apply Now")} <ArrowRight className="h-4 w-4" />
           </Link>
@@ -150,16 +219,15 @@ export default function Header() {
         <div className="sidebar-header">
           <div className="flex items-center gap-3">
             <span className="logo-container" style={{ width: 38, height: 38 }}>
-              <span className="logo-bg-ring" />
               <img
-                src={SCHOOL.logo}
+                src={NAV_LOGO}
                 alt=""
-                style={{ height: 32, width: 32, borderRadius: "50%", background: "white", objectFit: "contain" }}
+                style={{ height: 34, width: 34, borderRadius: "8px", background: "white", objectFit: "contain", objectPosition: "center" }}
               />
             </span>
             <div className="leading-tight">
               <div className="font-extrabold text-[14px] text-white" style={{ fontFamily: "var(--font-display)" }}>
-                {t("BHUWANESHWORI")}
+                {t("RADIANT")}
               </div>
               <div className="text-[8px] font-bold tracking-widest uppercase text-white/80">
                 {t("Secondary School")}
@@ -184,22 +252,86 @@ export default function Header() {
                   key={item.href}
                   style={{ transitionDelay: `${(index + 1) * 0.025}s` }}
                 >
-                  <Link
-                    href={item.href}
-                    onClick={() => setOpen(false)}
-                    className={`sidebar-nav-link ${isActive(item.href) ? "active" : ""}`}
-                  >
-                    <span className="sidebar-nav-icon">
-                      {iconMap[item.icon] || <Home className="h-5 w-5" />}
-                    </span>
-                    {t(item.label)}
-                  </Link>
+                  {item.external ? (
+                    <a
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => setOpen(false)}
+                      className="sidebar-nav-link"
+                    >
+                      <span className="sidebar-nav-icon">
+                        {iconMap[item.icon] || <Home className="h-5 w-5" />}
+                      </span>
+                      {t(item.label)}
+                    </a>
+                  ) : (
+                    <>
+                      {item.children?.length ? (
+                        <button
+                          type="button"
+                          className={`sidebar-nav-link sidebar-nav-parent ${
+                            item.children.some((child) => isActive(child.href)) ? "active" : ""
+                          }`}
+                          aria-expanded={expandedMobileItem === item.href}
+                          onClick={() =>
+                            setExpandedMobileItem((current) =>
+                              current === item.href ? null : item.href,
+                            )
+                          }
+                        >
+                          <span className="sidebar-nav-icon">
+                            {iconMap[item.icon] || <Home className="h-5 w-5" />}
+                          </span>
+                          <span className="flex-1 text-left">{t(item.label)}</span>
+                          <ChevronDown className="sidebar-nav-caret h-4 w-4 text-current opacity-60" />
+                        </button>
+                      ) : (
+                        <Link
+                          href={item.href}
+                          onClick={() => setOpen(false)}
+                          className={`sidebar-nav-link ${isActive(item.href) ? "active" : ""}`}
+                        >
+                          <span className="sidebar-nav-icon">
+                            {iconMap[item.icon] || <Home className="h-5 w-5" />}
+                          </span>
+                          {t(item.label)}
+                        </Link>
+                      )}
+                      {item.children?.length && expandedMobileItem === item.href ? (
+                        <div className="sidebar-subnav">
+                          {item.children.map((child) =>
+                            child.external ? (
+                              <a
+                                key={child.href}
+                                href={child.href}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                onClick={() => setOpen(false)}
+                                className={`sidebar-subnav-link ${isActive(child.href) ? "active" : ""}`}
+                              >
+                                {t(child.label)}
+                              </a>
+                            ) : (
+                              <Link
+                                key={child.href}
+                                href={child.href}
+                                onClick={() => setOpen(false)}
+                                className={`sidebar-subnav-link ${isActive(child.href) ? "active" : ""}`}
+                              >
+                                {t(child.label)}
+                              </Link>
+                            ),
+                          )}
+                        </div>
+                      ) : null}
+                    </>
+                  )}
                 </li>
               ))}
             </ul>
 
             <div className="mobile-sidebar-actions">
-              <LanguageToggle compact className="w-full justify-center" />
               {isInstalled ? (
                 <div className="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-emerald-50/60 text-emerald-700 border border-emerald-100/60 text-[11px] font-bold">
                   <Check className="h-3.5 w-3.5" /> {t("App Installed")}

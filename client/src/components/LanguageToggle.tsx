@@ -21,7 +21,7 @@ export default function LanguageToggle({
       className={`language-toggle ${compact ? "language-toggle-compact" : ""} ${className}`}
     >
       <Languages className="h-4 w-4" />
-      <span>{isNepali ? "English" : "नेपाली"}</span>
+      <span>{isNepali ? "English" : "à¤¨à¥‡à¤ªà¤¾à¤²à¥€"}</span>
     </button>
   );
 }
