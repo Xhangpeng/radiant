@@ -7517,3 +7517,570 @@ header[data-no-translate] .btn-cta {
     height: 48px !important;
   }
 }
+
+/* Mobile-first polish layer: improves phone UX without changing tablet/desktop layouts. */
+@media (max-width: 640px) {
+  html,
+  body {
+    width: 100%;
+    overflow-x: hidden !important;
+    scroll-padding-top: 76px;
+  }
+
+  body {
+    background:
+      linear-gradient(180deg, #ffffff 0%, #f6fbf8 44%, #edf7f1 100%) !important;
+  }
+
+  .site-main {
+    background-size: 56px 56px, 56px 56px, auto !important;
+  }
+
+  .container {
+    width: 100% !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  header[data-no-translate] {
+    padding-block: 0.38rem !important;
+    background: rgba(255, 255, 255, 0.98) !important;
+    box-shadow: 0 14px 34px -28px rgba(19, 32, 29, 0.56) !important;
+  }
+
+  header[data-no-translate] > div {
+    min-height: 58px !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  header[data-no-translate] .brand-lockup {
+    min-height: 50px !important;
+    gap: 0.7rem !important;
+  }
+
+  header[data-no-translate] .brand-lockup .logo-container {
+    width: 44px !important;
+    height: 44px !important;
+    border-radius: 8px !important;
+  }
+
+  header[data-no-translate] .brand-lockup .logo-container img {
+    padding: 0.22rem !important;
+  }
+
+  header[data-no-translate] button[aria-label*="navigation"] {
+    width: 44px !important;
+    height: 44px !important;
+    border-radius: 999px !important;
+    box-shadow: 0 12px 24px -18px rgba(19, 32, 29, 0.6) !important;
+  }
+
+  .mobile-sidebar {
+    width: min(88vw, 350px) !important;
+    border-radius: 0 12px 12px 0 !important;
+  }
+
+  .mobile-sidebar .sidebar-header {
+    min-height: 82px !important;
+    padding: 1rem !important;
+  }
+
+  .mobile-sidebar .sidebar-body {
+    padding: 0.8rem !important;
+  }
+
+  .sidebar-nav {
+    gap: 0.34rem !important;
+  }
+
+  .sidebar-nav-link {
+    min-height: 46px !important;
+    padding: 0.62rem 0.7rem !important;
+    font-size: 0.86rem !important;
+  }
+
+  .sidebar-nav-icon {
+    width: 2rem !important;
+    height: 2rem !important;
+    border-radius: 8px !important;
+  }
+
+  .sidebar-subnav {
+    margin: 0.35rem 0 0.2rem 2.45rem !important;
+    padding-left: 0.55rem !important;
+  }
+
+  .sidebar-subnav-link {
+    min-height: 36px !important;
+    padding: 0.5rem 0.6rem !important;
+    font-size: 0.78rem !important;
+  }
+
+  .site-main > section:first-child.relative.overflow-hidden:not(.home-hero) .container {
+    padding-top: 3.15rem !important;
+    padding-bottom: 3.2rem !important;
+  }
+
+  .site-main > section:first-child.relative.overflow-hidden:not(.home-hero) h1 {
+    margin-top: 1rem !important;
+    font-size: 2.15rem !important;
+    line-height: 1.06 !important;
+    text-wrap: balance;
+  }
+
+  .site-main > section:first-child.relative.overflow-hidden:not(.home-hero) p {
+    margin-top: 1rem !important;
+    font-size: 0.96rem !important;
+    line-height: 1.58 !important;
+  }
+
+  .site-main > section:first-child.relative.overflow-hidden:not(.home-hero) svg[viewBox="0 0 1440 80"] {
+    height: 34px !important;
+  }
+
+  .home-hero {
+    min-height: auto !important;
+  }
+
+  .home-hero .container {
+    padding-top: 2.2rem !important;
+    padding-bottom: 2.25rem !important;
+    overflow: hidden !important;
+  }
+
+  .home-hero .grid,
+  .home-hero .lg\:col-span-7,
+  .home-hero .lg\:col-span-5 {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .home-hero .eyebrow-pill {
+    max-width: 100%;
+    padding: 0.48rem 0.62rem !important;
+    font-size: 0.72rem !important;
+    line-height: 1.2 !important;
+  }
+
+  .home-hero-title {
+    margin-top: 0.78rem !important;
+    max-width: 10.6ch !important;
+    font-size: 2.22rem !important;
+    line-height: 1.01 !important;
+    text-shadow: 0 18px 36px rgba(6, 24, 21, 0.42) !important;
+    overflow-wrap: normal !important;
+  }
+
+  .home-hero-lead {
+    margin-top: 0.88rem !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    font-size: 0.93rem !important;
+    line-height: 1.55 !important;
+    white-space: normal !important;
+    overflow-wrap: break-word !important;
+  }
+
+  .home-hero-actions {
+    margin-top: 1.1rem !important;
+    gap: 0.55rem !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
+  }
+
+  .btn-cta,
+  .btn-gold,
+  .btn-ghost,
+  .home-hero-actions a,
+  .cta-band a,
+  .cta-band button,
+  main form button[type="submit"] {
+    min-height: 46px !important;
+    width: 100% !important;
+    justify-content: center !important;
+    border-radius: 8px !important;
+    font-size: 0.88rem !important;
+    line-height: 1.1 !important;
+    padding: 0.78rem 0.95rem !important;
+    display: inline-flex !important;
+    white-space: normal !important;
+    text-align: center !important;
+    overflow: visible !important;
+  }
+
+  .hero-proof-grid {
+    display: flex !important;
+    gap: 0.48rem !important;
+    max-width: none !important;
+    margin-top: 1rem !important;
+    margin-left: -1rem !important;
+    margin-right: -1rem !important;
+    padding: 0 1rem 0.2rem !important;
+    overflow-x: auto !important;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+  }
+
+  .hero-proof-grid::-webkit-scrollbar,
+  .notice-filter-row::-webkit-scrollbar,
+  .gallery-slider-wrapper::-webkit-scrollbar,
+  .subtab::-webkit-scrollbar {
+    display: none;
+  }
+
+  .hero-proof-grid > span,
+  .hero-proof-item {
+    flex: 0 0 min(78vw, 18rem) !important;
+    min-height: 42px !important;
+    padding: 0.54rem 0.64rem !important;
+    font-size: 0.67rem !important;
+    line-height: 1.2 !important;
+    scroll-snap-align: start;
+  }
+
+  .hero-media-board {
+    margin-top: 1.35rem !important;
+  }
+
+  .hero-media-frame {
+    padding: 0.3rem !important;
+  }
+
+  .hero-media-frame img,
+  .hero-media-image {
+    height: clamp(190px, 54vw, 230px) !important;
+    object-fit: cover !important;
+  }
+
+  .home-hero > svg {
+    height: 34px !important;
+  }
+
+  .site-main > section:not(.home-hero) {
+    padding-top: 3rem !important;
+    padding-bottom: 3rem !important;
+  }
+
+  .site-main > section.container {
+    padding-top: 3rem !important;
+    padding-bottom: 3rem !important;
+  }
+
+  .section-title,
+  .section-heading,
+  main h2 {
+    font-size: 1.78rem !important;
+    line-height: 1.12 !important;
+    text-wrap: balance;
+  }
+
+  main h3 {
+    font-size: 1.28rem !important;
+    line-height: 1.18 !important;
+  }
+
+  main p,
+  .section-lead,
+  .feature-card p,
+  .notice-row p,
+  .notice-board-card p,
+  .notice-category-copy,
+  .gallery-card p,
+  .course-curriculum-card p {
+    color: #53645f !important;
+    font-size: 0.94rem !important;
+    line-height: 1.58 !important;
+    text-align: left !important;
+    text-align-last: auto !important;
+    word-spacing: normal !important;
+    hyphens: none !important;
+  }
+
+  .eyebrow-pill,
+  .eyebrow-left,
+  .notice-kicker {
+    width: max-content;
+    max-width: 100%;
+    padding: 0.45rem 0.62rem !important;
+    border-radius: 999px !important;
+    font-size: 0.72rem !important;
+    line-height: 1.2 !important;
+  }
+
+  .image-frame {
+    padding: 0.3rem !important;
+    border-radius: 8px !important;
+  }
+
+  .image-frame img,
+  .gallery-image,
+  .program-card .pc-img img {
+    border-radius: 6px !important;
+  }
+
+  .site-main .grid {
+    gap: 1rem !important;
+  }
+
+  .soft-card,
+  .feature-card,
+  .notice-row,
+  .gallery-card,
+  .course-curriculum-card,
+  .notice-category-card,
+  .notice-board-card,
+  .program-card,
+  .course-info-panel,
+  .notice-support-card {
+    border-radius: 8px !important;
+    box-shadow: 0 18px 42px -34px rgba(16, 47, 42, 0.55) !important;
+  }
+
+  .feature-card,
+  .program-card,
+  .course-curriculum-card,
+  .notice-board-card,
+  .notice-category-card,
+  .soft-card {
+    padding: 0.95rem !important;
+  }
+
+  .feature-icon,
+  .notice-category-icon,
+  .stat-icon {
+    width: 2.45rem !important;
+    height: 2.45rem !important;
+    border-radius: 8px !important;
+  }
+
+  .feature-card h3,
+  .program-card .pc-title,
+  .notice-row h4,
+  .notice-board-card h3,
+  .notice-category-title {
+    margin-top: 0.72rem !important;
+    font-size: 1.02rem !important;
+    line-height: 1.2 !important;
+  }
+
+  .notice-row {
+    display: grid !important;
+    grid-template-columns: 54px minmax(0, 1fr) !important;
+    align-items: start !important;
+    gap: 0.75rem !important;
+    padding: 0.85rem !important;
+  }
+
+  .notice-date,
+  .notice-page-date {
+    width: 50px !important;
+    min-width: 50px !important;
+    height: 54px !important;
+    padding: 0.35rem !important;
+  }
+
+  .notice-date .d-day,
+  .notice-board-card .d-day {
+    font-size: 1rem !important;
+    line-height: 1 !important;
+  }
+
+  .notice-date .d-month,
+  .notice-board-card .notice-year,
+  .notice-card .notice-page-date span:last-child {
+    font-size: 0.62rem !important;
+  }
+
+  .notice-category-grid,
+  .notice-list-grid {
+    gap: 0.78rem !important;
+  }
+
+  .notice-category-card {
+    min-height: 145px !important;
+    padding: 0.9rem !important;
+  }
+
+  .notice-filter-row,
+  .subtab {
+    scrollbar-width: none;
+  }
+
+  .subtab,
+  .notice-filter-pill {
+    flex: 0 0 auto !important;
+    min-height: 38px !important;
+    padding: 0.58rem 0.78rem !important;
+    font-size: 0.78rem !important;
+    white-space: nowrap !important;
+  }
+
+  .course-curriculum-card {
+    gap: 1rem !important;
+  }
+
+  .course-curriculum-card .image-frame img,
+  .course-curriculum-card img[class*="aspect-"] {
+    aspect-ratio: 16 / 10 !important;
+    max-height: 220px !important;
+  }
+
+  .course-detail-grid,
+  .course-info-panel {
+    gap: 0.8rem !important;
+  }
+
+  .course-info-panel {
+    padding: 0.85rem !important;
+  }
+
+  .course-subject-row {
+    align-items: flex-start !important;
+    line-height: 1.45 !important;
+  }
+
+  .stats {
+    padding-top: 3rem !important;
+    padding-bottom: 3rem !important;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 0.7rem !important;
+    margin-top: 1.35rem !important;
+  }
+
+  .stat-item {
+    min-height: 118px !important;
+    padding: 0.9rem 0.55rem !important;
+  }
+
+  .stat-number {
+    font-size: 1.45rem !important;
+    line-height: 1.05 !important;
+  }
+
+  .stat-item p {
+    margin-top: 0.3rem !important;
+    font-size: 0.72rem !important;
+    line-height: 1.25 !important;
+    text-align: center !important;
+  }
+
+  .gallery-slider-section {
+    padding-top: 3rem !important;
+    padding-bottom: 2.4rem !important;
+  }
+
+  .gallery-slider-wrapper {
+    margin-top: 0.8rem !important;
+    mask-image: linear-gradient(90deg, transparent, black 4%, black 96%, transparent) !important;
+  }
+
+  .gallery-slide {
+    width: min(78vw, 270px) !important;
+    height: 176px !important;
+  }
+
+  .gallery-caption {
+    padding: 1.8rem 0.75rem 0.75rem !important;
+    font-size: 0.78rem !important;
+  }
+
+  .cta-band {
+    padding: 1.05rem !important;
+    gap: 1rem !important;
+  }
+
+  .cta-band h2 {
+    margin-top: 0.8rem !important;
+    font-size: 1.45rem !important;
+    line-height: 1.15 !important;
+  }
+
+  .cta-band p {
+    margin-top: 0.72rem !important;
+    color: rgba(255, 255, 255, 0.84) !important;
+  }
+
+  .site-footer {
+    padding-top: 3.4rem !important;
+    padding-bottom: 2.2rem !important;
+  }
+
+  .footer-main-grid {
+    gap: 1.35rem !important;
+  }
+
+  .site-footer h4 {
+    margin-bottom: 0.65rem !important;
+  }
+
+  main input:not([type="checkbox"]):not([type="radio"]),
+  main textarea,
+  main select {
+    min-height: 46px !important;
+    font-size: 0.95rem !important;
+    padding: 0.72rem 0.82rem !important;
+  }
+
+  main textarea {
+    min-height: 112px !important;
+  }
+
+  main form .grid,
+  .admin-page form .grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .notice-viewer-frame {
+    height: 100dvh !important;
+    max-height: 100dvh !important;
+  }
+
+  .notice-paper-sheet {
+    padding: 1rem !important;
+  }
+}
+
+@media (max-width: 380px) {
+  .container {
+    padding-left: 0.82rem !important;
+    padding-right: 0.82rem !important;
+  }
+
+  .home-hero-title {
+    font-size: 2rem !important;
+  }
+
+  .section-title,
+  .section-heading,
+  main h2 {
+    font-size: 1.58rem !important;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .gallery-slide {
+    width: 82vw !important;
+  }
+}
+
+@media (max-width: 640px) and (hover: none) {
+  .hover-lift:hover,
+  .feature-card:hover,
+  .notice-row:hover,
+  .notice-board-card:hover,
+  .notice-category-card:hover,
+  .gallery-card:hover,
+  .course-curriculum-card:hover,
+  .program-card:hover,
+  .stat-item:hover {
+    transform: none !important;
+  }
+}
