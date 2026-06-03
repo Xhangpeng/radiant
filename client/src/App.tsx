@@ -8,6 +8,7 @@ import Layout from "./components/Layout";
 import { LanguageProvider } from "./contexts/LanguageContext";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import About from "./pages/About";
+import Admin from "./pages/Admin";
 import Contact from "./pages/Contact";
 import Courses from "./pages/Courses";
 import Gallery from "./pages/Gallery";
@@ -26,6 +27,17 @@ function ScrollToTop() {
 }
 
 function Router() {
+  const [location] = useLocation();
+
+  if (location === "/admin") {
+    return (
+      <>
+        <ScrollToTop />
+        <Admin />
+      </>
+    );
+  }
+
   return (
     <Layout>
       <ScrollToTop />

@@ -19,6 +19,7 @@ export interface NoticeDocument {
   content: {
     salutation?: string;
     introduction: string;
+    body?: string;
     bulletPoints?: string[];
     instructionsTitle?: string;
     instructions?: string[];
@@ -26,8 +27,16 @@ export interface NoticeDocument {
     signatoryName: string;
     signatoryTitle: string;
     contactEmail?: string;
+    attachmentUrl?: string;
+    attachmentName?: string;
   };
 }
+
+const PERMANENT_SIGNATORY = {
+  name: "Surya Bahadur Chand",
+  title: "Principal, RSS",
+  school: "Radiant Sec. School",
+};
 
 interface NoticeViewerModalProps {
   notice: NoticeDocument | null;
@@ -263,10 +272,15 @@ export default function NoticeViewerModal({
                 </p>
               )}
 
-              <p>{notice.content.introduction}</p>
+              {(notice.content.body || notice.content.introduction)
+                .split("\n")
+                .filter((paragraph) => paragraph.trim())
+                .map((paragraph, index) => (
+                  <p key={index}>{paragraph}</p>
+                ))}
 
               {/* Bullet Points */}
-              {notice.content.bulletPoints && (
+              {notice.content.bulletPoints && notice.content.bulletPoints.length > 0 && (
                 <ul className="list-disc pl-6 space-y-2.5 my-4 text-slate-700">
                   {notice.content.bulletPoints.map((point, idx) => (
                     <li key={idx} className="pl-1">
@@ -277,7 +291,7 @@ export default function NoticeViewerModal({
               )}
 
               {/* Special Instructions */}
-              {notice.content.instructions && (
+              {notice.content.instructions && notice.content.instructions.length > 0 && (
                 <div className="mt-6 p-4 sm:p-5 bg-slate-100 rounded-xl border border-slate-200/60">
                   <h4 className="font-bold text-primary mb-3 text-sm sm:text-base uppercase tracking-wider">
                     {notice.content.instructionsTitle || "Important Instructions:"}
@@ -295,24 +309,37 @@ export default function NoticeViewerModal({
               {notice.content.closing && (
                 <p className="mt-6">{notice.content.closing}</p>
               )}
+
+              {notice.content.attachmentUrl ? (
+                <div className="mt-6 rounded-xl border border-primary/15 bg-white/60 p-4">
+                  <a
+                    href={notice.content.attachmentUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-sm font-bold text-primary underline-offset-4 hover:underline"
+                  >
+                    <Download className="h-4 w-4" />
+                    {notice.content.attachmentName || "Open attached notice file"}
+                  </a>
+                </div>
+              ) : null}
             </div>
 
             {/* Signature Section */}
-            <div className="mt-12 pt-6 border-t border-slate-200/60 flex flex-col items-end text-right">
-              <div className="w-48 text-center">
-                {/* Simulated Signature Line */}
-                <div className="h-12 flex items-center justify-center text-slate-300 italic font-serif text-sm">
+            <div className="mt-14 pt-7 border-t border-slate-200/60 flex flex-col items-end text-right">
+              <div className="w-72 max-w-full text-left">
+                <div className="h-14 flex items-center justify-center text-[#c9d8e8] italic font-serif text-base font-semibold">
                   Official Stamp & Sign
                 </div>
-                <div className="border-t border-slate-400 w-full my-2" />
-                <h4 className="font-bold text-slate-800 text-sm">
-                  {notice.content.signatoryName}
+                <div className="border-t border-slate-400/80 w-full mb-3" />
+                <h4 className="font-display font-black text-slate-800 text-base sm:text-lg tracking-[0.01em]">
+                  {notice.content.signatoryName || PERMANENT_SIGNATORY.name}
                 </h4>
-                <p className="text-xs text-slate-500 font-medium">
-                  {notice.content.signatoryTitle}
+                <p className="text-sm text-slate-600 font-medium mt-0.5">
+                  {notice.content.signatoryTitle || PERMANENT_SIGNATORY.title}
                 </p>
-                <p className="text-[10px] text-slate-400 mt-0.5">
-                  Radiant Sec. School
+                <p className="text-sm text-slate-500 mt-0.5">
+                  {PERMANENT_SIGNATORY.school}
                 </p>
               </div>
             </div>

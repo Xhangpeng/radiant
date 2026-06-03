@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { ASSETS } from "@/const";
+import { useSiteContent } from "@/lib/siteContent";
 import {
   Camera,
   ChevronLeft,
@@ -12,7 +13,7 @@ import {
 type GalleryCategory = "all" | "campus" | "learning" | "activities" | "events";
 
 interface GalleryItem {
-  id: number;
+  id: number | string;
   src: string;
   category: GalleryCategory;
   title: string;
@@ -22,8 +23,9 @@ interface GalleryItem {
 export default function Gallery() {
   const [filter, setFilter] = useState<GalleryCategory>("all");
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const { content } = useSiteContent();
 
-  const galleryItems: GalleryItem[] = [
+  const fallbackGalleryItems: GalleryItem[] = [
     { id: 1, src: "/radiant-gallery/school background.jpg", category: "campus", title: "Radiant School Campus", desc: "The school environment where everyday learning, discipline, and student life come together." },
     { id: 2, src: "/radiant-gallery/img1.jpg", category: "campus", title: "Campus Moment 01", desc: "A selected glimpse from Radiant Secondary School's daily campus life." },
     { id: 3, src: "/radiant-gallery/img2.jpg", category: "campus", title: "Campus Moment 02", desc: "Students and school spaces captured as part of the Radiant learning environment." },
@@ -59,6 +61,8 @@ export default function Gallery() {
     { id: 30, src: "/radiant-gallery/img34.jpg", category: "events", title: "Event Memory 08", desc: "A school program moment showing the energy of Radiant students." },
     { id: 31, src: "/radiant-gallery/img35.jpg", category: "events", title: "Event Memory 09", desc: "A final selected memory from the uploaded Radiant gallery collection." },
   ];
+
+  const galleryItems = content.gallery;
 
   const filteredItems = galleryItems.filter(
     (item) => filter === "all" || item.category === filter

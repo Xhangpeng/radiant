@@ -11,14 +11,16 @@ import {
 } from "lucide-react";
 import { ASSETS, SCHOOL } from "@/const";
 import NoticeViewerModal, { NoticeDocument } from "@/components/NoticeViewerModal";
+import { useSiteContent } from "@/lib/siteContent";
 
 export default function Notices() {
   const [filter, setFilter] = useState<"all" | "notice" | "exam" | "event">("all");
   const [selectedNotice, setSelectedNotice] = useState<NoticeDocument | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { content } = useSiteContent();
 
   // High-fidelity structured notice documents matching the reference design
-  const notices: NoticeDocument[] = [
+  const fallbackNotices: NoticeDocument[] = [
     {
       id: 1,
       title: "Admission open for academic session 2082 BS",
@@ -157,6 +159,8 @@ export default function Notices() {
       },
     },
   ];
+
+  const notices = content.notices;
 
   const filteredNotices = notices.filter(
     (n) => filter === "all" || n.category === filter

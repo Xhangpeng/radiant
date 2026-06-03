@@ -6,6 +6,7 @@
  * - Full-page left-sliding mobile sidebar (avnss style) with icons, staggered animations, gradient header
  */
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { Link, useLocation } from "wouter";
 import {
   Menu,
@@ -44,6 +45,7 @@ export default function Header() {
   const [location, setLocation] = useLocation();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [portalReady, setPortalReady] = useState(false);
   const [expandedMobileItem, setExpandedMobileItem] = useState<string | null>(null);
   const { canInstall, isInstalled, promptInstall } = usePWAInstall();
   const { t } = useLanguage();
@@ -55,12 +57,18 @@ export default function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Lock body scroll when sidebar is open
   useEffect(() => {
-    document.body.style.overflow = open ? "hidden" : "";
+    setPortalReady(true);
+  }, []);
+
+  // Contain scroll bounce without changing the document scroll container.
+  useEffect(() => {
+    document.body.style.overscrollBehavior = open ? "contain" : "";
+    document.documentElement.style.overscrollBehavior = open ? "contain" : "";
     if (!open) setExpandedMobileItem(null);
     return () => {
-      document.body.style.overflow = "";
+      document.body.style.overscrollBehavior = "";
+      document.documentElement.style.overscrollBehavior = "";
     };
   }, [open]);
 
@@ -75,141 +83,8 @@ export default function Header() {
     return path === "/" ? location === "/" : location.startsWith(path);
   };
 
-  return (
-    <header
-      data-no-translate
-      className={`sticky top-0 z-50 w-full transition-all duration-300 ${
-        scrolled
-          ? "bg-white/96 backdrop-blur-md shadow-[0_4px_30px_rgba(7,28,56,0.08)] py-2"
-          : "bg-white py-3"
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-3 lg:gap-8">
-        {/* Brand */}
-        <Link
-          href="/"
-          aria-label={t("Radiant Secondary School home")}
-          className="brand-lockup flex items-center gap-3 group navbar-brand-hover no-underline min-w-0 flex-1 sm:flex-none"
-        >
-          <span className="logo-container">
-            <img src={NAV_LOGO} alt="School crest" />
-          </span>
-          <div className="hidden sm:flex flex-col leading-tight">
-            <span
-              className="font-display font-extrabold tracking-wide text-[var(--color-navy)] text-[18px] lg:text-[22px]"
-              style={{ fontFamily: "var(--font-display)" }}
-            >
-              {t("RADIANT")}
-            </span>
-            <span className="text-[10.5px] lg:text-[11.5px] font-bold tracking-[0.18em] text-[var(--color-gold-deep)] uppercase">
-              {t("Secondary School")}
-            </span>
-          </div>
-          <div className="sm:hidden flex min-w-0 max-w-[calc(100vw-132px)] flex-col leading-tight">
-            <span
-              className="truncate font-extrabold text-[var(--color-navy)] text-[13px] tracking-wide"
-              style={{ fontFamily: "var(--font-display)" }}
-            >
-              {t("RADIANT")}
-            </span>
-            <span className="truncate text-[8px] font-bold tracking-[0.12em] text-[var(--color-gold-deep)] uppercase mt-0.5">
-              {t("Secondary School")}
-            </span>
-          </div>
-        </Link>
-
-        {/* Right side: Desktop nav + CTA */}
-        <div className="hidden xl:flex items-center gap-5 shrink-0">
-          <nav className="flex items-center gap-1">
-            {NAV_ITEMS.map((item) => {
-              const active =
-                !item.external &&
-                (isActive(item.href) ||
-                  item.children?.some((child) => isActive(child.href)));
-
-              if (item.external) {
-                return (
-                  <a
-                    key={item.href}
-                    href={item.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="nav-link"
-                    data-active="false"
-                  >
-                    {t(item.label)}
-                  </a>
-                );
-              }
-
-              if (item.children?.length) {
-                return (
-                  <div key={item.href} className="relative group">
-                    <button
-                      type="button"
-                      className="nav-link gap-1.5"
-                      data-active={active ? "true" : "false"}
-                    >
-                      {t(item.label)}
-                      <ChevronDown className="h-3.5 w-3.5 transition-transform group-hover:rotate-180" />
-                    </button>
-                    <div className="absolute left-0 top-full pt-3 opacity-0 pointer-events-none translate-y-1 group-hover:opacity-100 group-hover:pointer-events-auto group-hover:translate-y-0 transition-all duration-200">
-                      <div className="min-w-[230px] rounded-xl border border-slate-200 bg-white py-2 shadow-xl shadow-slate-900/10">
-                        {item.children.map((child) =>
-                          child.external ? (
-                            <a
-                              key={child.href}
-                              href={child.href}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="block px-4 py-2.5 text-[12px] font-bold tracking-[0.08em] text-slate-600 hover:bg-slate-50 hover:text-[var(--color-navy)]"
-                            >
-                              {t(child.label)}
-                            </a>
-                          ) : (
-                            <Link
-                              key={child.href}
-                              href={child.href}
-                              className="block px-4 py-2.5 text-[12px] font-bold tracking-[0.08em] text-slate-600 hover:bg-slate-50 hover:text-[var(--color-navy)]"
-                            >
-                              {t(child.label)}
-                            </Link>
-                          ),
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                );
-              }
-
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className="nav-link"
-                  data-active={active ? "true" : "false"}
-                >
-                  {t(item.label)}
-                </Link>
-              );
-            })}
-          </nav>
-          <Link href="/apply" className="btn-cta no-underline">
-            {t("Apply Now")} <ArrowRight className="h-4 w-4" />
-          </Link>
-        </div>
-
-        {/* Mobile toggle */}
-        <button
-          onClick={() => setOpen(true)}
-          aria-label={t("Open navigation")}
-          className="xl:hidden inline-flex h-10 w-11 items-center justify-center rounded-xl text-[var(--color-navy)] border border-slate-200/90 bg-white hover:bg-slate-50 hover:border-slate-300 shadow-sm hover:shadow-md transition shrink-0"
-        >
-          <Menu className="h-5.5 w-5.5" />
-        </button>
-      </div>
-
-      {/* ===== MOBILE SIDEBAR (avnss.edu.np style - LEFT sliding) ===== */}
+  const mobileNavigation = (
+    <>
       <div
         className={`mobile-sidebar-overlay ${open ? "open" : ""}`}
         onClick={() => setOpen(false)}
@@ -354,6 +229,144 @@ export default function Header() {
           </div>
         </div>
       </aside>
+    </>
+  );
+
+  return (
+    <header
+      data-no-translate
+      className={`sticky top-0 z-50 w-full transition-all duration-300 ${
+        scrolled
+          ? "bg-white/96 backdrop-blur-md shadow-[0_4px_30px_rgba(7,28,56,0.08)] py-2"
+          : "bg-white py-3"
+      }`}
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-3 lg:gap-8">
+        {/* Brand */}
+        <Link
+          href="/"
+          aria-label={t("Radiant Secondary School home")}
+          className="brand-lockup flex items-center gap-3 group navbar-brand-hover no-underline min-w-0 flex-1 sm:flex-none"
+        >
+          <span className="logo-container">
+            <img src={NAV_LOGO} alt="School crest" />
+          </span>
+          <div className="hidden sm:flex flex-col leading-tight">
+            <span
+              className="font-display font-extrabold tracking-wide text-[var(--color-navy)] text-[18px] lg:text-[22px]"
+              style={{ fontFamily: "var(--font-display)" }}
+            >
+              {t("RADIANT")}
+            </span>
+            <span className="text-[10.5px] lg:text-[11.5px] font-bold tracking-[0.18em] text-[var(--color-gold-deep)] uppercase">
+              {t("Secondary School")}
+            </span>
+          </div>
+          <div className="sm:hidden flex min-w-0 max-w-[calc(100vw-132px)] flex-col leading-tight">
+            <span
+              className="truncate font-extrabold text-[var(--color-navy)] text-[13px] tracking-wide"
+              style={{ fontFamily: "var(--font-display)" }}
+            >
+              {t("RADIANT")}
+            </span>
+            <span className="truncate text-[8px] font-bold tracking-[0.12em] text-[var(--color-gold-deep)] uppercase mt-0.5">
+              {t("Secondary School")}
+            </span>
+          </div>
+        </Link>
+
+        {/* Right side: Desktop nav + CTA */}
+        <div className="hidden xl:flex items-center gap-5 shrink-0">
+          <nav className="flex items-center gap-1">
+            {NAV_ITEMS.map((item) => {
+              const active =
+                !item.external &&
+                (isActive(item.href) ||
+                  item.children?.some((child) => isActive(child.href)));
+
+              if (item.external) {
+                return (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="nav-link"
+                    data-active="false"
+                  >
+                    {t(item.label)}
+                  </a>
+                );
+              }
+
+              if (item.children?.length) {
+                return (
+                  <div key={item.href} className="relative group">
+                    <button
+                      type="button"
+                      className="nav-link gap-1.5"
+                      data-active={active ? "true" : "false"}
+                    >
+                      {t(item.label)}
+                      <ChevronDown className="h-3.5 w-3.5 transition-transform group-hover:rotate-180" />
+                    </button>
+                    <div className="absolute left-0 top-full pt-3 opacity-0 pointer-events-none translate-y-1 group-hover:opacity-100 group-hover:pointer-events-auto group-hover:translate-y-0 transition-all duration-200">
+                      <div className="min-w-[230px] rounded-xl border border-slate-200 bg-white py-2 shadow-xl shadow-slate-900/10">
+                        {item.children.map((child) =>
+                          child.external ? (
+                            <a
+                              key={child.href}
+                              href={child.href}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="block px-4 py-2.5 text-[12px] font-bold tracking-[0.08em] text-slate-600 hover:bg-slate-50 hover:text-[var(--color-navy)]"
+                            >
+                              {t(child.label)}
+                            </a>
+                          ) : (
+                            <Link
+                              key={child.href}
+                              href={child.href}
+                              className="block px-4 py-2.5 text-[12px] font-bold tracking-[0.08em] text-slate-600 hover:bg-slate-50 hover:text-[var(--color-navy)]"
+                            >
+                              {t(child.label)}
+                            </Link>
+                          ),
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                );
+              }
+
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="nav-link"
+                  data-active={active ? "true" : "false"}
+                >
+                  {t(item.label)}
+                </Link>
+              );
+            })}
+          </nav>
+          <Link href="/apply" className="btn-cta no-underline">
+            {t("Apply Now")} <ArrowRight className="h-4 w-4" />
+          </Link>
+        </div>
+
+        {/* Mobile toggle */}
+        <button
+          onClick={() => setOpen(true)}
+          aria-label={t("Open navigation")}
+          className="xl:hidden inline-flex h-10 w-11 items-center justify-center rounded-xl text-[var(--color-navy)] border border-slate-200/90 bg-white hover:bg-slate-50 hover:border-slate-300 shadow-sm hover:shadow-md transition shrink-0"
+        >
+          <Menu className="h-5.5 w-5.5" />
+        </button>
+      </div>
+
+      {portalReady ? createPortal(mobileNavigation, document.body) : mobileNavigation}
     </header>
   );
 }

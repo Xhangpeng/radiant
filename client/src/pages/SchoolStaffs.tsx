@@ -10,6 +10,7 @@ import {
   Users,
 } from "lucide-react";
 import { Link } from "wouter";
+import { useSiteContent } from "@/lib/siteContent";
 
 type StaffMember = {
   name: string;
@@ -19,193 +20,50 @@ type StaffMember = {
   image: string;
 };
 
-type StaffCategory = {
-  title: string;
-  description: string;
-  icon: typeof Users;
-  members: StaffMember[];
+const staffIconMap = {
+  BadgeCheck,
+  BookOpen,
+  GraduationCap,
+  Landmark,
+  ShieldCheck,
+  Sparkles,
+  Users,
 };
 
-const staffCategories: StaffCategory[] = [
-  {
-    title: "School Leadership",
-    description:
-      "The leadership team guides academic planning, school culture, guardian coordination, and daily discipline.",
-    icon: BadgeCheck,
-    members: [
-      {
-        name: "MR. SURYA BDR. CHAND",
-        designation: "PRINCIPAL (SECONDARY)",
-        expertise: "ENGLISH / SOCIAL",
-        officialRole: "PRINCIPAL(SECONDARY)(ENGLISH/SOCIAL)",
-        image:
-          "/radiant-assets/staff/01-231778952_424891202230561_5609635319252346115_n.jpg",
-      },
-      {
-        name: "MRS. USHA BISTA",
-        designation: "V-PRINCIPAL (BASIC)",
-        expertise: "SCIENCE",
-        officialRole: "V-PRINCIPAL(BASIC) (SCIENCE)",
-        image: "/radiant-assets/staff/03-sharada-Raishal_11.jpg",
-      },
-    ],
-  },
-  {
-    title: "Secondary Level Faculty",
-    description:
-      "Subject teachers support senior students with focused instruction, board-level preparation, and academic confidence.",
-    icon: GraduationCap,
-    members: [
-      {
-        name: "MRS. JAGADISWORI PANT",
-        designation: "TEACHER (SECONDARY)",
-        expertise: "NEPALI",
-        officialRole: "TEACHER (SECONDARY) (NEPALI)",
-        image: "/radiant-assets/staff/04-sharada-Raishal_7.jpg",
-      },
-      {
-        name: "MR. RAMESH SINGH PANT",
-        designation: "TEACHER (SECONDARY)",
-        expertise: "MATHS",
-        officialRole: "TEACHER(SECONDARY)(MATHS)",
-        image: "/radiant-assets/staff/05-Ramesh-Pant.jpg",
-      },
-    ],
-  },
-  {
-    title: "Basic Level Faculty",
-    description:
-      "The basic level team builds strong foundations in language, mathematics, computer learning, and social awareness.",
-    icon: BookOpen,
-    members: [
-      {
-        name: "MR. MOHAN DEV JOSHI",
-        designation: "TEACHER (BASIC)",
-        expertise: "ENGLISH",
-        officialRole: "TEACHER(BASIC)(ENGLISH)",
-        image: "/radiant-assets/staff/08-sharada-Raishal_5.jpg",
-      },
-      {
-        name: "MR. NIRAJAN BHATT",
-        designation: "TEACHER (BASIC)",
-        expertise: "COMPUTER",
-        officialRole: "TEACHER(BASIC)(COMPUTER)",
-        image: "/radiant-assets/staff/09-Nirajan-Bhatt.jpg",
-      },
-      {
-        name: "MRS. SUNITA KARKI",
-        designation: "TEACHER (BASIC)",
-        expertise: "NEPALI",
-        officialRole: "TEACHER(BASIC)(NEPALI)",
-        image: "/radiant-assets/staff/13-sharada-Raishal_8.jpg",
-      },
-      {
-        name: "MR. HARI DATT JOSHI",
-        designation: "TEACHER (BASIC)",
-        expertise: "COMPUTER",
-        officialRole: "TEACHER(BASIC)(COMPUTER)",
-        image: "/radiant-assets/staff/14-sharada-Raishal_14_Harish-Joshi.jpg",
-      },
-      {
-        name: "MR. KESHAB RAJ JOSHI",
-        designation: "TEACHER (BASIC)",
-        expertise: "MATH",
-        officialRole: "TEACHER(BASIC)(MATH)",
-        image: "/radiant-assets/staff/15-sharada-Raishal_15.jpg",
-      },
-      {
-        name: "MRS. DROPATI CHAND",
-        designation: "TEACHER (BASIC)",
-        expertise: "MATH",
-        officialRole: "TEACHER(BASIC)(MATH)",
-        image: "/radiant-assets/staff/18-sharada-Raishal_4_Dropati-chand.jpg",
-      },
-      {
-        name: "MR. BIRENDRA BAHADUR DHAMI",
-        designation: "TEACHER (BASIC)",
-        expertise: "ENGLISH / SOCIAL",
-        officialRole: "TEACHER(BASIC)(ENGLISH, SOCIAL)",
-        image: "/radiant-assets/staff/21-Birendra-BDR-Dhami.jpg",
-      },
-    ],
-  },
-  {
-    title: "Pre-Primary Faculty",
-    description:
-      "Our early-grade teachers create a caring start for young learners through routine, confidence, and guided activities.",
-    icon: Sparkles,
-    members: [
-      {
-        name: "MRS. KALPANA SINGH",
-        designation: "TEACHER (PRE-PRIMARY)",
-        expertise: "GRADE",
-        officialRole: "TEACHER(PRE-PRIMARY)(GRADE)",
-        image: "/radiant-assets/staff/17-sharada-Raishal_12_Kalpana-Singh.jpg",
-      },
-      {
-        name: "MRS. JANAKI SINGH",
-        designation: "TEACHER (PRE-PRIMARY)",
-        expertise: "GRADE",
-        officialRole: "TEACHER(PRE-PRIMARY)(GRADE)",
-        image: "/radiant-assets/staff/19-sharada-Raishal_16.jpg",
-      },
-      {
-        name: "MRS. JANAKI PANT",
-        designation: "TEACHER (PRE-PRIMARY)",
-        expertise: "GRADE",
-        officialRole: "TEACHER(PRE-PRIMARY)(GRADE)",
-        image: "/radiant-assets/staff/20-sharada-Raishal_6.jpg",
-      },
-    ],
-  },
-  {
-    title: "Administration & Support",
-    description:
-      "The office, accounts, and campus support team keep the school day organised, responsive, and safe.",
-    icon: Landmark,
-    members: [
-      {
-        name: "MRS. SHARDA RAISHAL",
-        designation: "ACCOUNTANT",
-        officialRole: "ACCOUNTANT",
-        image: "/radiant-assets/staff/11-sharada-Raishal_1.jpg",
-      },
-      {
-        name: "MRS. PARWATI JOSHI",
-        designation: "OFFICE ASSISTANT",
-        officialRole: "OFFICE ASSISTANT",
-        image: "/radiant-assets/staff/12-sharada-Raishal_3.jpg",
-      },
-      {
-        name: "MR. NAM BAHADUR BC",
-        designation: "SECURITY GUARD",
-        officialRole: "SECURITY GUARD",
-        image: "/radiant-assets/staff/16-sharada-Raishal_2.jpg",
-      },
-    ],
-  },
-  {
-    title: "Teaching Faculty",
-    description:
-      "Additional teaching staff strengthen classroom routines and support students across regular school programmes.",
-    icon: Users,
-    members: [
-      {
-        name: "MR. SAGAR SUNAR",
-        designation: "TEACHER",
-        officialRole: "TEACHER",
-        image: "/radiant-assets/staff/10-sharada-Raishal_13.jpg",
-      },
-    ],
-  },
-];
+const initials = (name: string) =>
+  name
+    .split(" ")
+    .filter((part) => !["MR.", "MRS.", "MS.", "DR.", "PROF."].includes(part.toUpperCase()))
+    .slice(0, 2)
+    .map((part) => part[0])
+    .join("");
 
-const totalStaff = staffCategories.reduce(
-  (total, category) => total + category.members.length,
-  0,
-);
+function StaffPortrait({ member }: { member: StaffMember }) {
+  return (
+    <div className="relative bg-[linear-gradient(180deg,#f8fafc_0%,#eef2f7_100%)] p-3 sm:p-4">
+      <div className="aspect-[4/3.35] w-full overflow-hidden rounded-md border border-white shadow-sm">
+        {member.image ? (
+          <img
+            src={member.image}
+            alt={member.name}
+            className="h-full w-full object-cover object-top transition duration-500 group-hover:scale-105"
+            loading="lazy"
+          />
+        ) : (
+          <div className="flex h-full w-full items-center justify-center bg-primary/10 text-4xl font-black text-primary">
+            {initials(member.name)}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
 
 export default function SchoolStaffs() {
+  const { content } = useSiteContent();
+  const staffCategories = content.faculty.schoolStaffCategories;
+  const totalStaff = staffCategories.reduce((total, category) => total + category.members.length, 0);
+
   return (
     <>
       <section className="relative overflow-hidden">
@@ -298,7 +156,7 @@ export default function SchoolStaffs() {
 
           <div className="mt-14 space-y-12">
             {staffCategories.map((category) => {
-              const Icon = category.icon;
+              const Icon = staffIconMap[category.icon as keyof typeof staffIconMap] || Users;
               return (
                 <section key={category.title} className="relative">
                   <div className="mb-6 flex flex-col gap-4 border-b border-slate-200 pb-5 sm:flex-row sm:items-end sm:justify-between">
@@ -326,34 +184,29 @@ export default function SchoolStaffs() {
                     {category.members.map((member) => (
                       <article
                         key={`${category.title}-${member.name}`}
-                        className="soft-card group overflow-hidden border border-slate-100 hover-lift"
+                        className="soft-card group flex h-full flex-col overflow-hidden border border-slate-100 hover-lift"
                       >
-                        <div className="aspect-[4/4.15] overflow-hidden bg-slate-100">
-                          <img
-                            src={member.image}
-                            alt={member.name}
-                            className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
-                            loading="lazy"
-                          />
-                        </div>
-                        <div className="p-5">
-                          <span className="inline-flex rounded-full bg-primary/10 px-3 py-1 text-[0.68rem] font-black uppercase tracking-[0.08em] text-primary">
+                        <StaffPortrait member={member} />
+                        <div className="flex flex-1 flex-col p-5">
+                          <span className="w-fit rounded-full bg-primary/10 px-3 py-1 text-[0.68rem] font-black uppercase tracking-[0.08em] text-primary">
                             {member.designation}
                           </span>
                           <h4 className="mt-4 font-display text-xl font-bold leading-tight text-[var(--color-navy)]">
                             {member.name}
                           </h4>
-                          <p className="mt-3 min-h-[2.5rem] text-sm font-bold leading-5 text-[var(--muted-foreground)]">
+                          <p className="mt-3 text-sm font-bold leading-5 text-[var(--muted-foreground)]">
                             {member.officialRole}
                           </p>
                           {member.expertise ? (
-                            <div className="mt-4 rounded-xl border border-slate-100 bg-slate-50 px-4 py-3">
-                              <p className="text-[0.68rem] font-black uppercase tracking-[0.16em] text-slate-500">
-                                Expertise
-                              </p>
-                              <p className="mt-1 text-sm font-bold text-[var(--color-navy)]">
-                                {member.expertise}
-                              </p>
+                            <div className="mt-auto pt-4">
+                              <div className="rounded-md border border-slate-100 bg-slate-50 px-4 py-3">
+                                <p className="text-[0.68rem] font-black uppercase tracking-[0.16em] text-slate-500">
+                                  Expertise
+                                </p>
+                                <p className="mt-1 text-sm font-bold text-[var(--color-navy)]">
+                                  {member.expertise}
+                                </p>
+                              </div>
                             </div>
                           ) : null}
                         </div>
