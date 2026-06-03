@@ -385,7 +385,7 @@ export default function Admin() {
 
   return (
     <main className="admin-page min-h-screen">
-      <section className="admin-topbar sticky top-0 z-30">
+      <section className="admin-topbar">
         <div className="container py-4">
           <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
             <div>
