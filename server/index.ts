@@ -2,6 +2,7 @@ import express from "express";
 import { createServer } from "http";
 import crypto from "crypto";
 import fs from "fs/promises";
+import os from "os";
 import path from "path";
 import { fileURLToPath } from "url";
 
@@ -11,7 +12,9 @@ const isProduction = process.env.NODE_ENV === "production";
 
 const contentDir = process.env.CONTENT_DIR
   ? path.resolve(process.env.CONTENT_DIR)
-  : path.resolve(process.cwd(), "data");
+  : isProduction
+    ? path.join(os.tmpdir(), "radiant-data")
+    : path.resolve(process.cwd(), "data");
 const uploadsDir = path.join(contentDir, "uploads");
 const contentFile = path.join(contentDir, "content.json");
 const adminPassword = process.env.ADMIN_PASSWORD || "RADIANT";
