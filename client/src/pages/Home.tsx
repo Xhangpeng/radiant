@@ -27,41 +27,15 @@ export default function Home() {
     <>
       {/* ========================  HERO SECTION  ======================== */}
       <section className="home-hero relative overflow-hidden flex items-center">
-        {/* Deep primary background */}
+        <div aria-hidden className="absolute inset-0 home-hero-bg" />
         <div
           aria-hidden
-          className="absolute inset-0"
-          style={{ background: "var(--gradient-primary)" }}
-        />
-        {/* Subtle photo overlay */}
-        <div
-          aria-hidden
-          className="absolute inset-0"
+          className="absolute inset-0 home-hero-photo"
           style={{
             backgroundImage: `url(${ASSETS.hero})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            opacity: 0.22,
-            mixBlendMode: "overlay",
           }}
         />
-        {/* Radial glow spots */}
-        <div
-          aria-hidden
-          className="absolute inset-0"
-          style={{
-            backgroundImage:
-              "radial-gradient(circle at 12% 20%, rgba(197,155,39,0.20) 0%, transparent 45%), radial-gradient(circle at 88% 78%, rgba(30,95,160,0.32) 0%, transparent 55%)",
-          }}
-        />
-        
-        {/* Decorative academic glyphs */}
-        <span className="academic-glyph" style={{ top: "12%", left: "6%", fontSize: "120px" }}>ॐ</span>
-        <span className="academic-glyph" style={{ top: "70%", left: "10%", fontSize: "90px" }}>α</span>
-        <span className="academic-glyph" style={{ top: "20%", right: "8%", fontSize: "100px" }}>∑</span>
-        <span className="academic-glyph" style={{ top: "75%", right: "12%", fontSize: "80px" }}>π</span>
-        <span className="academic-glyph" style={{ top: "45%", left: "48%", fontSize: "70px" }}>∞</span>
-
+        <div aria-hidden className="absolute inset-0 home-hero-vignette" />
         <div className="container relative z-10 py-20 sm:py-24 md:py-32 lg:py-36">
           <div className="grid lg:grid-cols-12 gap-10 lg:gap-12 items-center">
             <div className="lg:col-span-7 text-left">
@@ -77,8 +51,6 @@ export default function Home() {
               <p
                 className="home-hero-lead anim-fade-up"
                 style={{
-                  fontFamily: "var(--font-sans)",
-                  fontSize: "clamp(0.98rem, 0.88rem + 0.4vw, 1.125rem)",
                   animationDelay: "70ms",
                 }}
               >
@@ -102,21 +74,20 @@ export default function Home() {
                 </Link>
               </div>
 
-              {/* Mini Badges */}
               <div
                 className="hero-proof-grid anim-fade-up"
-                style={{ animationDelay: "150ms", fontFamily: "var(--font-sans)", fontSize: "12.5px", letterSpacing: "0.08em" }}
+                style={{ animationDelay: "150ms" }}
               >
-                <span className="inline-flex items-center gap-2 hover:text-secondary transition-colors duration-200">
+                <span className="hero-proof-item">
                   <Award className="h-4 w-4 text-secondary" />
                   Est. {SCHOOL.established}
                 </span>
-                <span className="inline-flex items-center gap-2 hover:text-secondary transition-colors duration-200">
+                <span className="hero-proof-item">
                   <Building2 className="h-4 w-4 text-secondary" />
                   Mahendranagar, Kanchanpur
                 </span>
-                <span className="inline-flex items-center gap-2 hover:text-secondary transition-colors duration-200">
-                  <Compass className="h-4 w-4 text-secondary animate-spin-slow" />
+                <span className="hero-proof-item">
+                  <Compass className="h-4 w-4 text-secondary" />
                   Quality / Confidence / Character
                 </span>
               </div>
@@ -139,36 +110,21 @@ export default function Home() {
                   className="hero-quick-card hero-quick-card-main hidden sm:flex items-center gap-3 absolute -bottom-6 -left-6 bg-white shadow-xl rounded-2xl px-5 py-4 float-gentle border border-border"
                   style={{ boxShadow: "0 24px 50px -22px rgba(7,28,56,0.45)" }}
                 >
-                  <div
-                    className="w-12 h-12 rounded-xl grid place-items-center"
-                    style={{ background: "var(--gradient-gold)", color: "white" }}
-                  >
+                  <div className="hero-quick-icon">
                     <Trophy className="h-5 w-5" />
                   </div>
-                  <div>
-                    <div
-                      style={{
-                        fontFamily: "var(--font-display)",
-                        fontWeight: 800,
-                        color: "var(--color-navy)",
-                        fontSize: 20,
-                        lineHeight: 1.1,
-                      }}
-                    >
-                      25+ Years
-                    </div>
-                    <div
-                      style={{
-                        fontFamily: "var(--font-sans)",
-                        fontSize: 11,
-                        letterSpacing: "0.12em",
-                        textTransform: "uppercase",
-                        color: "#64748b",
-                        fontWeight: 700,
-                      }}
-                    >
-                      Of Quality Education
-                    </div>
+                  <div className="hero-quick-copy">
+                    <strong>25+ Years</strong>
+                    <span>Of Quality Education</span>
+                  </div>
+                </div>
+                <div className="hero-quick-card hero-quick-card-top hidden md:flex items-center gap-3 absolute -top-5 -right-5 px-4 py-3 border">
+                  <div className="hero-quick-icon hero-quick-icon-cool">
+                    <GraduationCap className="h-5 w-5" />
+                  </div>
+                  <div className="hero-quick-copy">
+                    <strong>PG-XII</strong>
+                    <span>Complete Academic Path</span>
                   </div>
                 </div>
               </div>
