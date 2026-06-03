@@ -1,4 +1,4 @@
-import { json, loginCookie, method, passwordMatches, readBody } from "../_cms";
+import { json, loginCookie, method, passwordMatches, readBody } from "../_cms.js";
 
 export default function handler(req: any, res: any) {
   if (!method(req, res, "POST")) return;

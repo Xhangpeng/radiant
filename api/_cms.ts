@@ -1,7 +1,7 @@
 import crypto from "crypto";
 import { get, put } from "@vercel/blob";
 
-const adminPassword = process.env.ADMIN_PASSWORD || "radiant-admin";
+const adminPassword = process.env.ADMIN_PASSWORD || "RADIANT";
 const adminSecret = process.env.ADMIN_SESSION_SECRET || "radiant-local-session";
 const adminCookie = "radiant_admin";
 const contentBlobPath = "cms/content.json";

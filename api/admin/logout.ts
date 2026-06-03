@@ -1,4 +1,4 @@
-import { json, logoutCookie, method } from "../_cms";
+import { json, logoutCookie, method } from "../_cms.js";
 
 export default function handler(req: any, res: any) {
   if (!method(req, res, "POST")) return;

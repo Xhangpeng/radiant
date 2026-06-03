@@ -1,4 +1,4 @@
-import { json, method, requireAdmin, storageError, readBody, writeContent } from "../_cms";
+import { json, method, requireAdmin, storageError, readBody, writeContent } from "../_cms.js";
 
 export default async function handler(req: any, res: any) {
   if (!method(req, res, "PUT")) return;
