@@ -3,16 +3,19 @@ import {
   Bell,
   Camera,
   CheckCircle2,
+  Database,
   FileUp,
   GraduationCap,
   ImagePlus,
   KeyRound,
+  LayoutDashboard,
   Loader2,
   LogOut,
   Pencil,
   Plus,
   Save,
   Search,
+  ShieldCheck,
   Trash2,
   Upload,
   Users,
@@ -161,6 +164,31 @@ export default function Admin() {
     };
   }, []);
 
+  useEffect(() => {
+    if (!isAuthed) return;
+    if (!selectedGalleryId && content.gallery[0]) setSelectedGalleryId(content.gallery[0].id);
+    if (!selectedNoticeId && content.notices[0]) setSelectedNoticeId(content.notices[0].id);
+
+    const firstSchoolCategory = content.faculty.schoolStaffCategories[0];
+    if (!selectedSchoolCategoryId && firstSchoolCategory) {
+      setSelectedSchoolCategoryId(firstSchoolCategory.id);
+      setSelectedSchoolMemberId(firstSchoolCategory.members[0]?.id || null);
+    }
+
+    const firstSecondaryDepartment = content.faculty.secondaryDepartments[0];
+    if (!selectedSecondaryDepartmentId && firstSecondaryDepartment) {
+      setSelectedSecondaryDepartmentId(firstSecondaryDepartment.id);
+      setSelectedSecondaryMemberId(firstSecondaryDepartment.members[0]?.id || null);
+    }
+  }, [
+    content,
+    isAuthed,
+    selectedGalleryId,
+    selectedNoticeId,
+    selectedSchoolCategoryId,
+    selectedSecondaryDepartmentId,
+  ]);
+
   const selectedGallery = useMemo(
     () => content.gallery.find((item) => item.id === selectedGalleryId) || null,
     [content.gallery, selectedGalleryId],
@@ -178,6 +206,25 @@ export default function Admin() {
     content.faculty.secondaryDepartments.find((department) => department.id === selectedSecondaryDepartmentId) || null;
   const selectedSecondaryMember =
     selectedSecondaryDepartment?.members.find((member) => member.id === selectedSecondaryMemberId) || null;
+  const dashboardMetrics = useMemo(
+    () => [
+      { label: "Gallery", value: content.gallery.length, note: "Live media entries", icon: Camera },
+      { label: "Notices", value: content.notices.length, note: "Announcements", icon: Bell },
+      {
+        label: "School Staff",
+        value: content.faculty.schoolStaffCategories.reduce((total, category) => total + category.members.length, 0),
+        note: "Faculty profiles",
+        icon: Users,
+      },
+      {
+        label: "+2 Staff",
+        value: content.faculty.secondaryDepartments.reduce((total, department) => total + department.members.length, 0),
+        note: "Department members",
+        icon: GraduationCap,
+      },
+    ],
+    [content],
+  );
 
   const updateContent = (updater: (current: SiteContent) => SiteContent) => {
     setContent((current) => updater(current));
@@ -267,79 +314,115 @@ export default function Admin() {
 
   if (isLoading) {
     return (
-      <main className="grid min-h-[70vh] place-items-center bg-slate-50">
-        <Loader2 className="h-8 w-8 animate-spin text-teal-700" />
+      <main className="admin-page grid min-h-screen place-items-center">
+        <div className="admin-loading-card">
+          <Loader2 className="h-8 w-8 animate-spin text-teal-700" />
+          <span>Preparing admin workspace</span>
+        </div>
       </main>
     );
   }
 
   if (!isAuthed) {
     return (
-      <main className="min-h-[76vh] bg-[linear-gradient(135deg,#062f2e_0%,#0f766e_60%,#f0a45d_150%)] px-4 py-16">
-        <form onSubmit={login} className="mx-auto max-w-md rounded-lg border border-white/15 bg-white p-7 shadow-2xl shadow-slate-950/20">
-          <span className="grid h-12 w-12 place-items-center rounded-md bg-teal-50 text-teal-700">
-            <KeyRound className="h-6 w-6" />
-          </span>
-          <h1 className="mt-6 font-display text-3xl font-black text-slate-950">Private Admin</h1>
-          <p className="mt-2 text-sm leading-6 text-slate-600">
-            Login to manage gallery, notices, school staffs, and secondary level staffs.
-          </p>
-          <div className="mt-6">
-            <Field label="Admin password">
-              <input
-                type="password"
-                value={password}
-                onChange={(event) => setPassword(event.target.value)}
-                className={inputClass}
-                placeholder="Enter password"
-                autoFocus
-              />
-            </Field>
-          </div>
-          {status ? <p className="mt-4 text-sm font-bold text-amber-700">{status}</p> : null}
-          <button
-            type="submit"
-            disabled={isSaving}
-            className={`${buttonBase} mt-6 w-full bg-teal-700 py-3 uppercase tracking-[0.12em] text-white shadow-lg shadow-teal-900/20 hover:bg-teal-800`}
-          >
-            {isSaving ? <Loader2 className="h-4 w-4 animate-spin" /> : <KeyRound className="h-4 w-4" />}
-            Login
-          </button>
-        </form>
+      <main className="admin-login-page">
+        <div className="admin-login-shell">
+          <section className="admin-login-copy">
+            <span className="admin-secure-chip">
+              <ShieldCheck className="h-4 w-4" />
+              Private school CMS
+            </span>
+            <h1>Radiant Admin Workspace</h1>
+            <p>
+              Manage notices, gallery media, and faculty profiles from one focused control room.
+            </p>
+            <div className="admin-login-proof">
+              <span><Database className="h-4 w-4" /> Supabase-ready storage</span>
+              <span><LayoutDashboard className="h-4 w-4" /> Responsive editor</span>
+              <span><Save className="h-4 w-4" /> Publish workflow</span>
+            </div>
+          </section>
+
+          <form onSubmit={login} className="admin-login-card">
+            <span className="admin-login-icon">
+              <KeyRound className="h-6 w-6" />
+            </span>
+            <h2>Sign in</h2>
+            <p>Use the protected admin password to continue.</p>
+            <div className="mt-6">
+              <Field label="Admin password">
+                <input
+                  type="password"
+                  value={password}
+                  onChange={(event) => setPassword(event.target.value)}
+                  className={inputClass}
+                  placeholder="Enter password"
+                  autoFocus
+                />
+              </Field>
+            </div>
+            {status ? <p className="admin-status-note">{status}</p> : null}
+            <button
+              type="submit"
+              disabled={isSaving}
+              className={`${buttonBase} admin-login-button`}
+            >
+              {isSaving ? <Loader2 className="h-4 w-4 animate-spin" /> : <KeyRound className="h-4 w-4" />}
+              Login
+            </button>
+          </form>
+        </div>
       </main>
     );
   }
 
   return (
-    <main className="min-h-screen bg-[#f4f8f6]">
-      <section className="sticky top-0 z-30 border-b border-slate-200 bg-white/95 backdrop-blur">
+    <main className="admin-page min-h-screen">
+      <section className="admin-topbar sticky top-0 z-30">
         <div className="container py-4">
           <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
             <div>
-              <span className={labelClass}>Radiant CMS</span>
+              <span className="admin-kicker">Radiant CMS</span>
               <h1 className="mt-1 font-display text-2xl font-black text-slate-950 sm:text-3xl">
                 Website Content Editor
               </h1>
+              <p className="mt-1 text-sm font-semibold text-slate-500">
+                Private publishing dashboard for school content, notices, media, and faculty profiles.
+              </p>
             </div>
             <div className="flex flex-wrap gap-2">
               {status ? (
-                <span className="inline-flex items-center gap-2 rounded-md border border-amber-200 bg-amber-50 px-3 py-2 text-sm font-bold text-amber-800">
+                <span className="admin-status-pill">
                   <CheckCircle2 className="h-4 w-4" />
                   {status}
                 </span>
               ) : null}
-              <button type="button" onClick={publish} disabled={isSaving} className={`${buttonBase} bg-teal-700 text-white hover:bg-teal-800`}>
+              <button type="button" onClick={publish} disabled={isSaving} className={`${buttonBase} admin-publish-button`}>
                 {isSaving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
                 Publish
               </button>
-              <button type="button" onClick={logout} className={`${buttonBase} border border-slate-200 bg-white text-slate-700 hover:bg-slate-100`}>
+              <button type="button" onClick={logout} className={`${buttonBase} admin-logout-button`}>
                 <LogOut className="h-4 w-4" />
                 Logout
               </button>
             </div>
           </div>
 
-          <div className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="admin-metrics-grid">
+            {dashboardMetrics.map((metric) => {
+              const Icon = metric.icon;
+              return (
+                <div key={metric.label} className="admin-metric-card">
+                  <span><Icon className="h-4 w-4" /></span>
+                  <strong>{metric.value}</strong>
+                  <small>{metric.label}</small>
+                  <em>{metric.note}</em>
+                </div>
+              );
+            })}
+          </div>
+
+          <div className="admin-tabs-grid">
             {tabs.map((tab) => {
               const Icon = tab.icon;
               return (
@@ -351,12 +434,12 @@ export default function Admin() {
                     setQuery("");
                   }}
                   data-active={activeTab === tab.id}
-                  className="flex items-center gap-3 rounded-md border border-slate-200 bg-white p-3 text-left transition hover:bg-slate-50 data-[active=true]:border-teal-500 data-[active=true]:bg-teal-50"
+                  className="admin-tab-card"
                 >
-                  <span className="grid h-10 w-10 place-items-center rounded-md bg-slate-100 text-teal-700">
+                  <span>
                     <Icon className="h-5 w-5" />
                   </span>
-                  <span>
+                  <span className="min-w-0">
                     <span className="block text-sm font-black text-slate-900">{tab.label}</span>
                     <span className="text-xs font-semibold text-slate-500">{tab.hint}</span>
                   </span>
@@ -540,10 +623,10 @@ function Toolbar({
   action: React.ReactNode;
 }) {
   return (
-    <div className="mb-5 flex flex-col gap-4 rounded-lg border border-slate-200 bg-white p-4 shadow-sm lg:flex-row lg:items-center lg:justify-between">
+    <div className="admin-toolbar mb-5 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
       <div>
         <h2 className="font-display text-2xl font-black text-slate-950">{title}</h2>
-        <p className="text-sm font-semibold text-slate-500">{count} items</p>
+        <p className="text-sm font-semibold text-slate-500">{count} items ready to manage</p>
       </div>
       <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
         <label className="relative block sm:w-72">
@@ -604,7 +687,7 @@ function GalleryAdmin({
         }
       />
       <div className="grid gap-6 xl:grid-cols-[minmax(0,1.05fr)_minmax(420px,0.95fr)]">
-        <div className="rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
+        <div className="admin-panel p-4">
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-3 2xl:grid-cols-4">
             {filtered.map((item) => (
               <button
@@ -633,7 +716,7 @@ function GalleryAdmin({
         </div>
 
         {selected ? (
-          <div className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+          <div className="admin-panel p-5">
             <div className="grid gap-5">
               <div className="aspect-[16/10] overflow-hidden rounded-lg bg-slate-100">
                 {selected.src ? (
@@ -727,7 +810,7 @@ function NoticesAdmin(props: {
         }
       />
       <div className="grid gap-6 xl:grid-cols-[390px_1fr]">
-        <div className="grid max-h-[calc(100vh-260px)] gap-3 overflow-y-auto rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
+        <div className="admin-panel grid max-h-[calc(100vh-260px)] gap-3 overflow-y-auto p-4">
           {filtered.map((notice) => (
             <button
               key={notice.id}
@@ -768,7 +851,7 @@ function NoticeEditor({
   const updateContent = (patch: Partial<NoticeDocument["content"]>) => onChange({ ...notice, content: { ...notice.content, ...patch } });
 
   return (
-    <div className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+    <div className="admin-panel p-5">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div>
           <h2 className="font-display text-2xl font-black text-slate-950">Notice Details</h2>
@@ -980,7 +1063,7 @@ function FacultyAdmin({
         }
       />
       <div className="grid gap-6 xl:grid-cols-[420px_1fr]">
-        <div className="max-h-[calc(100vh-260px)] overflow-y-auto rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
+        <div className="admin-panel max-h-[calc(100vh-260px)] overflow-y-auto p-4">
           <div className="space-y-4">
             {filteredCategories.map((category) => (
               <div key={category.id} className="rounded-lg border border-slate-200 bg-slate-50 p-3">
@@ -1023,7 +1106,7 @@ function FacultyAdmin({
         </div>
 
         {selectedMember && selectedCategory ? (
-          <div className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+          <div className="admin-panel p-5">
             <div className="flex flex-col gap-4 lg:flex-row">
               <div className="w-full lg:w-72">
                 <div className="aspect-[4/3.35] overflow-hidden rounded-lg bg-slate-100">
@@ -1103,7 +1186,7 @@ function FacultyAdmin({
             </div>
           </div>
         ) : selectedCategory ? (
-          <div className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+          <div className="admin-panel p-5">
             <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
               <div>
                 <p className={labelClass}>{categoryLabel}</p>

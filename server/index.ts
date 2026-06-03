@@ -17,6 +17,12 @@ const contentFile = path.join(contentDir, "content.json");
 const adminPassword = process.env.ADMIN_PASSWORD || "radiant-admin";
 const adminSecret = process.env.ADMIN_SESSION_SECRET || "radiant-local-session";
 const adminCookie = "radiant_admin";
+const databaseProvider = (process.env.DATABASE_PROVIDER || "file").toLowerCase();
+const supabaseUrl = process.env.SUPABASE_URL?.replace(/\/+$/, "");
+const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+const supabaseContentTable = process.env.SUPABASE_CONTENT_TABLE || "site_content";
+const supabaseContentId = process.env.SUPABASE_CONTENT_ID || "radiant";
+const supabaseStorageBucket = process.env.SUPABASE_STORAGE_BUCKET || "uploads";
 
 const seedContent = {
   site: {
@@ -76,13 +82,43 @@ async function ensureContentStore() {
   }
 }
 
-async function readContent() {
+function useSupabaseStore() {
+  return databaseProvider === "supabase" && Boolean(supabaseUrl && supabaseServiceRoleKey);
+}
+
+function requireSupabaseConfig() {
+  if (!supabaseUrl || !supabaseServiceRoleKey) {
+    throw new Error("Supabase storage is selected but SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY is missing.");
+  }
+  return { url: supabaseUrl, key: supabaseServiceRoleKey };
+}
+
+async function supabaseRequest(pathname: string, init: RequestInit = {}) {
+  const { url, key } = requireSupabaseConfig();
+  const response = await fetch(`${url}${pathname}`, {
+    ...init,
+    headers: {
+      apikey: key,
+      Authorization: `Bearer ${key}`,
+      ...(init.headers || {}),
+    },
+  });
+
+  if (!response.ok) {
+    const body = await response.text().catch(() => "");
+    throw new Error(`Supabase request failed (${response.status}): ${body || response.statusText}`);
+  }
+
+  return response;
+}
+
+async function readFileContent() {
   await ensureContentStore();
   const raw = await fs.readFile(contentFile, "utf8");
   return JSON.parse(raw);
 }
 
-async function writeContent(content: unknown) {
+async function writeFileContent(content: unknown) {
   await ensureContentStore();
   const payload = {
     ...(content as Record<string, unknown>),
@@ -90,6 +126,42 @@ async function writeContent(content: unknown) {
   };
   await fs.writeFile(contentFile, JSON.stringify(payload, null, 2), "utf8");
   return payload;
+}
+
+async function readSupabaseContent() {
+  const query = `/rest/v1/${supabaseContentTable}?id=eq.${encodeURIComponent(supabaseContentId)}&select=content`;
+  const response = await supabaseRequest(query);
+  const rows = (await response.json()) as Array<{ content?: unknown }>;
+  if (rows[0]?.content) return rows[0].content;
+  return writeSupabaseContent(seedContent);
+}
+
+async function writeSupabaseContent(content: unknown) {
+  const payload = {
+    ...(content as Record<string, unknown>),
+    updatedAt: new Date().toISOString(),
+  };
+  await supabaseRequest(`/rest/v1/${supabaseContentTable}?on_conflict=id`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Prefer: "resolution=merge-duplicates",
+    },
+    body: JSON.stringify({
+      id: supabaseContentId,
+      content: payload,
+      updated_at: new Date().toISOString(),
+    }),
+  });
+  return payload;
+}
+
+async function readContent() {
+  return useSupabaseStore() ? readSupabaseContent() : readFileContent();
+}
+
+async function writeContent(content: unknown) {
+  return useSupabaseStore() ? writeSupabaseContent(content) : writeFileContent(content);
 }
 
 function requireAdmin(req: express.Request, res: express.Response, next: express.NextFunction) {
@@ -166,7 +238,22 @@ async function startServer() {
     }
 
     const safeName = safeUploadName(fileName);
-    await fs.writeFile(path.join(uploadsDir, safeName), Buffer.from(match[2], "base64"));
+    const buffer = Buffer.from(match[2], "base64");
+    if (useSupabaseStore()) {
+      await supabaseRequest(`/storage/v1/object/${supabaseStorageBucket}/${safeName}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": match[1],
+          "Cache-Control": "public, max-age=31536000",
+          "x-upsert": "true",
+        },
+        body: buffer,
+      });
+      res.json({ url: `${supabaseUrl}/storage/v1/object/public/${supabaseStorageBucket}/${safeName}` });
+      return;
+    }
+
+    await fs.writeFile(path.join(uploadsDir, safeName), buffer);
     res.json({ url: `/uploads/${safeName}` });
   });
 
