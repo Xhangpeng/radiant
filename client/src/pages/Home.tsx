@@ -26,7 +26,7 @@ export default function Home() {
   return (
     <>
       {/* ========================  HERO SECTION  ======================== */}
-      <section className="relative overflow-hidden min-h-[90vh] flex items-center">
+      <section className="home-hero relative overflow-hidden flex items-center">
         {/* Deep primary background */}
         <div
           aria-hidden
@@ -70,93 +70,73 @@ export default function Home() {
                 Excellence in Education Since {SCHOOL.establishedAd}
               </span>
 
-              <h1
-                className="text-white mt-6 anim-fade-up font-display font-extrabold"
-                style={{
-                  fontSize: "clamp(2.1rem, 1.3rem + 3.6vw, 4.6rem)",
-                  lineHeight: 1.06,
-                  letterSpacing: "-0.01em",
-                  animationDelay: "35ms",
-                }}
-              >
-                Welcome to{" "}
-                <span className="text-shimmer" style={{ backgroundSize: "200% 100%" }}>
-                  Radiant
-                </span>{" "}
-                Secondary School
+              <h1 className="home-hero-title anim-fade-up">
+                Radiant Secondary School
               </h1>
 
               <p
-                className="mt-6 text-white/85 leading-relaxed anim-fade-up max-w-2xl"
+                className="home-hero-lead anim-fade-up"
                 style={{
                   fontFamily: "var(--font-sans)",
                   fontSize: "clamp(0.98rem, 0.88rem + 0.4vw, 1.125rem)",
                   animationDelay: "70ms",
                 }}
               >
-                Empowering students of {SCHOOL.location} with quality education,
-                disciplined values, and holistic development. A community-rooted
-                school shaping confident, capable, and responsible learners since
-                {" "}{SCHOOL.established}.
+                A disciplined, caring academic community in {SCHOOL.location},
+                helping students grow with quality education, confidence, and
+                character from early learning to Grade XII.
               </p>
 
               <div
-                className="mt-9 flex flex-wrap items-center justify-start gap-4 anim-fade-up"
+                className="home-hero-actions anim-fade-up"
                 style={{ animationDelay: "110ms" }}
               >
                 <Link href="/apply" className="btn-gold shine">
                   Apply Now <ArrowRight className="h-4 w-4" />
                 </Link>
                 <Link
-                  href="/about"
-                  className="btn-ghost"
-                  style={{
-                    background: "transparent",
-                    color: "white",
-                    borderColor: "rgba(255,255,255,0.35)",
-                  }}
+                  href="/courses"
+                  className="btn-ghost home-hero-secondary"
                 >
-                  Learn More
+                  View Courses <BookOpen className="h-4 w-4" />
                 </Link>
               </div>
 
               {/* Mini Badges */}
               <div
-                className="mt-10 flex flex-wrap items-center justify-start gap-x-7 gap-y-3 text-white/75 anim-fade-up"
+                className="hero-proof-grid anim-fade-up"
                 style={{ animationDelay: "150ms", fontFamily: "var(--font-sans)", fontSize: "12.5px", letterSpacing: "0.08em" }}
               >
                 <span className="inline-flex items-center gap-2 hover:text-secondary transition-colors duration-200">
                   <Award className="h-4 w-4 text-secondary" />
-                  EST. 2057 BS
+                  Est. {SCHOOL.established}
                 </span>
                 <span className="inline-flex items-center gap-2 hover:text-secondary transition-colors duration-200">
                   <Building2 className="h-4 w-4 text-secondary" />
-                  MNR, KANCHANPUR
+                  Mahendranagar, Kanchanpur
                 </span>
                 <span className="inline-flex items-center gap-2 hover:text-secondary transition-colors duration-200">
                   <Compass className="h-4 w-4 text-secondary animate-spin-slow" />
-                  QUALITY · CONFIDENCE · CHARACTER
+                  Quality / Confidence / Character
                 </span>
               </div>
             </div>
 
-            {/* Hero Image Card on the right */}
             <div className="lg:col-span-5">
               <div
-                className="relative anim-fade-up"
+                className="hero-media-board relative anim-fade-up"
                 style={{ animationDelay: "120ms" }}
               >
-                <div className="image-frame hover-zoom pulse-gold">
+                <div className="hero-media-frame image-frame hover-zoom pulse-gold">
                   <img
                     src={ASSETS.hero}
                     alt="Radiant Secondary School campus building"
-                    className="w-full h-[340px] sm:h-[400px] lg:h-[480px] object-cover"
+                    className="hero-media-image w-full h-[340px] sm:h-[400px] lg:h-[480px] object-cover"
                     style={{ objectPosition: "center center" }}
                   />
                 </div>
-                {/* Floating credential pill */}
                 <div
-                  className="hidden sm:flex items-center gap-3 absolute -bottom-6 -left-6 bg-white shadow-xl rounded-2xl px-5 py-4 float-gentle border border-border"
+                  className="hero-quick-card hero-quick-card-main hidden sm:flex items-center gap-3 absolute -bottom-6 -left-6 bg-white shadow-xl rounded-2xl px-5 py-4 float-gentle border border-border"
                   style={{ boxShadow: "0 24px 50px -22px rgba(7,28,56,0.45)" }}
                 >
                   <div
@@ -264,7 +244,7 @@ export default function Home() {
             <div className="mt-8 grid sm:grid-cols-2 gap-3.5 stagger reveal">
               {[
                 { icon: <ShieldCheck className="h-4 w-4" />, label: "Safe, secure campus" },
-                { icon: <Users2 className="h-4 w-4" />, label: "Caring teacher–student bond" },
+                { icon: <Users2 className="h-4 w-4" />, label: "Caring teacher-student bond" },
                 { icon: <BookOpen className="h-4 w-4" />, label: "SEE-focused academics" },
                 { icon: <Trophy className="h-4 w-4" />, label: "Cultural & sports tradition" },
               ].map((it) => (
@@ -339,7 +319,7 @@ export default function Home() {
                 icon: <GraduationCap className="h-6 w-6" />,
                 title: "Dedicated Faculty",
                 desc:
-                  "Experienced teachers who invest in each student's progress, character, and confidence — not just exam scores.",
+                  "Experienced teachers who invest in each student's progress, character, and confidence - not just exam scores.",
               },
               {
                 icon: <Microscope className="h-6 w-6" />,
@@ -369,7 +349,7 @@ export default function Home() {
                 icon: <Users2 className="h-6 w-6" />,
                 title: "Community Partnership",
                 desc:
-                  "A steady, honest partnership between teachers, students, and guardians — every single morning.",
+                  "A steady, honest partnership between teachers, students, and guardians every single morning.",
               },
             ].map((f) => (
               <div key={f.title} className="feature-card hover-lift group">
@@ -396,7 +376,7 @@ export default function Home() {
           <div className="lg:col-span-5 mt-4 lg:mt-0">
             <p className="section-lead">
               From the early grades through the SEE board, our academic ladder
-              is designed to grow alongside each child — slowly, surely, and with
+              is designed to grow alongside each child slowly, surely, and with
               real teacher attention at every step.
             </p>
           </div>
@@ -405,15 +385,15 @@ export default function Home() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 stagger reveal">
           <FlipCard
             title="Primary Level"
-            subtitle="Grades 1 — 5"
+            subtitle="Grades 1 - 5"
             icon={<BookOpen className="h-6 w-6 text-secondary" />}
             frontContent="Foundational literacy, numeracy, and habit-building in a warm, structured environment."
             backContent={
               <ul className="space-y-2 text-sm text-white/90">
-                <li className="flex items-center gap-2">✓ Basic English & Nepali Literacy</li>
-                <li className="flex items-center gap-2">✓ Fun Mathematics Foundations</li>
-                <li className="flex items-center gap-2">✓ Creative Arts & Social Habits</li>
-                <li className="flex items-center gap-2">✓ Individual Attention & Care</li>
+                <li className="flex items-center gap-2">- Basic English & Nepali Literacy</li>
+                <li className="flex items-center gap-2">- Fun Mathematics Foundations</li>
+                <li className="flex items-center gap-2">- Creative Arts & Social Habits</li>
+                <li className="flex items-center gap-2">- Individual Attention & Care</li>
               </ul>
             }
             colorClass="bg-[var(--color-navy-deep)] text-white"
@@ -421,15 +401,15 @@ export default function Home() {
 
           <FlipCard
             title="Lower Secondary"
-            subtitle="Grades 6 — 8"
+            subtitle="Grades 6 - 8"
             icon={<Microscope className="h-6 w-6 text-secondary" />}
             frontContent="Strengthening core subjects with hands-on activities, projects, and growing responsibility."
             backContent={
               <ul className="space-y-2 text-sm text-white/90">
-                <li className="flex items-center gap-2">✓ Integrated Science & Tech</li>
-                <li className="flex items-center gap-2">✓ Advanced Math & Social Studies</li>
-                <li className="flex items-center gap-2">✓ Language & Writing Workshops</li>
-                <li className="flex items-center gap-2">✓ Group Projects & Field Trips</li>
+                <li className="flex items-center gap-2">- Integrated Science & Tech</li>
+                <li className="flex items-center gap-2">- Advanced Math & Social Studies</li>
+                <li className="flex items-center gap-2">- Language & Writing Workshops</li>
+                <li className="flex items-center gap-2">- Group Projects & Field Trips</li>
               </ul>
             }
             colorClass="bg-[var(--color-navy-deep)] text-white"
@@ -437,15 +417,15 @@ export default function Home() {
 
           <FlipCard
             title="Secondary Level"
-            subtitle="Grades 9 — 10 · SEE"
+            subtitle="Grades 9 - 10 / SEE"
             icon={<Trophy className="h-6 w-6 text-secondary" />}
             frontContent="Focused, exam-ready preparation across science, mathematics, language, and social studies."
             backContent={
               <ul className="space-y-2 text-sm text-white/90">
-                <li className="flex items-center gap-2">✓ Dedicated SEE Prep Classes</li>
-                <li className="flex items-center gap-2">✓ Practical Science & Computer Labs</li>
-                <li className="flex items-center gap-2">✓ Mock Exams & Detailed Feedback</li>
-                <li className="flex items-center gap-2">✓ Career & Stream Counselling</li>
+                <li className="flex items-center gap-2">- Dedicated SEE Prep Classes</li>
+                <li className="flex items-center gap-2">- Practical Science & Computer Labs</li>
+                <li className="flex items-center gap-2">- Mock Exams & Detailed Feedback</li>
+                <li className="flex items-center gap-2">- Career & Stream Counselling</li>
               </ul>
             }
             colorClass="bg-[var(--color-navy-deep)] text-white"
@@ -498,7 +478,7 @@ export default function Home() {
                   day: "05",
                   month: "Jun",
                   tag: "Cultural",
-                  title: "Annual cultural programme — Radiant Annual Programme",
+                  title: "Annual cultural programme - Radiant Annual Programme",
                   desc: "A full day of music, dance, and student performances. Guardians cordially invited.",
                 },
                 {
@@ -532,7 +512,7 @@ export default function Home() {
 
           {/* Principal Preview */}
           <aside className="lg:col-span-5 reveal-right">
-            <span className="eyebrow-left">{t("Message · Principal")}</span>
+            <span className="eyebrow-left">{t("Message / Principal")}</span>
             <h2 className="section-heading mt-4">{t("A word from our Principal")}</h2>
 
             <div className="soft-card mt-7 p-6 sm:p-8 hover-lift relative overflow-hidden">
@@ -625,7 +605,7 @@ export default function Home() {
                 maxWidth: "62ch",
               }}
             >
-              {t("Each number is a quiet daily commitment from teachers, students, and guardians — repeated, year after year.")}
+              {t("Each number is a quiet daily commitment from teachers, students, and guardians, repeated year after year.")}
             </p>
           </div>
 
@@ -689,7 +669,7 @@ export default function Home() {
                 maxWidth: "55ch",
               }}
             >
-              Glimpses of student life — focused classrooms, cultural celebration,
+              Glimpses of student life: focused classrooms, cultural celebration,
               and the everyday rhythm of community learning.
             </p>
           </div>
@@ -734,7 +714,7 @@ export default function Home() {
               }}
             >
               <CalendarDays className="h-3 w-3 animate-bounce" />
-              Admission Open · 2082 BS
+              Admission Open / 2082 BS
             </span>
             <h2
               className="text-white mt-5"
