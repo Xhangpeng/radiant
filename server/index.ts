@@ -14,7 +14,7 @@ const contentDir = process.env.CONTENT_DIR
   : path.resolve(process.cwd(), "data");
 const uploadsDir = path.join(contentDir, "uploads");
 const contentFile = path.join(contentDir, "content.json");
-const adminPassword = process.env.ADMIN_PASSWORD || "radiant-admin";
+const adminPassword = process.env.ADMIN_PASSWORD || "RADIANT";
 const adminSecret = process.env.ADMIN_SESSION_SECRET || "radiant-local-session";
 const adminCookie = "radiant_admin";
 const databaseProvider = (process.env.DATABASE_PROVIDER || "file").toLowerCase();
