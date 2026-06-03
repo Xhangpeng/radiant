@@ -53,8 +53,15 @@ async function api<T>(path: string, options?: RequestInit): Promise<T> {
     ...options,
   });
   if (!response.ok) {
-    const data = await response.json().catch(() => ({}));
-    throw new Error(data.message || "Request failed");
+    const text = await response.text().catch(() => "");
+    let message = "";
+    try {
+      const data = text ? JSON.parse(text) : {};
+      message = data.message || "";
+    } catch {
+      message = text;
+    }
+    throw new Error(message || `Request failed (${response.status})`);
   }
   return response.json();
 }
